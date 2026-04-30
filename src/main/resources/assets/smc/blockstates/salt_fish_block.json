@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "smc:block/salt_fish_block",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "smc:block/salt_fish_block"
+    },
+    "facing=south": {
+      "model": "smc:block/salt_fish_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "smc:block/salt_fish_block",
+      "y": 270
+    }
+  }
+}

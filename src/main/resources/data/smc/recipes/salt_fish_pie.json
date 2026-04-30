@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "farmersdelight"
+      }
+    }
+  ],
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:cooked_salt_fish"
+    },
+    "2": {
+      "tag": "forge:milk"
+    },
+    "3": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "pattern": [
+    "111",
+    "222",
+    "333"
+  ],
+  "result": {
+    "item": "smc:salt_fish_pie"
+  },
+  "show_notification": true
+}

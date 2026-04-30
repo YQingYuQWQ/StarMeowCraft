@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cutting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "smc:salt_fish"
+    }
+  ],
+  "result": [
+    {
+      "count": 2,
+      "item": "smc:raw_salt_fish_slice"
+    },
+    {
+      "chance": 0.5,
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "chance": 0.75,
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  }
+}
