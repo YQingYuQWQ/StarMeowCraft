@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "minecraft:bread"
+    },
+    "2": {
+      "item": "smc:fried_easter_bunny_egg"
+    },
+    "3": {
+      "item": "minecraft:sugar"
+    },
+    "4": {
+      "tag": "forge:milk"
+    }
+  },
+  "pattern": [
+    "31",
+    "42",
+    "31"
+  ],
+  "result": {
+    "item": "smc:easter_bunny_egg_sandwich"
+  },
+  "show_notification": true
+}

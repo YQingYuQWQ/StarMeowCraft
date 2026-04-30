@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "cooked_salt_fish_slice": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "smc:raw_salt_fish_slice"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "smc:cooked_salt_fish_slice_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "cooked_salt_fish_slice",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "smc:cooked_salt_fish_slice_from_smoking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

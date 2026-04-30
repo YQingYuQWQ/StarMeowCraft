@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "smc:salt_fish_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "smc:salt_fish"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:chicken_chop"
+    },
+    "2": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    " 1 ",
+    "121",
+    " 1 "
+  ],
+  "result": {
+    "item": "smc:chicken_harvester_egg"
+  },
+  "show_notification": true
+}

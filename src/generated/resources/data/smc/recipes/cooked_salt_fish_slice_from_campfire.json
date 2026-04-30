@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.0,
+  "ingredient": {
+    "item": "smc:raw_salt_fish_slice"
+  },
+  "result": "smc:cooked_salt_fish_slice"
+}

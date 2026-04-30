@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "smc:fried_chicken_harvester_egg"
+    },
+    {
+      "item": "smc:fried_chicken_harvester_egg"
+    },
+    {
+      "item": "minecraft:beetroot"
+    }
+  ],
+  "result": {
+    "item": "smc:chicken_harvester_egg_sandwich"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "item": "smc:broccoli_bomb"
+    },
+    "2": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "111",
+    "121",
+    "111"
+  ],
+  "result": {
+    "item": "smc:broccoli_nuke"
+  },
+  "show_notification": true
+}

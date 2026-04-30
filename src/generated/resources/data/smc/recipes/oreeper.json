@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:tnet"
+    },
+    "2": {
+      "item": "minecraft:creeper_head"
+    }
+  },
+  "pattern": [
+    "111",
+    "121",
+    "111"
+  ],
+  "result": {
+    "count": 8,
+    "item": "smc:oreeper"
+  },
+  "show_notification": true
+}

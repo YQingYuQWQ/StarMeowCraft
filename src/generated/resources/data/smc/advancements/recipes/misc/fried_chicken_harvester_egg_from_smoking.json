@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "fried_chicken_harvester_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "smc:chicken_harvester_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "smc:fried_chicken_harvester_egg_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "fried_chicken_harvester_egg",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "smc:fried_chicken_harvester_egg_from_smoking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

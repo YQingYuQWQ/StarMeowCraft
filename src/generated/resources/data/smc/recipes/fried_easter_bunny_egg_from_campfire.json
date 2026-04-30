@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.0,
+  "ingredient": {
+    "item": "smc:easter_bunny_egg"
+  },
+  "result": "smc:fried_easter_bunny_egg"
+}

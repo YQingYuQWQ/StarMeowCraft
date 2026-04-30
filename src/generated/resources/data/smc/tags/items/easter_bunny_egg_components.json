@@ -1,0 +1,9 @@
+{
+  "values": [
+    "smc:cloud",
+    "smc:cirrus_cloud",
+    "smc:cloud_floor",
+    "smc:cloud_pillar",
+    "smc:cloud_bricks"
+  ]
+}

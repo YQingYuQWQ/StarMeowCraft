@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "2": {
+      "item": "minecraft:cookie"
+    },
+    "3": {
+      "item": "minecraft:sugar"
+    },
+    "4": {
+      "tag": "forge:milk"
+    }
+  },
+  "pattern": [
+    "121",
+    "343",
+    "121"
+  ],
+  "result": {
+    "count": 8,
+    "item": "smc:oneo"
+  },
+  "show_notification": true
+}

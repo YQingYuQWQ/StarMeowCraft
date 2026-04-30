@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "smc:bowl_of_hot_water"
+    },
+    {
+      "item": "smc:cooked_salt_fish"
+    },
+    {
+      "tag": "smc:milk_compat"
+    },
+    {
+      "item": "minecraft:kelp"
+    }
+  ],
+  "result": {
+    "item": "smc:salt_fish_stew"
+  }
+}

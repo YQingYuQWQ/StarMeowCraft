@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "smc:easter_bunny_egg_components"
+    },
+    {
+      "item": "smc:perkin_ingot"
+    },
+    {
+      "tag": "smc:easter_bunny_egg_components"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "minecraft:rabbit_spawn_egg"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "smc:broccoli"
+    },
+    {
+      "tag": "smc:easter_bunny_egg_components"
+    },
+    {
+      "item": "smc:frostium_ingot"
+    }
+  ],
+  "result": {
+    "item": "smc:easter_bunny_egg"
+  }
+}
