@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "tag": "minecraft:wool"
+    },
+    "2": {
+      "item": "minecraft:crossbow"
+    },
+    "3": {
+      "item": "minecraft:arrow"
+    },
+    "4": {
+      "tag": "minecraft:planks"
+    },
+    "5": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "123",
+    "45 "
+  ],
+  "result": {
+    "item": "smc:spear_gun"
+  },
+  "show_notification": true
+}

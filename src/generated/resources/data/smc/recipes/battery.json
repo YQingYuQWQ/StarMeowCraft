@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "item": "minecraft:gold_ingot"
+    },
+    "2": {
+      "item": "minecraft:iron_ingot"
+    },
+    "3": {
+      "item": "minecraft:coal"
+    },
+    "4": {
+      "item": "smc:zinc_ingot"
+    }
+  },
+  "pattern": [
+    "121",
+    "343",
+    "343"
+  ],
+  "result": {
+    "item": "smc:battery"
+  },
+  "show_notification": true
+}
