@@ -61,8 +61,8 @@ public class Cloudian extends Monster {
         MoveTowardsRestrictionGoal $$0 = new MoveTowardsRestrictionGoal(this, 1.0);
         this.randomStrollGoal = new RandomStrollGoal(this, 1.0, ATTACK_TIME);
         this.goalSelector.addGoal(4, new Cloudian.GuardianAttackGoal(this));
-        this.goalSelector.addGoal(5, $$0);
-        this.goalSelector.addGoal(7, this.randomStrollGoal);
+        this.goalSelector.addGoal(6, $$0);
+        this.goalSelector.addGoal(5, this.randomStrollGoal);
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Cloudian.class, 12.0F, 0.01F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
@@ -99,6 +99,11 @@ public class Cloudian extends Monster {
 
     public int getAttackDuration() {
         return ATTACK_TIME;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
     }
 
     @Override

@@ -1,0 +1,22 @@
+{
+  "type": "smc:add_item",
+  "conditions":
+  [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:blocks/carrots"
+    },
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.01
+    },
+    {
+      "block": "minecraft:carrots",
+      "condition": "minecraft:block_state_property",
+      "properties": {
+        "age": "7"
+      }
+    }
+  ],
+  "item": "smc:giant_carrot"
+}

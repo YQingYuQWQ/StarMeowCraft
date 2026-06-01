@@ -1,5 +1,10 @@
 package com.starmeow.smc.events;
 
+import com.starmeow.smc.cache.MiningFaceCache;
+import com.starmeow.smc.config.Config;
+import com.starmeow.smc.entities.EasterBunny;
+import com.starmeow.smc.helper.BlockHelper;
+import com.starmeow.smc.helper.ItemHelper;
 import com.starmeow.smc.init.BlockRegistry;
 import com.starmeow.smc.init.EnchantmentRegistry;
 import com.starmeow.smc.init.ItemRegistry;
@@ -7,37 +12,55 @@ import com.starmeow.smc.init.PotionEffectRegistry;
 import com.starmeow.smc.items.SwissArmyKnife;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber
 public class InteractEvents {
@@ -116,7 +139,8 @@ public class InteractEvents {
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         BlockPos pos = event.getPos();
         ItemStack item = event.getPlayer().getMainHandItem();
-        Level level = event.getPlayer().level();
+        Player player = event.getPlayer();
+        Level level = player.level();
         if (item.is(ItemRegistry.FROSTIUM_PICKAXE.get())) {
             Direction[] directions = Direction.values();
             for (Direction direction1 : directions){
@@ -136,6 +160,71 @@ public class InteractEvents {
                 }
             }
         }
+        if(item.is(ItemRegistry.ZINC_AXE.get()) || item.is(ItemRegistry.ZINC_PICKAXE.get()) || item.is(ItemRegistry.ZINC_SHOVEL.get()) || item.is(ItemRegistry.ZINC_HOE.get())){
+            if(item.getTag()!=null && item.getTag().contains("SMCZincPower")){
+                if(item.getTag().getInt("SMCZincPower") > 0){
+                    int r = 1;
+                    Direction face = MiningFaceCache.get(player.getUUID());
+                    for (BlockPos tmpPos : BlockPos.withinManhattan(pos,
+                            face.getStepX() == 0 ? r : 0,
+                            face.getStepY() == 0 ? r : 0,
+                            face.getStepZ() == 0 ? r : 0)){
+                        if(tmpPos != pos){
+                            if (!event.getPlayer().getAbilities().instabuild) {
+                                Block.dropResources(level.getBlockState(tmpPos), level, tmpPos, level.getBlockEntity(tmpPos), event.getPlayer(), item.copy());
+                            }
+                            level.destroyBlock(tmpPos, false, player);
+                        }
+                    }
+                }
+            }
+        }
+        if (item.getEnchantmentLevel(EnchantmentRegistry.VIOLENT_ARCHAEOLOGY.get()) > 0) {
+            if(level.getBlockEntity(pos) instanceof BrushableBlockEntity brushable){
+                brushable.unpackLootTable(event.getPlayer());
+                ItemStack drop = brushable.getItem();
+                ItemEntity entityToSpawn = new ItemEntity(level, pos.getX() + 0.5D,pos.getY() + 0.5D,pos.getZ() + 0.5D, drop);
+                entityToSpawn.setPickUpDelay(10);
+                event.getLevel().addFreshEntity(entityToSpawn);
+            }
+        }
+        if(item.is(ItemRegistry.GOD_PICKAXE.get()) && level instanceof ServerLevel serverLevel){
+            ItemStack modifiedTool = item.copy();
+            if(modifiedTool.getEnchantmentLevel(Enchantments.BLOCK_FORTUNE) < 3){
+                Map<Enchantment, Integer> modifiedEnchantments = EnchantmentHelper.getEnchantments(modifiedTool);
+                modifiedEnchantments.put(Enchantments.BLOCK_FORTUNE, 3);
+                EnchantmentHelper.setEnchantments(modifiedEnchantments, modifiedTool);
+            }
+            List<ItemStack> drops = ItemHelper.getBlockDrops(serverLevel, pos, event.getPlayer(), modifiedTool);
+            List<ItemStack> newDrops = new ArrayList<>();
+            for (ItemStack in : drops) {
+                if (ItemHelper.itemHasSmeltResult(in, level)) {
+                    ItemStack out = ItemHelper.getItemSmeltResult(in, level);
+                    if (!out.isEmpty()) {
+                        out = out.copy();
+                        out.setCount(out.getCount() * in.getCount());
+                        newDrops.add(out);
+                        continue;
+                    }
+                }
+                newDrops.add(in);
+            }
+            if(event.getState().getBlock() == Blocks.ANCIENT_DEBRIS){
+                ItemStack extraScrap = new ItemStack(Items.NETHERITE_SCRAP);
+                newDrops.add(extraScrap);
+            }
+            level.removeBlock(pos, false);
+
+            for (ItemStack stack : newDrops) {
+                if(!event.getPlayer().getAbilities().instabuild){
+                    Containers.dropItemStack(level, player.getX(), player.getY(), player.getZ(), stack);
+                }
+            }
+            if(event.getExpToDrop() != 0){
+                ExperienceOrb xpOrb = new ExperienceOrb(level, player.getX(), player.getY(), player.getZ(), event.getExpToDrop() * 3);
+                level.addFreshEntity(xpOrb);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -143,7 +232,7 @@ public class InteractEvents {
         int r = 3;
         for (BlockPos tmpPos : BlockPos.withinManhattan(BlockPos.containing(event.getExplosion().getPosition()), r, r, r)) {
             if(event.getLevel().getBlockState(tmpPos).is(Blocks.BEDROCK)){
-                if(event.getLevel().getRandom().nextInt(128000) == 0){
+                if(event.getLevel().getRandom().nextInt(Config.BEDROCK_RATE.get()) == 0 && Config.ENABLE_BEDROCK.get()){
                     ItemEntity entityToSpawn = new ItemEntity(event.getLevel(), tmpPos.getX() + 0.5D,tmpPos.getY() + 0.5D,tmpPos.getZ() + 0.5D, new ItemStack(ItemRegistry.MINI_BEDROCK.get()));
                     entityToSpawn.setPickUpDelay(10);
                     event.getLevel().addFreshEntity(entityToSpawn);
@@ -199,6 +288,43 @@ public class InteractEvents {
 
     }
 
+    @SubscribeEvent
+    public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
+        if(event.getEntity() instanceof Player player){
+            if (!player.isCreative() && !player.isSpectator() && event.getFrom().is(ItemRegistry.DIVINE_WING.get()) && !event.getTo().is(ItemRegistry.DIVINE_WING.get())) {
+                player.getAbilities().mayfly = false;
+                player.getAbilities().flying = false;
+                player.onUpdateAbilities();
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onFoodConsume(LivingEntityUseItemEvent.Finish event) {
+        if(!event.getEntity().level().isClientSide()){
+            if(event.getItem().is(Items.APPLE) && event.getEntity() instanceof Player player){
+                boolean flag = false;
+                boolean badOmen = player.hasEffect(MobEffects.BAD_OMEN);
+                if(player.getRandom().nextInt(100) < Config.BAD_APPLE_RATE.get() && !badOmen){
+                    flag = true;
+                } else if (player.getRandom().nextInt(100) < Config.BAD_APPLE_RATE_WITH_EFFECT.get() && badOmen){
+                    flag = true;
+                    int time = player.getEffect(MobEffects.BAD_OMEN).getDuration();
+                    int amp = player.getEffect(MobEffects.BAD_OMEN).getAmplifier();
+                    player.removeEffect(MobEffects.BAD_OMEN);
+                    if(amp != 0){
+                        player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, time, amp - 1));
+                    }
+                }
+                if(flag){
+                    ItemStack itemStack = new ItemStack(ItemRegistry.BAD_APPLE.get());
+                    if (!player.getInventory().add(itemStack)) {
+                        player.drop(itemStack, false);
+                    }
+                }
+            }
+        }
+    }
 
     /*
     @SubscribeEvent
@@ -241,19 +367,79 @@ public class InteractEvents {
     }
 
     @SubscribeEvent
-    public static void onMount(EntityMountEvent event) {
-        if (!event.isDismounting()) return;
-        if (!(event.getEntityMounting() instanceof ServerPlayer player)) return;
-
-        Entity vehicle = event.getEntityBeingMounted();
-
-        if (!vehicle.isAlive() || vehicle.isRemoved()) return;
-
-        if(vehicle instanceof Boat boat && boat.getVariant() == Boat.Type.byName("end")){
-            if (!boat.onGround() && !boat.isInWater()){
-                event.setCanceled(true);
+    public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+        if(!event.getLevel().isClientSide){
+            Player player = event.getEntity();
+            if(event.getEntity().getMainHandItem().is(Items.BOWL) && event.getTarget() instanceof SnowGolem snowGolem){
+                if(event.getLevel() instanceof ServerLevel serverLevel){
+                    serverLevel.sendParticles(ParticleTypes.CLOUD, snowGolem.getX(), snowGolem.getY(), snowGolem.getZ(), 200, 1.0D, 1.0D, 1.0D, 0.0D);
+                }
+                snowGolem.playSound(SoundEvents.BUCKET_FILL_POWDER_SNOW, 1, 1);
+                snowGolem.discard();
+                ItemStack serving = new ItemStack(ItemRegistry.SNOW_GOLEM_ICE_CREAM.get());
+                if (!player.getInventory().add(serving)) {
+                    player.drop(serving, false);
+                }
+                if (!event.getEntity().getAbilities().instabuild) {
+                    event.getEntity().getMainHandItem().shrink(1);
+                }
+            }
+            if (event.getItemStack().is(ItemRegistry.GIANT_CARROT.get())){
+                boolean flag = false;
+                if(event.getTarget() instanceof Rabbit rabbit){
+                    RandomSource random = rabbit.getRandom();
+                    int count = random.nextInt(32) + 32;
+                    ArrayList<ItemStack> drops = new ArrayList<>();
+                    if(rabbit.getVariant() == Rabbit.Variant.EVIL){
+                        flag = true;
+                        List<Item> items = Config.whitelistSwordItems.stream().filter(item -> item instanceof SwordItem sword && sword.getDamage() >= Config.KNIFE_MIN_ATK.get() && sword.getDamage() <= Config.KNIFE_MAX_ATK.get() && item != ItemRegistry.KNIFE.get()).toList();
+                        for(int i = 0; i < count / 4; i++){
+                            ItemStack randomItem = new ItemStack(items.get(random.nextInt(items.size())));
+                            drops.add(randomItem);
+                        }
+                    } else if (rabbit instanceof EasterBunny) {
+                        flag = true;
+                        List<Item> items = Config.easterBunnyEggItems;
+                        for(int i = 0; i < count; i++){
+                            ItemStack randomItem = new ItemStack(items.get(random.nextInt(items.size())));
+                            drops.add(randomItem);
+                        }
+                    } else {
+                        flag = true;
+                        List<Item> items = List.of(Items.RABBIT, Items.RABBIT, Items.RABBIT_HIDE, Items.RABBIT_HIDE, Items.RABBIT_HIDE, Items.RABBIT_FOOT);
+                        for(int i = 0; i < count; i++){
+                            ItemStack randomItem = new ItemStack(items.get(random.nextInt(items.size())));
+                            drops.add(randomItem);
+                        }
+                    }
+                    if(event.getLevel() instanceof ServerLevel serverLevel){
+                        serverLevel.sendParticles(ParticleTypes.EXPLOSION, rabbit.getX(), rabbit.getY() + rabbit.getBbHeight(), rabbit.getZ(), 25, 3, 3, 3, 0.0D);
+                    }
+                    event.getLevel().playSound(null, event.getPos(), SoundEvents.DRAGON_FIREBALL_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
+                    for(ItemStack itemStack : drops){
+                        ItemEntity itemEntity = new ItemEntity(event.getLevel(), rabbit.getX(), rabbit.getY(), rabbit.getZ(), itemStack);
+                        itemEntity.setDeltaMovement(random.nextFloat() * 2.0F - 1.0F, random.nextFloat() * 1.5F, random.nextFloat() * 2.0F - 1.0F);
+                        event.getLevel().addFreshEntity(itemEntity);
+                    }
+                    rabbit.setHealth(0);
+                }
+                if(flag && !player.getAbilities().instabuild){
+                    event.getItemStack().shrink(1);
+                }
             }
         }
-        player.connection.send(new ClientboundSetPassengersPacket(vehicle));
+    }
+
+    @SubscribeEvent
+    public static void onMount(EntityMountEvent event) {
+        if (event.isDismounting() && event.getEntityBeingMounted() instanceof Boat boat){
+            if (!(event.getEntityMounting() instanceof ServerPlayer player)) return;
+            if(boat.isAlive() && !boat.isRemoved() && boat.getVariant() == Boat.Type.byName("end")){
+                if (!boat.onGround() && !boat.isInWater()){
+                    event.setCanceled(true);
+                    player.connection.send(new ClientboundSetPassengersPacket(boat));
+                }
+            }
+        }
     }
 }

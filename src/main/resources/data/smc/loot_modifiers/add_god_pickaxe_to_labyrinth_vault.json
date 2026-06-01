@@ -1,0 +1,15 @@
+{
+  "type": "smc:add_item",
+  "conditions":
+  [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "twilightforest:chests/labyrinth_vault"
+    },
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.15
+    }
+  ],
+  "item": "smc:god_pickaxe"
+}

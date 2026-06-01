@@ -3,20 +3,12 @@ package com.starmeow.smc;
 import com.mojang.logging.LogUtils;
 import com.starmeow.smc.config.Config;
 import com.starmeow.smc.init.*;
-import net.minecraft.client.model.ChestRaftModel;
-import net.minecraft.client.model.RaftModel;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -26,7 +18,6 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forgespi.language.IModFileInfo;
@@ -47,6 +38,7 @@ public class StarMeowCraft
         modEventBus.addListener(this::commonSetup);
         ItemRegistry.ITEMS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
+        BlockEntityRegistry.BLOCK_ENTITIES.register(modEventBus);
         EntityTypeRegistry.ENTITY_TYPES.register(modEventBus);
         EnchantmentRegistry.ENCHANTMENT.register(modEventBus);
         PotionEffectRegistry.MOB_EFFECTS.register(modEventBus);
@@ -58,6 +50,7 @@ public class StarMeowCraft
         NetworkRegistry.register();
         MinecraftForge.EVENT_BUS.register(this);
         MixinBootstrap.init();
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

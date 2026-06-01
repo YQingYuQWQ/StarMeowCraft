@@ -26,4 +26,10 @@ public class ItemTier {
             BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.of(Items.NETHERITE_INGOT));
     public static final Tier CALIBUR = new ForgeTier(4, 7777, 10.0F, 14.0F, 20,
             BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.EMPTY);
+    public static final Tier GOD = new ForgeTier(4, 1260, 8.0F, 4.0F, 22,
+            BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.EMPTY);
+    public static final Tier SALT_FISH = new ForgeTier(4, 1540, 8.0F, 6.0F, 10,
+            BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.of(ItemRegistry.SALT_FISH.get()));
+    public static final Tier ZINC = new ForgeTier(2, 350, 8.0F, 3.0F, 10,
+            BlockTags.NEEDS_IRON_TOOL, () -> Ingredient.of(ItemRegistry.ZINC_INGOT.get()));
 }

@@ -7,12 +7,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
@@ -112,26 +109,9 @@ public abstract class MixinBoat extends Entity implements IForgeBoat
     private void smc$floatingEndBoat(CallbackInfo ci) {
         Boat self = (Boat)(Object)this;
         if (self.getVariant() != END) return;
-
-        self.setNoGravity(true);
-
-        double yMovement = 0.0;
-
-        if (self.isControlledByLocalInstance() && self.level().isClientSide) {
-            LocalPlayer p = Minecraft.getInstance().player;
-            if (p != null && self.getControllingPassenger() == p) {
-                boolean jumping = Minecraft.getInstance().options.keyJump.isDown();
-                boolean shift   = Minecraft.getInstance().options.keyShift.isDown();
-
-                if (jumping && !shift) yMovement = 0.1;
-                else if (shift && !jumping) yMovement = -0.1;
-            }
-        }
-
-        Vec3 v = self.getDeltaMovement();
-        self.setDeltaMovement(v.x, Mth.clamp(v.y + yMovement, -0.5f, 0.5f) , v.z);
-        if(yMovement == 0){
-            self.setDeltaMovement(v.multiply(1.0, 0.75f, 1.0));
+        if (!self.level().isClientSide) return;
+        if (!self.isNoGravity()){
+            self.setNoGravity(true);
         }
     }
 }

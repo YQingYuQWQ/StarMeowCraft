@@ -1,13 +1,19 @@
 package com.starmeow.smc.events;
 
-import com.starmeow.smc.client.events.ClientForgeEvents;
+import com.starmeow.smc.config.Config;
+import com.starmeow.smc.entities.ChickenHarvester;
+import com.starmeow.smc.entities.EasterBunny;
+import com.starmeow.smc.entities.SaltFish;
 import com.starmeow.smc.helper.EntityHelper;
 import com.starmeow.smc.init.ItemRegistry;
 import com.starmeow.smc.init.NetworkRegistry;
 import com.starmeow.smc.init.PotionEffectRegistry;
 import com.starmeow.smc.init.SoundRegistry;
+import com.starmeow.smc.items.DollItems;
+import com.starmeow.smc.items.FoxArmorItems;
 import com.starmeow.smc.items.FrostiumBow;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +24,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -26,23 +33,28 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber
 public class AttackEvents {
@@ -50,23 +62,10 @@ public class AttackEvents {
     public static void onLivingHurt(LivingHurtEvent event){
         LivingEntity entity = event.getEntity();
         Level level = event.getEntity().level();
-        if (!level.isClientSide() && event.getSource().getDirectEntity() instanceof LivingEntity source) {
-            ItemStack weapon = source.getMainHandItem();
-            //冰剑特攻双倍伤害
-            if (weapon.is(ItemRegistry.FROSTIUM_SWORD.get())) {
-                entity.addEffect(new MobEffectInstance(PotionEffectRegistry.FROST.get(), 100, 0));
-                if (entity.fireImmune() || entity.isSensitiveToWater()){
-                    event.setAmount(event.getAmount() * 2.0f);
-                }
-            }
+        LivingEntity attacker = EntityHelper.getHurtEventSourceEntity(event);
 
-            //星光增伤
-            if(event.getSource().getEntity() instanceof LivingEntity living && living.hasEffect(PotionEffectRegistry.STAR_LIGHT.get()) && event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)){
-                float modifier = 1.0f + (living.getEffect(PotionEffectRegistry.STAR_LIGHT.get()).getAmplifier() + 1) * 0.5f;
-                entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
-                event.setAmount(event.getAmount() * modifier);
-            }
-
+        if (!level.isClientSide()){
+            //减伤相关
             //姬排保护减伤
             if(event.getEntity() instanceof Player player && player.hasEffect(PotionEffectRegistry.CHOP_PROTECTION.get()) && !event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
                 int foodLevel = player.getFoodData().getFoodLevel();
@@ -81,44 +80,74 @@ public class AttackEvents {
                 }
             }
 
-            //法伤棒棒糖
-            if ((weapon.is(ItemRegistry.PERKIN_LOLLIPOP.get())||weapon.is(ItemRegistry.COLORFUL_ICE_CREAM.get())) && !event.getSource().is(DamageTypes.INDIRECT_MAGIC)) {
-                float originalDamage = event.getAmount();
-                event.setAmount(0);
-                entity.invulnerableTime = 0;
-                entity.hurt(source.damageSources().indirectMagic(source, source), originalDamage);
-            }
-            //永冻工具加buff
-            if (weapon.is(ItemRegistry.PERFROSTITE_AXE.get()) || weapon.is(ItemRegistry.PERFROSTITE_PICKAXE.get()) || weapon.is(ItemRegistry.PERFROSTITE_SHOVEL.get()) || weapon.is(ItemRegistry.PERFROSTITE_SWORD.get()) || weapon.is(ItemRegistry.PERFROSTITE_HOE.get())) {
-                if (entity.hasEffect(PotionEffectRegistry.FROST_BURST.get())){
-                    int amp = entity.getEffect(PotionEffectRegistry.FROST_BURST.get()).getAmplifier();
-                    int dur = entity.getEffect(PotionEffectRegistry.FROST_BURST.get()).getDuration();
-                    entity.addEffect(new MobEffectInstance(PotionEffectRegistry.FROST_BURST.get(), dur, amp + 1));
+            //凌空之冠减伤
+            if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_HALO.get())){
+                if(event.getSource().is(DamageTypes.FLY_INTO_WALL)){
+                    event.setCanceled(true);
                 } else {
-                    entity.addEffect(new MobEffectInstance(PotionEffectRegistry.FROST_BURST.get(), 200, 0));
+                    ItemStack halo = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
+                    CompoundTag tag = halo.getOrCreateTag();
+                    double minAbility = Config.DIVINE_HALO_MIN_REDUCE.get();
+                    double reduceAbility = Config.DIVINE_HALO_DECREASE_REDUCE.get();
+                    int maxTime = Config.DIVINE_HALO_COOLDOWN.get();
+                    float ability = tag.getFloat("SMCHaloAbility");
+                    float damage = event.getAmount();
+                    float modifiedDamage = damage * (100.0F - ability) * 0.01F;
+                    if(damage > 0.001F && ability > minAbility){
+                        List<MobEffectInstance> list = new ArrayList<>(event.getEntity().getActiveEffects()).stream().filter(e -> e.getEffect().getCategory().equals(MobEffectCategory.HARMFUL)).toList();
+                        for (MobEffectInstance ins : list) {
+                            event.getEntity().removeEffect(ins.getEffect());
+                            if (event.getEntity().hasEffect(ins.getEffect())) {
+                                event.getEntity().getActiveEffectsMap().remove(ins.getEffect());
+                            }
+                        }
+                        event.setAmount(modifiedDamage);
+                        tag.putFloat("SMCHaloAbility", (float)Math.max(minAbility, ability - reduceAbility));
+                        tag.putInt("SMCHaloTimer", maxTime);
+                    }
+                    if(event.getEntity() instanceof Player player && !player.getCooldowns().isOnCooldown(ItemRegistry.DIVINE_HALO.get()) && modifiedDamage >= event.getEntity().getHealth()){
+                        player.setHealth(1);
+                        player.setAbsorptionAmount(player.getMaxHealth() - 1);
+                        player.getCooldowns().addCooldown(ItemRegistry.DIVINE_HALO.get(), Config.DIVINE_HALO_ITEM_COOLDOWN.get() * 20);
+                        tag.putFloat("SMCHaloAbility",0);
+                        event.setCanceled(true);
+                        if (entity instanceof ServerPlayer serverPlayer) {
+                            NetworkRegistry.sendTotemActivate(serverPlayer, ItemRegistry.DIVINE_HALO.get().getDefaultInstance());
+                        }
+                        if (level instanceof ServerLevel serverLevel) {
+                            serverLevel.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, entity.getX(), entity.getY(), entity.getZ(), 100, 0.0D, 0.0D, 0.0D, 1.0D);
+                        }
+                        level.playSound(null, entity.getOnPos(), SoundEvents.TOTEM_USE, SoundSource.NEUTRAL, 1, 1);
+                    }
                 }
             }
-            //冰斧特攻双倍伤害
-            if (weapon.is(ItemRegistry.FROSTIUM_AXE.get())) {
-                if (entity.getTicksFrozen() >= 100){
-                    event.setAmount(event.getAmount() * (float)(400 / 100));
-                    entity.setTicksFrozen(0);
+            if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_SHARD.get())){
+                if(event.getEntity() instanceof Player player && !player.getCooldowns().isOnCooldown(ItemRegistry.DIVINE_SHARD.get()) && event.getAmount() >= event.getEntity().getHealth()) {
+                    player.setHealth(1);
+                    player.getCooldowns().addCooldown(ItemRegistry.DIVINE_SHARD.get(), Config.DIVINE_HALO_ITEM_COOLDOWN.get() * 20);
+                    event.setCanceled(true);
+                    if (entity instanceof ServerPlayer serverPlayer) {
+                        NetworkRegistry.sendTotemActivate(serverPlayer, ItemRegistry.DIVINE_SHARD.get().getDefaultInstance());
+                    }
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, entity.getX(), entity.getY(), entity.getZ(), 100, 0.0D, 0.0D, 0.0D, 1.0D);
+                    }
+                    level.playSound(null, entity.getOnPos(), SoundEvents.TOTEM_USE, SoundSource.NEUTRAL, 1, 1);
+                }
+
+                ItemStack shard = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
+                LivingEntity living = event.getEntity();
+                CompoundTag tag = shard.getTag();
+                if(tag != null && tag.contains("SMCShardChallenge") && tag.getInt("SMCShardChallenge") == 2 && event.getSource().getEntity() instanceof Warden){
+                    tag.putInt("SMCShardAttack", tag.getInt("SMCShardAttack") + 1);
+                    if(tag.getInt("SMCShardAttack") >= 1){
+                        tag.remove("SMCShardAttack");
+                        tag.putInt("SMCShardChallenge", 6);
+                        living.level().playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 1F, 2F);
+                    }
                 }
             }
-            //姬排串减攻
-            if (weapon.is(ItemRegistry.CHOP_KEBAB.get())) {
-                if(source instanceof Player player){
-                    event.setAmount(event.getAmount() * (player.getFoodData().getFoodLevel() / 20.0F));
-                    player.getFoodData().addExhaustion(2.0F);
-                }
-            }
-            //巧克力剑
-            if (weapon.is(ItemRegistry.CHOCOLATE_SWORD.get())) {
-                if(entity instanceof Animal animal){
-                    event.setAmount(event.getAmount() * 3);
-                    animal.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0));
-                }
-            }
+
             //坚果减伤
             Item nut = ItemRegistry.WALLNUT_POT.get();
             if((entity.getItemBySlot(EquipmentSlot.MAINHAND).is(nut)
@@ -128,12 +157,95 @@ public class AttackEvents {
                 event.setAmount(event.getAmount() * 0.2F);
             }
 
-            //牢大
-            if(source.hasEffect(PotionEffectRegistry.ELBOWING.get())){
-                level.playSound(null, entity.getOnPos(), SoundRegistry.ICE_TEA_DRUNK.get(), SoundSource.PLAYERS, 1, 0.9f + 0.3f * level.random.nextFloat());
+            //星光增伤
+            if(attacker != null){
+                if(attacker.hasEffect(PotionEffectRegistry.STAR_LIGHT.get()) && event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)){
+                    float modifier = 1.0f + (attacker.getEffect(PotionEffectRegistry.STAR_LIGHT.get()).getAmplifier() + 1) * 0.2f;
+                    entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
+                    event.setAmount(event.getAmount() * modifier);
+                }
             }
 
-            //测试用伤害
+            //武器相关
+            if (event.getSource().getDirectEntity() instanceof LivingEntity source) {
+                ItemStack weapon = source.getMainHandItem();
+                //冰剑特攻双倍伤害
+                if (weapon.is(ItemRegistry.FROSTIUM_SWORD.get())) {
+                    entity.addEffect(new MobEffectInstance(PotionEffectRegistry.FROST.get(), 100, 0));
+                    if (entity.fireImmune() || entity.isSensitiveToWater()){
+                        event.setAmount(event.getAmount() * 2.0f);
+                    }
+                }
+                //咸鱼剑特攻三倍伤害
+                if (weapon.is(ItemRegistry.SALT_FISH_SWORD.get())) {
+                    if (attacker.isInWaterRainOrBubble()){
+                        entity.addEffect(new MobEffectInstance(PotionEffectRegistry.STUNNED.get(), 20, 0));
+                        event.setAmount(event.getAmount() * 3.0f);
+                    }
+                }
+                //法伤棒棒糖
+                if ((weapon.is(ItemRegistry.PERKIN_LOLLIPOP.get())||weapon.is(ItemRegistry.COLORFUL_ICE_CREAM.get())) && !event.getSource().is(DamageTypes.INDIRECT_MAGIC)) {
+                    float originalDamage = event.getAmount();
+                    event.setAmount(0);
+                    entity.invulnerableTime = 0;
+                    entity.hurt(source.damageSources().indirectMagic(source, source), originalDamage);
+                }
+                //永冻工具加buff
+                if (weapon.is(ItemRegistry.PERFROSTITE_AXE.get()) || weapon.is(ItemRegistry.PERFROSTITE_PICKAXE.get()) || weapon.is(ItemRegistry.PERFROSTITE_SHOVEL.get()) || weapon.is(ItemRegistry.PERFROSTITE_SWORD.get()) || weapon.is(ItemRegistry.PERFROSTITE_HOE.get())) {
+                    if (entity.hasEffect(PotionEffectRegistry.FROST_BURST.get())){
+                        int amp = entity.getEffect(PotionEffectRegistry.FROST_BURST.get()).getAmplifier();
+                        int dur = entity.getEffect(PotionEffectRegistry.FROST_BURST.get()).getDuration();
+                        entity.addEffect(new MobEffectInstance(PotionEffectRegistry.FROST_BURST.get(), dur, amp + 1));
+                    } else {
+                        entity.addEffect(new MobEffectInstance(PotionEffectRegistry.FROST_BURST.get(), 200, 0));
+                    }
+                }
+                //冰斧特攻双倍伤害
+                if (weapon.is(ItemRegistry.FROSTIUM_AXE.get())) {
+                    if (entity.getTicksFrozen() >= 100){
+                        event.setAmount(event.getAmount() * (float)(400 / 100));
+                        entity.setTicksFrozen(0);
+                    }
+                }
+                //姬排串减攻
+                if (weapon.is(ItemRegistry.CHOP_KEBAB.get())) {
+                    if(source instanceof Player player){
+                        event.setAmount(event.getAmount() * (player.getFoodData().getFoodLevel() / 20.0F));
+                        player.getFoodData().addExhaustion(2.0F);
+                    }
+                }
+                //巧克力剑
+                if (weapon.is(ItemRegistry.CHOCOLATE_SWORD.get())) {
+                    if(entity instanceof Animal animal){
+                        event.setAmount(event.getAmount() * 3);
+                        animal.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0));
+                    }
+                }
+                //牢大
+                if(source.hasEffect(PotionEffectRegistry.ELBOWING.get())){
+                    level.playSound(null, entity.getOnPos(), SoundRegistry.ICE_TEA_DRUNK.get(), SoundSource.PLAYERS, 1, 0.9f + 0.3f * level.random.nextFloat());
+                }
+
+                //劲凉（bushi）
+                if(source.hasEffect(PotionEffectRegistry.FRESH_COOL.get())){
+                    if(entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
+                            || entity.hasEffect(PotionEffectRegistry.FROST.get())
+                            || entity.hasEffect(PotionEffectRegistry.FROST_BURST.get())
+                            || entity.getTicksFrozen() > 0
+                    ){
+                        int amp = source.getEffect(PotionEffectRegistry.FRESH_COOL.get()).getAmplifier() + 1;
+                        source.heal(Math.max(amp * 0.05F * source.getMaxHealth(), amp * 2));
+                    }
+                }
+
+                //热带风味（bushi）
+                if(source.hasEffect(PotionEffectRegistry.FEVER_SPICY.get())){
+                    if(entity.isOnFire() && (event.getSource().is(DamageTypeTags.IS_EXPLOSION) || event.getSource().is(DamageTypeTags.IS_FIRE))){
+                        int amp = source.getEffect(PotionEffectRegistry.FEVER_SPICY.get()).getAmplifier() + 1;
+                        event.setAmount(event.getAmount() * (1 + 0.3F * amp));
+                    }
+                }
+                //测试用伤害
             /*
             if(weapon.is(ItemRegistry.DELUXE_CAKE.get())){
                 double r0 = 5.0D;
@@ -159,6 +271,7 @@ public class AttackEvents {
             }
             */
         }
+        }
     }
     @SubscribeEvent
     public static void onAttackEntity(AttackEntityEvent event) {
@@ -169,10 +282,27 @@ public class AttackEvents {
     }
 
     @SubscribeEvent
+    public static void onTotemActive(LivingUseTotemEvent event) {
+        ItemStack shard = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
+        LivingEntity living = event.getEntity();
+        if(shard.is(ItemRegistry.DIVINE_SHARD.get())){
+            CompoundTag tag = shard.getTag();
+            if(tag != null && tag.contains("SMCShardChallenge") && tag.getInt("SMCShardChallenge") == 4){
+                tag.putInt("SMCShardTotem", tag.getInt("SMCShardTotem") + 1);
+                if(tag.getInt("SMCShardTotem") >= 1){
+                    tag.remove("SMCShardTotem");
+                    tag.putInt("SMCShardChallenge", 8);
+                    living.level().playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 1F, 2F);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onLivingAttacked(LivingAttackEvent event){
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
-        if(entity instanceof Player player && player.getMainHandItem().is(ItemRegistry.MINI_BEDROCK.get())){
+        if(entity instanceof Player player && player.getMainHandItem().is(ItemRegistry.MINI_BEDROCK.get()) && Config.ENABLE_BEDROCK.get()){
             level.playSound((Player)null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, entity.getSoundSource(), 0.3F, entity.getVoicePitch() * 0.1f);
             event.setCanceled(true);
         }
@@ -181,6 +311,21 @@ public class AttackEvents {
             event.setCanceled(true);
         }
         if(event.getSource().getDirectEntity() instanceof Player player && player.hasEffect(PotionEffectRegistry.PEACE.get())){
+            event.setCanceled(true);
+        }
+
+        //凌空之冠免疫碰撞
+        if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_HALO.get())){
+            if(event.getSource().is(DamageTypes.FLY_INTO_WALL)){
+                event.setCanceled(true);
+            }
+        }
+        //狐狸套免疫甜浆果和摔落
+        boolean fox_flag = entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof FoxArmorItems
+                && entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof FoxArmorItems
+                && entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof FoxArmorItems
+                && entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof FoxArmorItems;
+        if(fox_flag && (event.getSource().is(DamageTypes.SWEET_BERRY_BUSH) || event.getSource().is(DamageTypes.FALL))) {
             event.setCanceled(true);
         }
     }
@@ -198,7 +343,7 @@ public class AttackEvents {
         ItemStack displayItem = ItemStack.EMPTY;
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack item = entity.getItemInHand(hand);
-            if (item.is(ItemRegistry.DOLL_1.get()) || item.is(ItemRegistry.DOLL_2.get()) || item.is(ItemRegistry.DOLL_3.get()) || item.is(ItemRegistry.DOLL_4.get())) {
+            if (item.getItem() instanceof DollItems) {
                 totemStack = item;
                 displayItem = item.getItem().getDefaultInstance();
                 break;
@@ -242,7 +387,7 @@ public class AttackEvents {
     public static void onLivingAttackedIns(LivingDeathEvent event){
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
-        if(entity instanceof Player player && player.getMainHandItem().is(ItemRegistry.MINI_BEDROCK.get())){
+        if(entity instanceof Player player && player.getMainHandItem().is(ItemRegistry.MINI_BEDROCK.get()) && Config.ENABLE_BEDROCK.get()){
             level.playSound((Player)null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, entity.getSoundSource(), 0.3F, entity.getVoicePitch() * 0.5f);
             player.displayClientMessage(Component.translatable("message.smc.you_cheated_first"), true);
             event.setCanceled(true);
@@ -308,6 +453,28 @@ public class AttackEvents {
             if ((source instanceof Chicken || (source != null && source.getVehicle() != null && source.getVehicle() instanceof Chicken))&& entity instanceof Creeper creeper && creeper.isPowered()) {
                 EntityHelper.addEntityDrops(event, ItemRegistry.DOLL_3.get());
             }
+            //1颗心以下的玩家的狗击杀幻翼获取基恩玩偶
+            if (source instanceof Wolf wolf && entity instanceof Phantom && wolf.getOwnerUUID() != null && wolf.level().getPlayerByUUID(wolf.getOwnerUUID()) != null) {
+                if(wolf.level().getPlayerByUUID(wolf.getOwnerUUID()).getHealth() <= 2){
+                    EntityHelper.addEntityDrops(event, ItemRegistry.DOLL_5.get());
+                }
+            }
+            //彩蛋兔变回彩蛋（不用loottable以免双倍掉落和德格米发力）
+            if (entity instanceof EasterBunny bunny) {
+                if(bunny.isOnFire()){
+                    EntityHelper.addEntityDrops(event, ItemRegistry.FRIED_EASTER_BUNNY_EGG.get());
+                }else{
+                    EntityHelper.addEntityDrops(event, ItemRegistry.EASTER_BUNNY_EGG.get());
+                }
+            }
+            //咸鱼（同理）
+            if (entity instanceof SaltFish fish) {
+                if(fish.isOnFire()){
+                    EntityHelper.addEntityDrops(event, ItemRegistry.COOKED_SALT_FISH.get());
+                }else{
+                    EntityHelper.addEntityDrops(event, ItemRegistry.SALT_FISH.get());
+                }
+            }
         }
     }
 
@@ -324,6 +491,15 @@ public class AttackEvents {
             }
         }
 
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurtByLightning(EntityStruckByLightningEvent event){
+        if(event.getEntity() instanceof LivingEntity living && !living.level().isClientSide()){
+            if(living.hasEffect(PotionEffectRegistry.FUZED.get())){
+                living.addEffect(new MobEffectInstance(PotionEffectRegistry.FUZED.get(), 100, 2));
+            }
+        }
     }
 }
 

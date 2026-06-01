@@ -7,7 +7,7 @@
     "absolute": 0
   },
   "spawn_overrides": {
-    "monster": {
+    "creature": {
       "bounding_box": "full",
       "spawns": [
         {

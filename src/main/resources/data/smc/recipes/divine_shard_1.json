@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:divine_shard"
+    },
+    "2": {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    "3": {
+      "item": "smc:astera_apple"
+    }
+  },
+  "pattern": [
+    "323",
+    "212",
+    "323"
+  ],
+  "result": {
+    "item": "smc:divine_shard",
+    "nbt": "{SMCShardChallenge:1}"
+  },
+  "show_notification": true
+}

@@ -86,9 +86,13 @@ public class SwordAura extends ThrowableItemProjectile {
                 if(e instanceof LivingEntity living && !attackedEntityUUID.contains(living.getUUID())){
                     living.invulnerableTime = 0;
                     float extraDamage = (float) Math.max(Config.AURA_BASE_DAMAGE.get() * this.divine * 0.3f, living.getHealth() * Config.AURA_EXTRA_DAMAGE.get() * 0.01f);
-                    living.hurt(this.damageSources().indirectMagic(this, this.getOwner()), (float) (Config.AURA_BASE_DAMAGE.get() + extraDamage));
-                    living.invulnerableTime = 0;
-                    attackedEntityUUID.add(living.getUUID());
+                    if(this.getOwner() instanceof Player p){
+
+                    }
+                    boolean hurt = living.hurt(this.damageSources().indirectMagic(this, this.getOwner()), (float) (Config.AURA_BASE_DAMAGE.get() + extraDamage));
+                    if (hurt) {
+                        attackedEntityUUID.add(living.getUUID());
+                    }
                 }
             }
         }

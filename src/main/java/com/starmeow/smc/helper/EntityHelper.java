@@ -6,6 +6,7 @@ import com.starmeow.smc.entities.projectiles.SwordAura;
 import com.starmeow.smc.init.EnchantmentRegistry;
 import com.starmeow.smc.init.EntityTypeRegistry;
 import com.starmeow.smc.init.ItemRegistry;
+import com.starmeow.smc.init.PotionEffectRegistry;
 import com.starmeow.smc.items.DevourSword;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -16,6 +17,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,13 +32,11 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class EntityHelper {
 
@@ -133,5 +134,33 @@ public class EntityHelper {
 
     public static boolean isFireProofBoat(Boat.Type type){
         return type == Boat.Type.byName("golden") || type == Boat.Type.byName("glass_golden");
+    }
+
+    public static LivingEntity getHurtEventSourceEntity(LivingHurtEvent event){
+        LivingEntity attacker = null;
+        if(event.getSource().getEntity() instanceof LivingEntity entity0){
+            attacker = entity0;
+        }else if(event.getSource().getDirectEntity() instanceof LivingEntity entity0){
+            attacker = entity0;
+        }
+        return attacker;
+    }
+
+    public static void spawnLingeringCloud(LivingEntity living, int amp) {
+        Collection<MobEffectInstance> $$0 = living.getActiveEffects();
+        if (!$$0.isEmpty()) {
+            AreaEffectCloud $$1 = new AreaEffectCloud(living.level(), living.getX(), living.getY(), living.getZ());
+            $$1.setRadius(2.5F + 0.5F * (amp + 1));
+            $$1.setRadiusOnUse(-0.5F);
+            $$1.setWaitTime(10);
+            $$1.setDuration($$1.getDuration() / 2);
+            $$1.setRadiusPerTick(-$$1.getRadius() / (float)$$1.getDuration());
+
+            for (MobEffectInstance $$2 : $$0) {
+                $$1.addEffect(new MobEffectInstance($$2));
+            }
+
+            living.level().addFreshEntity($$1);
+        }
     }
 }

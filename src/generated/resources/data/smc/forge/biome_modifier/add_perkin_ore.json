@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#minecraft:is_taiga",
+  "biomes": "#smc:perkin_ore_generate",
   "features": "smc:perkin_ore_placed",
   "step": "underground_ores"
 }

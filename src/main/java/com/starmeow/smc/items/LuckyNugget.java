@@ -35,7 +35,7 @@ public class LuckyNugget extends Item {
             if(Config.LUCKY_NUGGET_INFINITE.get()){
                 duration = -1;
             }
-            p_42925_.addEffect(new MobEffectInstance(randomEffect, duration, 0));
+            p_42925_.addEffect(new MobEffectInstance(randomEffect, duration, Config.LUCKY_NUGGET_AMP.get()));
         }
         return p_42925_.eat(p_42924_, p_42923_);
     }

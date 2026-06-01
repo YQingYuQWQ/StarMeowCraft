@@ -47,7 +47,7 @@ public class DevourSword extends SwordItem {
         CompoundTag tag = stack.getOrCreateTag();
         ListTag list = tag.getList("SMCWeaponStored", Tag.TAG_STRING);
         if (slot == EquipmentSlot.MAINHAND) {
-            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(UUID.fromString("68024817-4632-8753-1084-367954234584"), "atk_damage", list.size() *Config.DEVOUR_SWORD_ADD.get(), AttributeModifier.Operation.ADDITION));
+            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(UUID.fromString("68024817-4632-8753-1084-367954234584"), "atk_damage", list.size() * Config.DEVOUR_SWORD_ADD.get(), AttributeModifier.Operation.ADDITION));
         }
         return builder.build();
     }

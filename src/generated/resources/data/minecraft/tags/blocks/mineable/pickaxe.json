@@ -10,6 +10,10 @@
     "smc:fridge",
     "smc:knife",
     "smc:ancient_smithing_table",
-    "smc:granite_anvil"
+    "smc:granite_anvil",
+    "smc:zinc_block",
+    "smc:zinc_ore",
+    "smc:tuff_zinc_ore",
+    "smc:end_zinc_ore"
   ]
 }

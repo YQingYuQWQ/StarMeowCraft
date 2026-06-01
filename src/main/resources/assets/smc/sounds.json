@@ -40,5 +40,13 @@
         "stream": true
       }
     ]
+  },
+  "music_disc_god_pickaxe": {
+    "sounds": [
+      {
+        "name": "smc:music_disc_god_pickaxe",
+        "stream": true
+      }
+    ]
   }
 }

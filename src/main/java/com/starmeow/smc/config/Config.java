@@ -32,12 +32,27 @@ public class Config
     public static ForgeConfigSpec.BooleanValue LUCKY_CLOVER_DISABLE;
     public static final String LUCKY_NUGGET = "LuckyNugget";
     public static ForgeConfigSpec.IntValue LUCKY_NUGGET_DURATION;
+    public static ForgeConfigSpec.IntValue LUCKY_NUGGET_AMP;
     public static ForgeConfigSpec.BooleanValue LUCKY_NUGGET_INFINITE;
+    public static final String BAD_APPLE = "BadApple";
+    public static ForgeConfigSpec.IntValue BAD_APPLE_RATE;
+    public static ForgeConfigSpec.IntValue BAD_APPLE_RATE_WITH_EFFECT;
     public static final String DEVOUR_SWORD = "DevourSword";
     public static ForgeConfigSpec.BooleanValue DEVOUR_SWORD_SHOOT;
     public static ForgeConfigSpec.DoubleValue DEVOUR_SWORD_ADD;
     public static ForgeConfigSpec.DoubleValue DEVOUR_SWORD_SHOOT_DAMAGE;
     public static ForgeConfigSpec.IntValue DEVOUR_SWORD_UPGRADE;
+    public static final String DIVINE_HALO = "DivineHalo";
+    public static ForgeConfigSpec.DoubleValue DIVINE_HALO_MAX_REDUCE;
+    public static ForgeConfigSpec.DoubleValue DIVINE_HALO_MIN_REDUCE;
+    public static ForgeConfigSpec.DoubleValue DIVINE_HALO_DECREASE_REDUCE;
+    public static ForgeConfigSpec.IntValue DIVINE_HALO_COOLDOWN;
+    public static ForgeConfigSpec.IntValue DIVINE_HALO_ITEM_COOLDOWN;
+    public static final String DIVINE_SHARD = "DivineShard";
+    public static ForgeConfigSpec.IntValue DIVINE_SHARD_CHALLENGE_1;
+    public static ForgeConfigSpec.IntValue DIVINE_SHARD_CHALLENGE_2;
+    public static ForgeConfigSpec.IntValue DIVINE_SHARD_CHALLENGE_3;
+    public static ForgeConfigSpec.IntValue DIVINE_SHARD_CHALLENGE_4;
     public static final String WATERING_CAN = "WateringCan";
     public static ForgeConfigSpec.BooleanValue WATERING_CAN_INFINITY;
     public static final String TEMPLATE_SHROUD = "TemplateShroud";
@@ -59,6 +74,14 @@ public class Config
     public static final String PERKIN_WAND = "PerkinWand";
     public static ForgeConfigSpec.DoubleValue BULLET_DAMAGE;
     public static ForgeConfigSpec.DoubleValue BULLET_DAMAGE_ENCHANTMENT;
+    public static final String MINI_BEDROCK = "MiniBedrock";
+    public static ForgeConfigSpec.IntValue BEDROCK_RATE;
+    public static ForgeConfigSpec.BooleanValue ENABLE_BEDROCK;
+    public static final String MCR_SWORD = "MCrSword";
+    public static ForgeConfigSpec.BooleanValue MCR_DAMAGE_ABILITY;
+    public static final String VILLAGE_STRUCTURE = "VillageStructures";
+    public static ForgeConfigSpec.BooleanValue ENABLE_LATRINE;
+    public static ForgeConfigSpec.BooleanValue ENABLE_FAULT_HOUSE;
 
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> LUCKY_CLOVER_BLACKLIST_ITEM_STRINGS;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> LUCKY_CLOVER_BLACKLIST_KEYWORDS_STRINGS;
@@ -136,8 +159,17 @@ public class Config
         COMMON_BUILDER.push(LUCKY_NUGGET);
         LUCKY_NUGGET_DURATION = COMMON_BUILDER.comment("Define the duration of effects which gives by Lucky Nugget (in tick)")
                 .defineInRange("LuckyNuggetDuration", 6000, 0, Integer.MAX_VALUE);
+        LUCKY_NUGGET_AMP = COMMON_BUILDER.comment("Define the amplifier (level) of effects which gives by Lucky Nugget (0 means I, 1 means II and so on.)")
+                .defineInRange("LuckyNuggetAmp", 0, 0, 100);
         LUCKY_NUGGET_INFINITE = COMMON_BUILDER.comment("If it's true, the duration of effects gives by Lucky Nugget will be infinite.")
                 .define("LuckyNuggetInfinite", false);
+        COMMON_BUILDER.pop();
+
+        COMMON_BUILDER.push(BAD_APPLE);
+        BAD_APPLE_RATE = COMMON_BUILDER.comment("Define the possibility of obtaining bad apple item after you ate an apple.")
+                .defineInRange("BadAppleRate", 3, 0, 100);
+        BAD_APPLE_RATE_WITH_EFFECT = COMMON_BUILDER.comment("Define the possibility of obtaining bad apple item after you ate an apple when you have Bad Omen effect.")
+                .defineInRange("BadAppleRateWithBadOmen", 35, 0, 100);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.push(DEVOUR_SWORD);
@@ -149,6 +181,30 @@ public class Config
                 .defineInRange("DamageInherit", 0.5, 0, Double.MAX_VALUE);
         DEVOUR_SWORD_UPGRADE = COMMON_BUILDER.comment("Define the sword amount requirement for increase the shooting sword amount.")
                 .defineInRange("UpgradeAmount", 9, 0, Integer.MAX_VALUE);
+        COMMON_BUILDER.pop();
+
+        COMMON_BUILDER.push(DIVINE_HALO);
+        DIVINE_HALO_COOLDOWN = COMMON_BUILDER.comment("Define the recover cooldown of Divine Halo (in seconds).")
+                .defineInRange("RecoverCooldown", 15, 0, Integer.MAX_VALUE);
+        DIVINE_HALO_ITEM_COOLDOWN = COMMON_BUILDER.comment("Define the cooldown of Divine Halo (in seconds) when this item is trying to revive the player.")
+                .defineInRange("ReviveCooldown", 300, 0, Integer.MAX_VALUE);
+        DIVINE_HALO_MAX_REDUCE = COMMON_BUILDER.comment("Define the percentage of damage reduction by Divine Halo when the ability is totally recovered.")
+                .defineInRange("MaxReduction", 100.0, 0, 100.0);
+        DIVINE_HALO_MIN_REDUCE = COMMON_BUILDER.comment("Define the percentage of damage reduction by Divine Halo when the ability is totally consumed.")
+                .defineInRange("MinReduction", 30.0, 0, 100.0);
+        DIVINE_HALO_DECREASE_REDUCE = COMMON_BUILDER.comment("The ability of Divine Halo will decrease when you taken damage. Define the percentage of ability consumption.")
+                .defineInRange("DecreaseReduction", 10.0, 0, 100.0);
+        COMMON_BUILDER.pop();
+
+        COMMON_BUILDER.push(DIVINE_SHARD);
+        DIVINE_SHARD_CHALLENGE_1 = COMMON_BUILDER.comment("Define the number of negative effect which need to be cured at one time for purify challenge.")
+                .defineInRange("EffectChallenge", 10, 1, Integer.MAX_VALUE);
+        DIVINE_SHARD_CHALLENGE_2 = COMMON_BUILDER.comment("Define the hit time from Warden for ward challenge.")
+                .defineInRange("WardenChallenge", 100, 1, Integer.MAX_VALUE);
+        DIVINE_SHARD_CHALLENGE_3 = COMMON_BUILDER.comment("Define height requirement for sky challenge.")
+                .defineInRange("SkyChallenge", 1000, -64, Integer.MAX_VALUE);
+        DIVINE_SHARD_CHALLENGE_4 = COMMON_BUILDER.comment("Define the totem active time requirement for tough challenge.")
+                .defineInRange("TotemChallenge", 16, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.push(TEMPLATE_SHROUD);
@@ -178,13 +234,17 @@ public class Config
         KNIFE_BLACKLIST_ITEM_STRINGS = COMMON_BUILDER
                 .comment("A list of sword items which can never be obtained from Heirloom Knife.")
                 .comment("This list is based on the Lucky Clover blacklist.")
-                .defineListAllowEmpty("LuckyCloverBlacklistItems",
+                .defineListAllowEmpty("HeirloomKnifeBlacklistItems",
                         List.of("smc:devour_sword"
                         ), Config::validateItemName);
         COMMON_BUILDER.pop();
         COMMON_BUILDER.push(COFFEE);
         COFFEE_COOLDOWN = COMMON_BUILDER.comment("Define the cooldown of Java Coffee (in MC tick)")
                 .defineInRange("CoffeeCD", 200, 0, Integer.MAX_VALUE);
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push(MCR_SWORD);
+        MCR_DAMAGE_ABILITY = COMMON_BUILDER.comment("Whether to enable the all damage hit ability of MCr Sword (MCr Sword will apply all type of damage on the target).")
+                .define("MCrAllDamageAbility", false);
         COMMON_BUILDER.pop();
         COMMON_BUILDER.push(EXCALIBUR);
         AURA_BASE_DAMAGE = COMMON_BUILDER.comment("Define the base damage of sword aura from Excalibur.")
@@ -205,6 +265,18 @@ public class Config
                 .defineInRange("MagicBulletDamage", 6, 0, Double.MAX_VALUE);
         BULLET_DAMAGE_ENCHANTMENT = COMMON_BUILDER.comment("Define the extra damage of perkin wand bullet from Damage Spell.")
                 .defineInRange("DamageSpellDamage", 1.2, 0, Double.MAX_VALUE);
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push(MINI_BEDROCK);
+        BEDROCK_RATE = COMMON_BUILDER.comment("Define the probability of popping Mini Bedrock item on bedrock explosion (probability is 1 / x)")
+                .defineInRange("BedrockPopRate", 128000, 0, Integer.MAX_VALUE);
+        ENABLE_BEDROCK = COMMON_BUILDER.comment("Whether to enable the Mini Bedrock ability and obtaining.")
+                .define("EnableMiniBedrock", true);
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push(VILLAGE_STRUCTURE);
+        ENABLE_LATRINE = COMMON_BUILDER.comment("Whether to enable Latrine structures placing in Villages.")
+                .define("EnableLatrine", true);
+        ENABLE_FAULT_HOUSE = COMMON_BUILDER.comment("Whether to enable Fault House structures placing in Villages.")
+                .define("EnableFaultHouse", true);
         COMMON_BUILDER.pop();
         COMMON_CONFIG = COMMON_BUILDER.build();
 

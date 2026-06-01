@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "item": "smc:chicken_tail_feather"
+    },
+    "2": {
+      "item": "minecraft:nether_star"
+    },
+    "3": {
+      "item": "minecraft:elytra"
+    },
+    "4": {
+      "type": "forge:nbt",
+      "item": "smc:divine_shard",
+      "nbt": "{SMCShardChallenge:7}"
+    }
+  },
+  "pattern": [
+    "232",
+    "141",
+    "1 1"
+  ],
+  "result": {
+    "item": "smc:divine_wing"
+  },
+  "show_notification": true
+}

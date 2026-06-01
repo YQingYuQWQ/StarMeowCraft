@@ -184,22 +184,6 @@
           "type": "item",
           "name": "smc:perkin_star",
           "weight": 1
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 5.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "smc:perkin_ingot",
-          "weight": 1
         }
       ],
       "rolls": 5.0

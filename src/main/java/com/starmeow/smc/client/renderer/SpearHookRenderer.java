@@ -60,15 +60,14 @@ public class SpearHookRenderer extends EntityRenderer<SpearHook> {
             double d0 = (double)Mth.sin(f2);
             double d1 = (double)Mth.cos(f2);
             double d2 = (double)i * 0.35;
-            double d3 = 0.8;
             double d4;
             double d5;
             double d6;
             float f3;
             double d9;
-            if ((this.entityRenderDispatcher.options == null || this.entityRenderDispatcher.options.getCameraType().isFirstPerson()) && player == Minecraft.getInstance().player) {
+            if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && player == Minecraft.getInstance().player) {
                 d9 = 960.0 / (double)(Integer)this.entityRenderDispatcher.options.fov().get();
-                Vec3 vec3 = this.entityRenderDispatcher.camera.getNearPlane().getPointOnPlane((float)i * 0.525F, -0.1F);
+                Vec3 vec3 = this.entityRenderDispatcher.camera.getNearPlane().getPointOnPlane((float)i * 0.525F, -0.5F);
                 vec3 = vec3.scale(d9);
                 vec3 = vec3.yRot(f1 * 0.5F);
                 vec3 = vec3.xRot(-f1 * 0.7F);
@@ -92,25 +91,8 @@ public class SpearHookRenderer extends EntityRenderer<SpearHook> {
             VertexConsumer vertexconsumer1 = p_114709_.getBuffer(RenderType.lineStrip());
             PoseStack.Pose posestack$pose1 = p_114708_.last();
 
-            int startR = 43, startG = 81, startB = 43;
-
-            int endR = 165, endG = 192, endB = 74;
-
-            for (int k = 0; k < 16; ++k) {
-                float t0 = fraction(k, 16);
-                float t1 = fraction(k + 1, 16);
-
-                int r0 = (int) Mth.lerp(t0, startR, endR);
-                int g0 = (int) Mth.lerp(t0, startG, endG);
-                int b0 = (int) Mth.lerp(t0, startB, endB);
-
-                int r1 = (int) Mth.lerp(t1, startR, endR);
-                int g1 = (int) Mth.lerp(t1, startG, endG);
-                int b1 = (int) Mth.lerp(t1, startB, endB);
-
-                stringVertex(f4, f5, f6, vertexconsumer1, posestack$pose1, t0, t1,
-                        r0, g0, b0,
-                        r1, g1, b1);
+            for(int k = 0; k <= 16; ++k) {
+                stringVertex(f4, f5, f6, vertexconsumer1, posestack$pose1, fraction(k, 16), fraction(k + 1, 16));
             }
 
             p_114708_.popPose();
@@ -127,34 +109,18 @@ public class SpearHookRenderer extends EntityRenderer<SpearHook> {
         p_254464_.vertex(p_254085_, p_253632_ - 0.5F, (float)p_254132_ - 0.5F, 0.0F).color(255, 255, 255, 255).uv((float)p_254171_, (float)p_254026_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_254296_).normal(p_253962_, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
-    private static void stringVertex(float dx, float dy, float dz, VertexConsumer consumer, PoseStack.Pose pose, float t0, float t1, int r0, int g0, int b0, int r1, int g1, int b1) {
-        float x0 = dx * t0;
-        float y0 = dy * (t0 * t0 + t0) * 0.5F + 0.25F;
-        float z0 = dz * t0;
-
-        float x1 = dx * t1;
-        float y1 = dy * (t1 * t1 + t1) * 0.5F + 0.25F;
-        float z1 = dz * t1;
-
-        float nx = x1 - x0;
-        float ny = y1 - y0;
-        float nz = z1 - z0;
-        float len = Mth.sqrt(nx * nx + ny * ny + nz * nz);
-        if (len != 0) {
-            nx /= len;
-            ny /= len;
-            nz /= len;
-        }
-
-        consumer.vertex(pose.pose(), x0, y0, z0)
-                .color(r0, g0, b0, 255)
-                .normal(pose.normal(), nx, ny, nz)
-                .endVertex();
-
-        consumer.vertex(pose.pose(), x1, y1, z1)
-                .color(r1, g1, b1, 255)
-                .normal(pose.normal(), nx, ny, nz)
-                .endVertex();
+    private static void stringVertex(float p_174119_, float p_174120_, float p_174121_, VertexConsumer p_174122_, PoseStack.Pose p_174123_, float p_174124_, float p_174125_) {
+        float f = p_174119_ * p_174124_;
+        float f1 = p_174120_ * (p_174124_ * p_174124_ + p_174124_) * 0.5F + 0.25F;
+        float f2 = p_174121_ * p_174124_;
+        float f3 = p_174119_ * p_174125_ - f;
+        float f4 = p_174120_ * (p_174125_ * p_174125_ + p_174125_) * 0.5F + 0.25F - f1;
+        float f5 = p_174121_ * p_174125_ - f2;
+        float f6 = Mth.sqrt(f3 * f3 + f4 * f4 + f5 * f5);
+        f3 /= f6;
+        f4 /= f6;
+        f5 /= f6;
+        p_174122_.vertex(p_174123_.pose(), f, f1, f2).color(255, 255, 255, 255).normal(p_174123_.normal(), f3, f4, f5).endVertex();
     }
 
     public ResourceLocation getTextureLocation(SpearHook p_114703_) {

@@ -5,14 +5,18 @@ import com.starmeow.smc.init.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -33,8 +37,8 @@ public class DivineWing extends ArmorItem {
             boolean fly = tag.getBoolean("SMCWingAbility");
             if(player.getItemBySlot(EquipmentSlot.CHEST).is(ItemRegistry.DIVINE_WING.get())){
                 if(player.getAbilities().flying && !player.getAbilities().instabuild){
-                    if(level.getGameTime() % 20L == 0L){
-                        player.getFoodData().addExhaustion(5.0f);
+                    if(level.getGameTime() % 4L == 0L){
+                        player.getFoodData().addExhaustion(1.0f);
                     }
                 }
                 if(player.getFoodData().getFoodLevel() > 6 && !fly){
@@ -58,6 +62,26 @@ public class DivineWing extends ArmorItem {
         return new CustomArmorRenderProperties();
     }
 
+    @Override
+    public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+        return entity.getItemBySlot(EquipmentSlot.CHEST).is(this);
+    }
+
+    @Override
+    public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+        if (!entity.level().isClientSide) {
+            int nextFlightTick = flightTicks + 1;
+            if (nextFlightTick % 10 == 0) {
+                entity.gameEvent(GameEvent.ELYTRA_GLIDE);
+                if(entity instanceof Player player && !player.getAbilities().instabuild){
+                    player.getFoodData().addExhaustion(1.0f);
+                }
+            }
+        }
+        return true;
+    }
+
+
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         CompoundTag tag = stack.getOrCreateTag();
@@ -71,6 +95,18 @@ public class DivineWing extends ArmorItem {
             }
             case "gold" -> {
                 return "smc:textures/models/wing/divine_wing_gold.png";
+            }
+            case "frost" -> {
+                return "smc:textures/models/wing/divine_wing_frost.png";
+            }
+            case "rainbow" -> {
+                return "smc:textures/models/wing/divine_wing_rainbow.png";
+            }
+            case "zinc" -> {
+                return "smc:textures/models/wing/divine_wing_zinc.png";
+            }
+            case "titanium" -> {
+                return "smc:textures/models/wing/divine_wing_titanium.png";
             }
             default -> {
                 return "smc:textures/models/wing/divine_wing.png";
@@ -86,10 +122,16 @@ public class DivineWing extends ArmorItem {
         String string = "tooltip.smc." + stack.getItem();
         String variantStr = "tooltip.smc.divine_wing_type.";
         tooltip.add(Component.translatable(string).withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable(string + "_1").withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable(string + "_2").withStyle(ChatFormatting.BLUE));
         switch (variant){
             case "black" -> tooltip.add(Component.translatable(variantStr + "black").withStyle(ChatFormatting.DARK_RED));
             case "meow" -> tooltip.add(Component.translatable(variantStr + "meow").withStyle(ChatFormatting.GOLD));
             case "gold" -> tooltip.add(Component.translatable(variantStr + "gold").withStyle(ChatFormatting.YELLOW));
+            case "frost" -> tooltip.add(Component.translatable(variantStr + "frost").withStyle(ChatFormatting.AQUA));
+            case "rainbow" -> tooltip.add(Component.translatable(variantStr + "rainbow").withStyle(ChatFormatting.LIGHT_PURPLE));
+            case "zinc" -> tooltip.add(Component.translatable(variantStr + "zinc").withStyle(ChatFormatting.BLUE));
+            case "titanium" -> tooltip.add(Component.translatable(variantStr + "titanium").withStyle(ChatFormatting.RED));
             default -> tooltip.add(Component.translatable(variantStr + "white").withStyle(ChatFormatting.GRAY));
         }
     }

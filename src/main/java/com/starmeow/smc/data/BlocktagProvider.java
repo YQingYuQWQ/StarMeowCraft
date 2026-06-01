@@ -2,6 +2,7 @@ package com.starmeow.smc.data;
 
 import com.starmeow.smc.StarMeowCraft;
 import com.starmeow.smc.init.BlockRegistry;
+import com.starmeow.smc.tags.SMCTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -31,7 +32,52 @@ public class BlocktagProvider extends BlockTagsProvider {
                         BlockRegistry.FRIDGE.get(),
                         BlockRegistry.KNIFE.get(),
                         BlockRegistry.ANCIENT_SMITHING_TABLE.get(),
-                        BlockRegistry.GRANITE_ANVIL.get()
+                        BlockRegistry.GRANITE_ANVIL.get(),
+                        BlockRegistry.ZINC_BLOCK.get(),
+                        BlockRegistry.ZINC_ORE.get(),
+                        BlockRegistry.TUFF_ZINC_ORE.get(),
+                        BlockRegistry.END_ZINC_ORE.get()
+                );
+
+        this.tag(BlockTags.MINEABLE_WITH_HOE)
+                .add(
+                        BlockRegistry.CLOUD.get(),
+                        BlockRegistry.CIRRUS_CLOUD.get(),
+                        BlockRegistry.THIN_CLOUD.get(),
+                        BlockRegistry.THIN_CIRRUS_CLOUD.get(),
+                        BlockRegistry.CLOUD_FLOOR.get(),
+                        BlockRegistry.CLOUD_PILLAR.get(),
+                        BlockRegistry.CLOUD_BRICKS.get(),
+                        BlockRegistry.CLOUD_WALL.get(),
+                        BlockRegistry.CLOUD_FLOOR_WALL.get(),
+                        BlockRegistry.CLOUD_BRICKS_WALL.get(),
+                        BlockRegistry.CLOUD_STAIRS.get(),
+                        BlockRegistry.CLOUD_FLOOR_STAIRS.get(),
+                        BlockRegistry.CLOUD_BRICKS_STAIRS.get(),
+                        BlockRegistry.CLOUD_SLAB.get(),
+                        BlockRegistry.CLOUD_FLOOR_SLAB.get(),
+                        BlockRegistry.CLOUD_BRICKS_SLAB.get()
+                );
+
+        this.tag(BlockTags.WALLS)
+                .add(
+                        BlockRegistry.CLOUD_WALL.get(),
+                        BlockRegistry.CLOUD_FLOOR_WALL.get(),
+                        BlockRegistry.CLOUD_BRICKS_WALL.get()
+                );
+
+        this.tag(BlockTags.STAIRS)
+                .add(
+                        BlockRegistry.CLOUD_STAIRS.get(),
+                        BlockRegistry.CLOUD_FLOOR_STAIRS.get(),
+                        BlockRegistry.CLOUD_BRICKS_STAIRS.get()
+                );
+
+        this.tag(BlockTags.SLABS)
+                .add(
+                        BlockRegistry.CLOUD_SLAB.get(),
+                        BlockRegistry.CLOUD_FLOOR_SLAB.get(),
+                        BlockRegistry.CLOUD_BRICKS_SLAB.get()
                 );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE)
@@ -47,12 +93,45 @@ public class BlocktagProvider extends BlockTagsProvider {
                         BlockRegistry.PERKIN_BLOCK.get(),
                         BlockRegistry.PERKIN_ORE.get(),
                         BlockRegistry.DEEPSLATE_PERKIN_ORE.get(),
-                        BlockRegistry.ANCIENT_SMITHING_TABLE.get()
+                        BlockRegistry.ANCIENT_SMITHING_TABLE.get(),
+                        BlockRegistry.ZINC_BLOCK.get(),
+                        BlockRegistry.ZINC_ORE.get(),
+                        BlockRegistry.TUFF_ZINC_ORE.get(),
+                        BlockRegistry.END_ZINC_ORE.get()
                 );
 
         this.tag(BlockTags.ANVIL)
                 .add(
                         BlockRegistry.GRANITE_ANVIL.get()
+                );
+
+        this.tag(SMCTags.CLOUD_BLOCK)
+                .add(
+                        BlockRegistry.CLOUD.get(),
+                        BlockRegistry.CIRRUS_CLOUD.get(),
+                        BlockRegistry.THIN_CLOUD.get(),
+                        BlockRegistry.THIN_CIRRUS_CLOUD.get(),
+                        BlockRegistry.CLOUD_FLOOR.get(),
+                        BlockRegistry.CLOUD_PILLAR.get(),
+                        BlockRegistry.CLOUD_BRICKS.get(),
+                        BlockRegistry.CLOUD_WALL.get(),
+                        BlockRegistry.CLOUD_FLOOR_WALL.get(),
+                        BlockRegistry.CLOUD_BRICKS_WALL.get(),
+                        BlockRegistry.CLOUD_STAIRS.get(),
+                        BlockRegistry.CLOUD_FLOOR_STAIRS.get(),
+                        BlockRegistry.CLOUD_BRICKS_STAIRS.get(),
+                        BlockRegistry.CLOUD_SLAB.get(),
+                        BlockRegistry.CLOUD_FLOOR_SLAB.get(),
+                        BlockRegistry.CLOUD_BRICKS_SLAB.get()
+                );
+
+        this.tag(SMCTags.EASTER_BUNNY_EGG_HATCH_BOOST)
+                .add(
+                        BlockRegistry.CLOUD.get(),
+                        BlockRegistry.CIRRUS_CLOUD.get(),
+                        BlockRegistry.CLOUD_FLOOR.get(),
+                        BlockRegistry.CLOUD_PILLAR.get(),
+                        BlockRegistry.CLOUD_BRICKS.get()
                 );
     }
 }

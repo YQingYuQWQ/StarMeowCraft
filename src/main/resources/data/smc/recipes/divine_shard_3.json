@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:divine_shard"
+    },
+    "2": {
+      "item": "minecraft:feather"
+    },
+    "3": {
+      "item": "smc:cloud"
+    }
+  },
+  "pattern": [
+    "323",
+    "212",
+    "323"
+  ],
+  "result": {
+    "item": "smc:divine_shard",
+    "nbt": "{SMCShardChallenge:3}"
+  },
+  "show_notification": true
+}

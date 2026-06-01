@@ -1,5 +1,110 @@
 SMC 1.20.1 Changelog
 
+-1.1.3
+    Add Zincite materials and tools.
+    Add Fox suit and Snow Fox suit.
+    Add Chop Armor Trim Smithing Template model.
+    Add new skin for Divine Halo and Divine Wing.
+    Add a new doll.
+    Add Spear Gun recipe and model.
+    Add Config for MCr Sword "All Damage Type Ability" (disable in default).
+    Fix perkin ore cannot generate in sunflower plains biome issue.
+    Fix Broccoli Nuke Block active issue.
+    Fix Divine Halo Revive config issue.
+    Fix Spear Gun hook falling issue.
+-1.1.2
+    Add Violent Archaeology Enchantment.
+    Add more Bad Apple config.
+    Add more cake, milkshake, ice-cream food items (Neapolitan compat).
+    Add Treasure Detector (WIP, hidden).
+    Add Cloud Blocks series.
+    Add God Pickaxe, which can only found in Twilight Forest Labyrinth Vault chests.
+    Add a new music disc.
+    Add new structures: Creeper Statue,
+    Add more abilities on Command Wand.
+    Add some mysterious item in the empty Suspicious Gravel in Broccoli Farm.
+    Add loot table for Frost Smith suspicious gravel.
+    Add more creative tabs to help find items.
+    Add Oneo foods.
+    Add Broccoli Bomb and Nuke.
+    Add Easter Bunny Egg.
+    Add new foods related to egg items.
+    Add Cloudian and Easter Bunny loottable.
+    Add Salt Fish related things.
+    Add Giant Carrot (Carrrrrrrrot).
+    Add amendments compat.
+    Add new skin for Divine Wing.
+    Add Divine Halo and Divine Shard.
+    Add Dandelion Salad.
+    Add Cloudy Garden structure.
+    Add Snow Golem Ice Cream.
+    Chocolate armor is trimmable now.
+    Change SMC Icon item rarity.
+    Change spawn eggs textures.
+    Change magic damage increase percentage of Star Light Effect.
+    Change Bad Apple effect and consume result.
+    Change end boat related event to lower negative effect on other vehicle entities.
+    Change handheld models.
+    Change Easter Bunny Chinese name.
+    Change Easter Bunny, Chicken Harvester and Cloudian texture.
+    Change Frost Pie Slice food level.
+    Change Structure spawning rate.
+    Change Cloudian shooting cooldown.
+    Change Frost Bust effect magic damage to indirect magic damage when effect holder has last attacker.
+    Change Divine Wing recipe.
+    Frost Berries is plantable now.
+    Fix Fridge rendering issue.
+    Fix incorrect damage reduction issue.
+    Fix magic projectiles cannot increase damage by Star Light Effect.
+    Fix Cloudian not running away from target when target is close to Cloudian.
+    Fix B.O.T releasing xp orbs incorrectly when player has Mending equipments meanwhile any equipment is damaged.
+    Fix rainbow color item name issue in server.
+    Fix Swiss Army Knife items not perform acting animation issue.
+    Fix Bad Apple server-side synchronization issue.
+    Remove recipe for crafting Frost Berries.
+    Remove duplicated entries in Meow Bakery Treasure chest loot table.
+    Perkin Ore can be found in Sunflower Plains now.
+-1.1.1
+    Add elytra fly ability to Divine Wing (consume less food).
+    Change the logic of Divine Wing consuming food so food will not be consumed when you have Nourishment Effect.
+-1.1.0
+    Add Divine Wing.
+    Add Fridge block.
+    Add Bad Apple and a new music disc.
+    Add Dave's Home, Train Camp (Pillager), Survivor's Camp (Pillager's), Fox Statue and Frog Statue.
+    Add message for Command Wand when you're trying to apply a loottable when the name is not a loottable resource location.
+    Add raw iron block in Broccoli Farm.
+    Add loyalty, silk touch and infinity enchanted book in Forest Inn.
+    Add Chainmail Mimic Trim Smithing Template.
+    Add needed tools tag for Broccoli Crate and Ancient Smithing Table.
+    Add Mini Bedrock config.
+    Add Always eat tag on Lucky Nugget.
+    Add effect level config for Lucky Nugget.
+    Change structure placing rarity of Calibur Basement and Broccoli Farm.
+    Change forest inn smith loottable: Remove perkin spear and pickaxe, perkin ingot; Add iron ingots, diamond pickaxe and sword.
+    Change forest inn bedroom loottable: Add 15 level enchanted book, add 30 level enchantc book weight.
+    Change meow bakery library loottable: Add 15 level enchanted book.
+    Change meow bakery treasure loottable: Add 30 level enchantment on Perkin Wand.
+    Change frost smith treasure loottable: Add perfrostite upgrade scroll.
+    Change calibur basement chest loottable: Remove plant pot items.
+    Change all loottable with custom potion drinks: Change duration of Nausea from 30s to 10s.
+    Change Trim material description color.
+    Change iron mimic trim pattern texture.
+    Change mimic trim template texture.
+    Change trim material translation name.
+    Change Frost Burst effect: deal Amp * 6 + Amp * 1% * target max HP (at most 10% target max HP) Magic damage after effect expired.
+    Structures with same rarity combine to one structure set (May spawn lesser or not close to another one).
+    Fix incorrect sound play issue when using Command Wand on block without any available block entity.
+    Fix config description issue of Heirloom Knife blacklist items.
+    Fix Shulker Boat server crashing issue.
+    Fix part of Forest Inn container loottable missing issue.
+    Fixed Forest Inn structure placing issue.
+    Fix creeper always avoid player affected by Cat Paw issue.
+    Fix missing translation name for some entities and blocks.
+    Remove string block in Calibur Basement structure.
+    Remove diamond block, suspicious gravel and infinite spell enchanted book in Broccoli Farm.
+    Remove unknown enchanted book in Forest Inn.
+    Modify Forest Inn structure.
 -1.0.9
     Add Granite Anvil Block.
     Add Ancient Smithing Table.

@@ -1,0 +1,123 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_sand",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"潮汐之沙\",\"color\":\"blue\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/sea_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_sand",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"珍馐之沙\",\"color\":\"red\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/food_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_sand",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"锻造之沙\",\"color\":\"grey\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/template_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_gravel",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"圣遗之沙\",\"color\":\"gold\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/relic_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_gravel",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"霜原冻土\",\"color\":\"blue\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/frost_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_gravel",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"富集矿砂\",\"color\":\"aqua\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/ore_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_sand",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"旋律之沙\",\"color\":\"aqua\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/mystery_gravels/music_sand\",id:\"minecraft:brushable_block\"}}"
+            },
+            {
+              "add": false,
+              "count": 10,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 1
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

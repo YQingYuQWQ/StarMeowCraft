@@ -24,7 +24,7 @@ public class CatPaw extends SwordItem {
     public CatPaw(Tier p_43269_, int p_43270_, float p_43271_, Properties p_43272_) {
         super(p_43269_, p_43270_, p_43271_, p_43272_);
     }
-
+/*
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
@@ -43,6 +43,8 @@ public class CatPaw extends SwordItem {
             }
         }
     }
+
+ */
 
     @Override
     public Component getName(ItemStack stack) {

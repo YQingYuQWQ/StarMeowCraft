@@ -21,6 +21,12 @@ public class ClientEvents {
 
         ItemBlockRenderTypes.setRenderLayer(BlockRegistry.POTTED_BROCCOLI.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CALIBUR_BLOCK.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FROST_BERRY_BUSH.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.THIN_CLOUD.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.THIN_CIRRUS_CLOUD.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SALT_FISH_BLOCK.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SALT_FISH_PIE_BLOCK.get(), RenderType.cutout());
+
         if(Config.LAVA_TRANSPARENT.get()){
             ItemBlockRenderTypes.setRenderLayer(Fluids.LAVA, RenderType.translucent());
         }

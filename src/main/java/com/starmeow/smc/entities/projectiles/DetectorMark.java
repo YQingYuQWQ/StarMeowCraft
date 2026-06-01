@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 public class DetectorMark extends ThrowableItemProjectile {
+    public int timer;
     public DetectorMark(EntityType<? extends DetectorMark> entityType, Level level) {
         super(entityType, level);
     }
@@ -25,20 +26,17 @@ public class DetectorMark extends ThrowableItemProjectile {
 
     public void tick() {
         super.tick();
-        boolean flag = false;
-        Player player = this.level().getNearestPlayer(this, 32);
-        if(player != null && player.getItemInHand(InteractionHand.OFF_HAND).is(ItemRegistry.ORE_DETECTOR.get())){
-            flag = true;
-        }
-        if(this.getDeltaMovement().x > 0.01 || this.getDeltaMovement().y > 0.01 || this.getDeltaMovement().z > 0.01 || this.level().getBlockState(this.blockPosition()).is(Blocks.AIR)){
+        if(timer < 20){
+            timer++;
+        } else {
             this.discard();
         }
-        if(!flag){
+        if(this.getDeltaMovement().x > 0.01 || this.getDeltaMovement().y > 0.01 || this.getDeltaMovement().z > 0.01 || this.level().getBlockState(this.blockPosition()).is(Blocks.AIR)){
             this.discard();
         }
     }
 
     protected Item getDefaultItem() {
-        return Items.STRUCTURE_VOID;
+        return Items.AIR;
     }
 }

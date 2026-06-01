@@ -19,6 +19,10 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> BLUE_FROSTIUM_ORE_PLACED_KEY = registerKey("blue_frostium_ore_placed");
     public static final ResourceKey<PlacedFeature> FROSTIUM_ORE_PLACED_KEY = registerKey("frostium_ore_placed");
     public static final ResourceKey<PlacedFeature> PERKIN_ORE_PLACED_KEY = registerKey("perkin_ore_placed");
+    public static final ResourceKey<PlacedFeature> ZINC_ORE_PLACED_KEY = registerKey("zinc_ore_placed");
+    public static final ResourceKey<PlacedFeature> TUFF_ZINC_ORE_PLACED_KEY = registerKey("tuff_zinc_ore_placed");
+    public static final ResourceKey<PlacedFeature> END_ZINC_ORE_PLACED_KEY = registerKey("end_zinc_ore_placed");
+
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -34,6 +38,19 @@ public class ModPlacedFeatures {
         register(context, PERKIN_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfigFeatures.PERKIN_ORE_KEY),
                 OrePlacement.commonOrePlacement(4,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
+
+        register(context, ZINC_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfigFeatures.ZINC_ORE_KEY),
+                OrePlacement.commonOrePlacement(12,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(48))));
+
+        register(context, TUFF_ZINC_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfigFeatures.TUFF_ZINC_ORE_KEY),
+                OrePlacement.commonOrePlacement(12,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(48))));
+
+        register(context, END_ZINC_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfigFeatures.END_ZINC_ORE_KEY),
+                OrePlacement.commonOrePlacement(1,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(64))));
+
     }
 
 

@@ -9,6 +9,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.EnumMap;
 
@@ -44,6 +45,18 @@ public enum ArmorTier implements ArmorMaterial {
         armor.put(ArmorItem.Type.CHESTPLATE, 2);
         armor.put(ArmorItem.Type.HELMET, 2);
     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0f, 0.0f, Ingredient.EMPTY),
+    FOX("fox", 5, Util.make(new EnumMap<>(ArmorItem.Type.class), armor -> {
+        armor.put(ArmorItem.Type.BOOTS, 1);
+        armor.put(ArmorItem.Type.LEGGINGS, 2);
+        armor.put(ArmorItem.Type.CHESTPLATE, 3);
+        armor.put(ArmorItem.Type.HELMET, 1);
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, Ingredient.EMPTY),
+    SNOW_FOX("snow_fox", 5, Util.make(new EnumMap<>(ArmorItem.Type.class), armor -> {
+        armor.put(ArmorItem.Type.BOOTS, 1);
+        armor.put(ArmorItem.Type.LEGGINGS, 2);
+        armor.put(ArmorItem.Type.CHESTPLATE, 3);
+        armor.put(ArmorItem.Type.HELMET, 1);
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, Ingredient.EMPTY),
     TEMPLATE("template", 30, Util.make(new EnumMap<>(ArmorItem.Type.class), armor -> {
         armor.put(ArmorItem.Type.BOOTS, 0);
         armor.put(ArmorItem.Type.LEGGINGS, 0);

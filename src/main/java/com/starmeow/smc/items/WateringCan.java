@@ -200,4 +200,5 @@ public class WateringCan extends Item {
         tooltip.add(Component.translatable(string).withStyle(ChatFormatting.BLUE));
     }
 
+
 }

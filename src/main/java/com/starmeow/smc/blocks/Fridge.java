@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
@@ -26,6 +27,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -102,6 +106,21 @@ public class Fridge extends BaseEntityBlock {
         return new FridgeBlockEntity(p_152102_, p_152103_);
     }
 
+    public boolean skipRendering(BlockState p_53972_, BlockState p_53973_, Direction p_53974_) {
+        return p_53973_.is(this) || super.skipRendering(p_53972_, p_53973_, p_53974_);
+    }
+
+    public VoxelShape getVisualShape(BlockState p_48735_, BlockGetter p_48736_, BlockPos p_48737_, CollisionContext p_48738_) {
+        return Shapes.empty();
+    }
+
+    public float getShadeBrightness(BlockState p_48731_, BlockGetter p_48732_, BlockPos p_48733_) {
+        return 1.0F;
+    }
+
+    public boolean propagatesSkylightDown(BlockState p_48740_, BlockGetter p_48741_, BlockPos p_48742_) {
+        return true;
+    }
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext p_152019_) {

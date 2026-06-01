@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:divine_shard"
+    },
+    "2": {
+      "item": "minecraft:totem_of_undying"
+    },
+    "3": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "pattern": [
+    "323",
+    "212",
+    "323"
+  ],
+  "result": {
+    "item": "smc:divine_shard",
+    "nbt": "{SMCShardChallenge:4}"
+  },
+  "show_notification": true
+}

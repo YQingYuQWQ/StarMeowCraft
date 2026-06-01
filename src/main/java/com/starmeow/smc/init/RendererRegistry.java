@@ -3,7 +3,9 @@ package com.starmeow.smc.init;
 import com.starmeow.smc.client.renderer.*;
 import net.minecraft.client.renderer.entity.ChickenRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.TntRenderer;
 import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,7 +21,9 @@ public class RendererRegistry {
         event.registerEntityRenderer(EntityTypeRegistry.COBBLE_BULLET.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.DETECTOR_MARK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.THROWN_SPORE_BUD.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(EntityTypeRegistry.THROWN_BROCCOLI_BOOM.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.THROWN_SPEAR.get(), SpearRenderer::new);
+        event.registerEntityRenderer(EntityTypeRegistry.THROWN_CHICKEN_HARVESTER_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.FROST_ARROW.get(), FrostArrowRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.RAINBOW_ARROW.get(), RainbowArrowRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.MAGIC_ARROW.get(), MagicArrowRenderer::new);
@@ -32,8 +36,7 @@ public class RendererRegistry {
         event.registerEntityRenderer(EntityTypeRegistry.CHICKEN_HARVESTER.get(), ChickenHarvesterRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.SWORD_AURA.get(), SwordAuraRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.CLOUDIAN.get(), CloudianRenderer::new);
-
-
+        event.registerEntityRenderer(EntityTypeRegistry.BROCCOLI_NUKE.get(), BroccoliBombRenderer::new);
 
     }
 

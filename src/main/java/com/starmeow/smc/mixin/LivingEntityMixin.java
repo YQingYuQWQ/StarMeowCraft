@@ -1,5 +1,6 @@
 package com.starmeow.smc.mixin;
 
+import com.starmeow.smc.config.Config;
 import com.starmeow.smc.init.ItemRegistry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +19,7 @@ public abstract class LivingEntityMixin {
         if (player.level().isClientSide()) return false;
         if (!player.isAddedToWorld() || player.tickCount < 20) return false;
 
-        return player.getMainHandItem().is(ItemRegistry.MINI_BEDROCK.get());
+        return player.getMainHandItem().is(ItemRegistry.MINI_BEDROCK.get()) && Config.ENABLE_BEDROCK.get();
     }
 
     @ModifyVariable(

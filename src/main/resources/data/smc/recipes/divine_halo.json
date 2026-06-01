@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "smc:divine_shard",
+      "nbt": "{SMCShardChallenge:5}"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "smc:divine_shard",
+      "nbt": "{SMCShardChallenge:6}"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "smc:divine_shard",
+      "nbt": "{SMCShardChallenge:7}"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "smc:divine_shard",
+      "nbt": "{SMCShardChallenge:8}"
+    },
+    {
+      "item": "minecraft:nether_star"
+    }
+  ],
+  "result": {
+    "item": "smc:divine_halo"
+  }
+}

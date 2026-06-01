@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "smc:divine_halo"
+    },
+    {
+      "item": "smc:end_rod_candy"
+    }
+  ],
+  "result": {
+    "item": "smc:divine_halo",
+    "nbt": "{SMCHaloVariant:\"koharu\"}"
+  }
+}

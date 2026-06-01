@@ -17,9 +17,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ChangingWeaponSkinRecipe extends CustomRecipe {
     public static final SimpleCraftingRecipeSerializer<ChangingWeaponSkinRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(ChangingWeaponSkinRecipe::new);

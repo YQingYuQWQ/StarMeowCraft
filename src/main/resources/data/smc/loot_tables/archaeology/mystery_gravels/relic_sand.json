@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_scrap",
+          "weight": 44
+        },
+        {
+          "type": "minecraft:item",
+          "name": "smc:calibur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "smc:rainbow_bow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "smc:frostium_bow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "smc:god_pickaxe"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "smc:perfrostite_sword"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "smc:template_shroud"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

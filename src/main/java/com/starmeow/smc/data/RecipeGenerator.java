@@ -56,14 +56,6 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('2', Items.HONEY_BLOCK)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ASTERA_PUDDING.get().toString()));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FROST_BERRIES.get())
-                .pattern("111")
-                .pattern("121")
-                .pattern("111")
-                .define('1', ItemRegistry.FROSTIUM_NUGGET.get())
-                .define('2', Items.SWEET_BERRIES)
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROST_BERRIES.get().toString()));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.CHOCOLATE.get())
                 .requires(Items.COCOA_BEANS)
                 .requires(Items.COCOA_BEANS)
@@ -106,6 +98,13 @@ public class RecipeGenerator extends RecipeProvider {
                 .requires(Items.BOWL)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BRAISED_BEEF_WITH_PEAS.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.DANDELION_SALAD.get())
+                .requires(Items.DANDELION)
+                .requires(Items.DANDELION)
+                .requires(Items.DANDELION)
+                .requires(Items.BOWL)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.DANDELION_SALAD.get().toString()));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.PEA_SOUP.get())
                 .requires(ItemRegistry.PEA.get())
                 .requires(ItemRegistry.PEA.get())
@@ -165,7 +164,105 @@ public class RecipeGenerator extends RecipeProvider {
                 .requires(ItemRegistry.BROCCOLI_CRATE.get())
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI.get() + "_from_crate"));
-        //霜冻工具
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SPICY_FIRED_RICE.get())
+                .requires(Items.TORCHFLOWER_SEEDS)
+                .requires(Items.BLAZE_POWDER)
+                .requires(Items.TORCHFLOWER)
+                .requires(ItemRegistry.SNIFFER_BEAK.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SNIFFER_BEAK.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SPICY_FIRED_RICE.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SWEET_FRESH_SALAD.get())
+                .requires(Items.PITCHER_POD)
+                .requires(Items.HONEY_BOTTLE)
+                .requires(Items.PITCHER_PLANT)
+                .requires(ItemRegistry.SNIFFER_BEAK.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SNIFFER_BEAK.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SWEET_FRESH_SALAD.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.ASTERA_CAKE.get())
+                .pattern("111")
+                .pattern("121")
+                .pattern("111")
+                .define('1', ItemRegistry.STAR_DUST.get())
+                .define('2', Items.CAKE)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ASTERA_CAKE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FROST_CAKE.get())
+                .pattern("151")
+                .pattern("232")
+                .pattern("454")
+                .define('1', ForgeTags.MILK)
+                .define('2', Items.SUGAR)
+                .define('3', Items.EGG)
+                .define('4', Items.WHEAT)
+                .define('5', ItemRegistry.FROST_BERRIES.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FROST_BERRIES.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROST_CAKE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BROCCOLI_CAKE.get())
+                .pattern("151")
+                .pattern("232")
+                .pattern("454")
+                .define('1', ForgeTags.MILK)
+                .define('2', Items.SUGAR)
+                .define('3', Items.EGG)
+                .define('4', Items.WHEAT)
+                .define('5', ItemRegistry.BROCCOLI.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CREAM_BROCCOLI.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_CAKE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RAINBOW_CAKE.get())
+                .pattern("111")
+                .pattern("232")
+                .pattern("454")
+                .define('1', ItemRegistry.CLOUD.get())
+                .define('2', Items.SUGAR)
+                .define('3', Items.EGG)
+                .define('4', Items.WHEAT)
+                .define('5', ItemRegistry.RAINBOW_CHIP.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.RAINBOW_CHIP.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.RAINBOW_CAKE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.ONEO.get(), 8)
+                .pattern("121")
+                .pattern("343")
+                .pattern("121")
+                .define('1', Items.COCOA_BEANS)
+                .define('2', Items.COOKIE)
+                .define('3', Items.SUGAR)
+                .define('4', ForgeTags.MILK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ONEO.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.TNET.get())
+                .pattern(" 1 ")
+                .pattern("121")
+                .pattern(" 1 ")
+                .define('1', Items.GUNPOWDER)
+                .define('2', ItemRegistry.ONEO.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ONEO.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.TNET.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.OREEPER.get(), 8)
+                .pattern("111")
+                .pattern("121")
+                .pattern("111")
+                .define('1', ItemRegistry.TNET.get())
+                .define('2', Items.CREEPER_HEAD)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.TNET.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.OREEPER.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.EASTER_BUNNY_EGG_SANDWICH.get())
+                .pattern("31")
+                .pattern("42")
+                .pattern("31")
+                .define('1', Items.BREAD)
+                .define('2', ItemRegistry.FRIED_EASTER_BUNNY_EGG.get())
+                .define('3', Items.SUGAR)
+                .define('4', ForgeTags.MILK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.EASTER_BUNNY_EGG_SANDWICH.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.CHICKEN_HARVESTER_EGG_SANDWICH.get())
+                .requires(Items.BREAD)
+                .requires(ItemRegistry.FRIED_CHICKEN_HARVESTER_EGG.get())
+                .requires(ItemRegistry.FRIED_CHICKEN_HARVESTER_EGG.get())
+                .requires(Items.BEETROOT)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CHICKEN_HARVESTER_EGG_SANDWICH.get().toString()));
+       //霜冻工具
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.FROSTIUM_PICKAXE.get())
                 .pattern("111")
                 .pattern(" 2 ")
@@ -236,6 +333,57 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('2', ItemRegistry.FROSTIUM_INGOT.get())
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROST_EYE.get().toString()));
+        //锌工具
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.ZINC_AXE.get())
+                .pattern("11")
+                .pattern("11")
+                .pattern("22")
+                .define('1', ItemRegistry.ZINC_INGOT.get())
+                .define('2', Items.STICK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ZINC_AXE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.ZINC_PICKAXE.get())
+                .pattern("121")
+                .pattern("121")
+                .pattern(" 2 ")
+                .define('1', ItemRegistry.ZINC_INGOT.get())
+                .define('2', Items.STICK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ZINC_PICKAXE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.ZINC_SHOVEL.get())
+                .pattern(" 1 ")
+                .pattern("121")
+                .pattern(" 2 ")
+                .define('1', ItemRegistry.ZINC_INGOT.get())
+                .define('2', Items.STICK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ZINC_SHOVEL.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.ZINC_HOE.get())
+                .pattern("111")
+                .pattern("1 2")
+                .pattern("  2")
+                .define('1', ItemRegistry.ZINC_INGOT.get())
+                .define('2', Items.STICK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ZINC_HOE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.ZINC_SWORD.get())
+                .pattern("1")
+                .pattern("1")
+                .pattern("2")
+                .define('1', ItemRegistry.ZINC_INGOT.get())
+                .define('2', Items.STICK)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ZINC_SWORD.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.BATTERY.get())
+                .pattern("121")
+                .pattern("343")
+                .pattern("343")
+                .define('1', Items.GOLD_INGOT)
+                .define('2', Items.IRON_INGOT)
+                .define('3', Items.COAL)
+                .define('4', ItemRegistry.ZINC_INGOT.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BATTERY.get().toString()));
         //巧克力工具
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.CHOCOLATE_HELMET.get())
                 .pattern("111")
@@ -271,7 +419,7 @@ public class RecipeGenerator extends RecipeProvider {
                 .pattern("1 1")
                 .pattern("1 1")
                 .define('1', ItemRegistry.BROCCOLI.get())
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BROCCOLI.get()))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_BOOTS.get().toString()));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BROCCOLI_FISHING_ROD.get())
                 .pattern("  1")
@@ -280,7 +428,7 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('3', ItemRegistry.BROCCOLI.get())
                 .define('2', Items.VINE)
                 .define('1', Items.BAMBOO)
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BROCCOLI.get()))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_FISHING_ROD.get().toString()));
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.BROCCOLI_HOE.get())
                 .pattern("11")
@@ -288,7 +436,7 @@ public class RecipeGenerator extends RecipeProvider {
                 .pattern(" 2")
                 .define('1', ItemRegistry.BROCCOLI.get())
                 .define('2', Items.BAMBOO)
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BROCCOLI.get()))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_HOE.get().toString()));
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.BROCCOLI_HOE.get())
                 .pattern("11")
@@ -296,8 +444,24 @@ public class RecipeGenerator extends RecipeProvider {
                 .pattern("2 ")
                 .define('1', ItemRegistry.BROCCOLI.get())
                 .define('2', Items.BAMBOO)
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BROCCOLI.get()))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_HOE.get() + "_2"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.BROCCOLI_BOMB.get())
+                .pattern("111")
+                .pattern("121")
+                .pattern("111")
+                .define('1', ItemRegistry.BROCCOLI.get())
+                .define('2', Items.TNT)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BROCCOLI.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_BOMB.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.BROCCOLI_NUKE.get())
+                .pattern("111")
+                .pattern("121")
+                .pattern("111")
+                .define('1', ItemRegistry.BROCCOLI_BOMB.get())
+                .define('2', Items.NETHER_STAR)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BROCCOLI_BOMB.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.BROCCOLI_NUKE.get().toString()));
 
         //珀金工具
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.PERKIN_SHOVEL.get())
@@ -416,6 +580,41 @@ public class RecipeGenerator extends RecipeProvider {
                 .requires(ItemRegistry.FROSTIUM_INGOT.get())
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.PERFROSTITE_INGOT.get().toString()));
+        //咸鱼
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE), Ingredient.of(Items.IRON_SWORD), Ingredient.of(ItemRegistry.SALT_FISH.get()), RecipeCategory.TOOLS, ItemRegistry.SALT_FISH_SWORD.get())
+                .unlocks("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SALT_FISH.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SALT_FISH_SWORD.get() + "_from_smithing"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SALT_FISH.get())
+                .requires(Items.PRISMARINE_CRYSTALS)
+                .requires(Items.COD)
+                .requires(Items.PRISMARINE_CRYSTALS)
+                .requires(Items.SALMON)
+                .requires(Items.HEART_OF_THE_SEA)
+                .requires(Items.TROPICAL_FISH)
+                .requires(Items.PRISMARINE_CRYSTALS)
+                .requires(Items.PUFFERFISH)
+                .requires(Items.PRISMARINE_CRYSTALS)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SALT_FISH.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.FISH_COOKIE.get(), 2)
+                .requires(Items.WHEAT)
+                .requires(Items.WHEAT)
+                .requires(Items.WHEAT)
+                .requires(ItemRegistry.SALT_FISH.get())
+                .requires(ItemRegistry.SALT_FISH.get())
+                .requires(ItemRegistry.SALT_FISH.get())
+                .requires(Items.WHEAT)
+                .requires(Items.WHEAT)
+                .requires(Items.WHEAT)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FISH_COOKIE.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SALT_FISH_STEW.get())
+                .requires(ItemRegistry.BOWL_OF_HOT_WATER.get())
+                .requires(ItemRegistry.COOKED_SALT_FISH.get())
+                .requires(SMCTags.MILK_COMPAT)
+                .requires(Items.KELP)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SALT_FISH_STEW.get().toString()));
 
         //棒棒糖
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.BROCCOLI_LOLLIPOP.get())
@@ -463,55 +662,69 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CHOP_KEBAB.get().toString()));
 
-        //霜冻矿物块，锭，粒转化
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FROSTIUM_BLOCK.get())
-                .pattern("111")
-                .pattern("111")
-                .pattern("111")
-                .define('1', ItemRegistry.FROSTIUM_INGOT.get())
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROSTIUM_BLOCK.get().toString()));
+        //矿物块，锭，粒转化
+        blockIngotNuggetConvertingRecipes(ItemRegistry.FROSTIUM_BLOCK.get(), ItemRegistry.FROSTIUM_INGOT.get(), ItemRegistry.FROSTIUM_NUGGET.get(), consumer);
+        blockIngotNuggetConvertingRecipes(ItemRegistry.PERKIN_BLOCK.get(), ItemRegistry.PERKIN_INGOT.get(), ItemRegistry.PERKIN_NUGGET.get(), consumer);
+        blockIngotNuggetConvertingRecipes(ItemRegistry.SALT_FISH_BLOCK.get(), ItemRegistry.SALT_FISH.get(), ItemRegistry.SALT_FISH_NUGGET.get(), consumer);
+        blockIngotNuggetConvertingRecipes(ItemRegistry.ZINC_BLOCK.get(), ItemRegistry.ZINC_INGOT.get(), ItemRegistry.ZINC_NUGGET.get(), consumer);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.FROSTIUM_NUGGET.get(), 9)
-                .requires(ItemRegistry.FROSTIUM_INGOT.get())
+        //云系列建材
+        stoneBricksRecipes(ItemRegistry.CLOUD.get(), ItemRegistry.CLOUD_STAIRS.get(), ItemRegistry.CLOUD_SLAB.get(), ItemRegistry.CLOUD_WALL.get(), consumer);
+        stoneBricksRecipes(ItemRegistry.CLOUD_FLOOR.get(), ItemRegistry.CLOUD_FLOOR_STAIRS.get(), ItemRegistry.CLOUD_FLOOR_SLAB.get(), ItemRegistry.CLOUD_FLOOR_WALL.get(), consumer);
+        stoneBricksRecipes(ItemRegistry.CLOUD_BRICKS.get(), ItemRegistry.CLOUD_BRICKS_STAIRS.get(), ItemRegistry.CLOUD_BRICKS_SLAB.get(), ItemRegistry.CLOUD_BRICKS_WALL.get(), consumer);
+        stoneBricksCuttingRecipes(ItemRegistry.CLOUD.get(), ItemRegistry.CLOUD_STAIRS.get(), ItemRegistry.CLOUD_SLAB.get(), ItemRegistry.CLOUD_WALL.get(), "_from_cutting_cloud" ,consumer);
+        stoneBricksCuttingRecipes(ItemRegistry.CLOUD_FLOOR.get(), ItemRegistry.CLOUD_FLOOR_STAIRS.get(), ItemRegistry.CLOUD_FLOOR_SLAB.get(), ItemRegistry.CLOUD_FLOOR_WALL.get(), "_from_cutting_cloud_floor", consumer);
+        stoneBricksCuttingRecipes(ItemRegistry.CLOUD_BRICKS.get(), ItemRegistry.CLOUD_BRICKS_STAIRS.get(), ItemRegistry.CLOUD_BRICKS_SLAB.get(), ItemRegistry.CLOUD_BRICKS_WALL.get(), "_from_cutting_cloud_bricks", consumer);
+        stoneBricksCuttingRecipes(ItemRegistry.CLOUD.get(), ItemRegistry.CLOUD_FLOOR_STAIRS.get(), ItemRegistry.CLOUD_FLOOR_SLAB.get(), ItemRegistry.CLOUD_FLOOR_WALL.get(), "_from_cutting_cloud", consumer);
+        stoneBricksCuttingRecipes(ItemRegistry.CLOUD.get(), ItemRegistry.CLOUD_BRICKS_STAIRS.get(), ItemRegistry.CLOUD_BRICKS_SLAB.get(), ItemRegistry.CLOUD_BRICKS_WALL.get(), "_from_cutting_cloud", consumer);
+        stoneBricksCuttingRecipes(ItemRegistry.CLOUD_FLOOR.get(), ItemRegistry.CLOUD_BRICKS_STAIRS.get(), ItemRegistry.CLOUD_BRICKS_SLAB.get(), ItemRegistry.CLOUD_BRICKS_WALL.get(), "_from_cutting_cloud_floor", consumer);
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.CLOUD.get()), RecipeCategory.DECORATIONS, ItemRegistry.CLOUD_FLOOR.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CLOUD_FLOOR.get() + "_from_stone_cutting"));
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.CLOUD.get()), RecipeCategory.DECORATIONS, ItemRegistry.CLOUD_BRICKS.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CLOUD_BRICKS.get() + "_from_stone_cutting"));
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.CLOUD.get()), RecipeCategory.DECORATIONS, ItemRegistry.CLOUD_PILLAR.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CLOUD_PILLAR.get() + "_from_stone_cutting"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ItemRegistry.CLOUD_BRICKS.get(), 4)
+                .pattern("11")
+                .pattern("11")
+                .define('1', ItemRegistry.CLOUD.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CLOUD_BRICKS.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ItemRegistry.CLOUD_PILLAR.get(), 2)
+                .pattern("1")
+                .pattern("1")
+                .define('1', ItemRegistry.CLOUD.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CLOUD_PILLAR.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ItemRegistry.CLOUD.get())
+                .pattern("11")
+                .pattern("11")
+                .define('1', ItemRegistry.THIN_CLOUD.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CLOUD.get() + "_from_thin_cloud"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ItemRegistry.CIRRUS_CLOUD.get())
+                .pattern("11")
+                .pattern("11")
+                .define('1', ItemRegistry.THIN_CIRRUS_CLOUD.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CLOUD.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CIRRUS_CLOUD.get() + "_from_thin_cirrus_cloud"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, ItemRegistry.THIN_CIRRUS_CLOUD.get(), 4)
+                .requires(ItemRegistry.CIRRUS_CLOUD.get())
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROSTIUM_NUGGET.get().toString()));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FROSTIUM_INGOT.get())
-                .pattern("111")
-                .pattern("111")
-                .pattern("111")
-                .define('1', ItemRegistry.FROSTIUM_NUGGET.get())
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.THIN_CIRRUS_CLOUD.get() + "_from_cirrus_cloud"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, ItemRegistry.THIN_CIRRUS_CLOUD.get(), 4)
+                .requires(ItemRegistry.CLOUD.get())
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROSTIUM_BLOCK.get() + "_from_nugget"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.FROSTIUM_INGOT.get(), 9)
-                .requires(ItemRegistry.FROSTIUM_BLOCK.get())
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.THIN_CLOUD.get() + "_from_cloud"));
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.SNOWBALL), RecipeCategory.DECORATIONS, ItemRegistry.THIN_CLOUD.get(), 0.1F, 200)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FROSTIUM_INGOT.get() + "_from_block"));
-        //珀金矿物块，锭，粒转化
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PERKIN_BLOCK.get())
-                .pattern("111")
-                .pattern("111")
-                .pattern("111")
-                .define('1', ItemRegistry.PERKIN_INGOT.get())
+                .save(consumer, ItemRegistry.THIN_CLOUD.get() + "_from_smelting");
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.SNOW_BLOCK), RecipeCategory.DECORATIONS, ItemRegistry.CLOUD.get(), 0.1F, 200)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.PERKIN_BLOCK.get().toString()));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.PERKIN_NUGGET.get(), 9)
-                .requires(ItemRegistry.PERKIN_INGOT.get())
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.PERKIN_NUGGET.get().toString()));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PERKIN_INGOT.get())
-                .pattern("111")
-                .pattern("111")
-                .pattern("111")
-                .define('1', ItemRegistry.PERKIN_NUGGET.get())
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.PERKIN_BLOCK.get() + "_from_nugget"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.PERKIN_INGOT.get(), 9)
-                .requires(ItemRegistry.PERKIN_BLOCK.get())
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.PERKIN_INGOT.get() + "_from_block"));
+                .save(consumer, ItemRegistry.CLOUD.get() + "_from_smelting");
         //彩虹
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.RAINBOW_FISHING_ROD.get())
                 .pattern("  2")
@@ -536,10 +749,20 @@ public class RecipeGenerator extends RecipeProvider {
         smeltingRecipes("perkin_ore_to_ingot", ItemRegistry.PERKIN_ORE.get(), ItemRegistry.PERKIN_INGOT.get(), 0.35F, consumer);
         smeltingRecipes("deepslate_perkin_ore_to_ingot", ItemRegistry.DEEPSLATE_PERKIN_ORE.get(), ItemRegistry.PERKIN_INGOT.get(), 0.35F, consumer);
         smeltingRecipes("raw_perkin_to_ingot", ItemRegistry.RAW_PERKIN.get(), ItemRegistry.PERKIN_INGOT.get(), 0.35F, consumer);
+        smeltingRecipes("raw_zinc_to_ingot", ItemRegistry.RAW_ZINC.get(), ItemRegistry.ZINC_INGOT.get(), 0.35F, consumer);
+        smeltingRecipes("zinc_ore_to_ingot", ItemRegistry.ZINC_ORE.get(), ItemRegistry.ZINC_INGOT.get(), 0.35F, consumer);
+        smeltingRecipes("tuff_zinc_ore_to_ingot", ItemRegistry.TUFF_ZINC_ORE.get(), ItemRegistry.ZINC_INGOT.get(), 0.35F, consumer);
+        smeltingRecipes("end_zinc_ore_to_ingot", ItemRegistry.END_ZINC_ORE.get(), ItemRegistry.ZINC_INGOT.get(), 0.35F, consumer);
+
         //食物烘焙
         cookingRecipes("cooked_dirt", Items.DIRT, ItemRegistry.COOKED_DIRT.get(), 0.2F, consumer, true);
         cookingRecipes("spicy_bar", Items.ROTTEN_FLESH, ItemRegistry.SPICY_BAR.get(), 0.2F, consumer, false);
         cookingRecipes("jerky", Items.COOKED_BEEF, ItemRegistry.JERKY.get(), 0.2F, consumer, false);
+        cookingRecipes("cooked_salt_fish", ItemRegistry.SALT_FISH.get(), ItemRegistry.COOKED_SALT_FISH.get(), 1F, consumer, true);
+        cookingRecipes("cooked_salt_fish_slice", ItemRegistry.RAW_SALT_FISH_SLICE.get(), ItemRegistry.COOKED_SALT_FISH_SLICE.get(), 1F, consumer, true);
+        cookingRecipes("fried_chicken_harvester_egg", ItemRegistry.CHICKEN_HARVESTER_EGG.get(), ItemRegistry.FRIED_CHICKEN_HARVESTER_EGG.get(), 1F, consumer, true);
+        cookingRecipes("fried_easter_bunny_egg", ItemRegistry.EASTER_BUNNY_EGG.get(), ItemRegistry.FRIED_EASTER_BUNNY_EGG.get(), 1F, consumer, true);
+
         //杂项
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MUSIC_DISC_LAODA.get())
                 .pattern("111")
@@ -555,6 +778,13 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('1', ItemRegistry.RAINBOW_COOKIE.get())
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.RAINBOW_COOKIE.get()))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.MUSIC_DISC_NYAN_CAT.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MUSIC_DISC_BAD_APPLE.get())
+                .pattern("111")
+                .pattern("111")
+                .pattern("111")
+                .define('1', ItemRegistry.BAD_APPLE.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BAD_APPLE.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.MUSIC_DISC_BAD_APPLE.get().toString()));
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ItemRegistry.RAINBOW_COOKIE.get(), 8)
                 .pattern("121")
                 .define('1', Items.WHEAT)
@@ -617,6 +847,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('4', Items.REDSTONE)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ORE_DETECTOR.get().toString()));
+        /*
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.TREASURE_DETECTOR.get())
+                .pattern("121")
+                .pattern("131")
+                .pattern("141")
+                .define('1', Items.GOLD_INGOT)
+                .define('2', Items.GLASS)
+                .define('3', Items.DIAMOND)
+                .define('4', Items.REDSTONE)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.TREASURE_DETECTOR.get().toString()));
+        */
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.VACUUM_SNIFFER.get())
                 .pattern("12")
                 .pattern("34")
@@ -756,8 +998,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .requires(Items.LAVA_BUCKET)
                 .requires(Items.HOPPER)
                 .requires(Items.IRON_BLOCK)
-                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ICE_TEA.get()))
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.WATER_DISPENSER.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FRIDGE.get())
+                .pattern("423")
+                .pattern("411")
+                .pattern("423")
+                .define('1', Items.IRON_INGOT)
+                .define('2', Items.CHEST)
+                .define('3', Items.IRON_TRAPDOOR)
+                .define('4', ItemRegistry.FROSTIUM_INGOT.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.FRIDGE.get().toString()));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GOLDEN_BOAT.get())
                 .pattern("121")
                 .pattern("111")
@@ -830,6 +1082,43 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('4', Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.SMITHING_TABLE))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.ANCIENT_SMITHING_TABLE.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.EASTER_BUNNY_EGG.get())
+                .requires(SMCTags.EASTER_BUNNY_EGG_COMPONENTS)
+                .requires(ItemRegistry.PERKIN_INGOT.get())
+                .requires(SMCTags.EASTER_BUNNY_EGG_COMPONENTS)
+                .requires(Items.TOTEM_OF_UNDYING)
+                .requires(Items.RABBIT_SPAWN_EGG)
+                .requires(Items.TOTEM_OF_UNDYING)
+                .requires(ItemRegistry.BROCCOLI.get())
+                .requires(SMCTags.EASTER_BUNNY_EGG_COMPONENTS)
+                .requires(ItemRegistry.FROSTIUM_INGOT.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.EASTER_BUNNY_EGG.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CHICKEN_HARVESTER_EGG.get())
+                .pattern(" 1 ")
+                .pattern("121")
+                .pattern(" 1 ")
+                .define('1', ItemRegistry.CHICKEN_CHOP.get())
+                .define('2', Items.EGG)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CHICKEN_HARVESTER_EGG.get().toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SALT_FISH_BUCKET.get())
+                .requires(Items.TOTEM_OF_UNDYING)
+                .requires(Items.WATER_BUCKET)
+                .requires(ItemRegistry.SALT_FISH.get())
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SALT_FISH.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SALT_FISH_BUCKET.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SPEAR_GUN.get())
+                .pattern("123")
+                .pattern("45 ")
+                .define('1', ItemTags.WOOL)
+                .define('2', Items.CROSSBOW)
+                .define('3', Items.ARROW)
+                .define('4', ItemTags.PLANKS)
+                .define('5', Items.COPPER_INGOT)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ICE_TEA.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.SPEAR_GUN.get().toString()));
+
         /*
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ItemRegistry.NETHERITE_SWISS_ARMY_KNIFE.get())
                 .requires(Items.NETHERITE_AXE)
@@ -854,15 +1143,10 @@ public class RecipeGenerator extends RecipeProvider {
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.GOLDEN_CARROT_PICKAXE.get() + "_from_smithing"));
 
         //纹饰
-        SmithingTrimRecipeBuilder.smithingTrim(Ingredient.of(ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get()), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(ItemTags.TRIM_MATERIALS), RecipeCategory.TOOLS)
-                .unlocks("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get() + "_smithing_trim"));
-        SmithingTrimRecipeBuilder.smithingTrim(Ingredient.of(ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get()), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(ItemTags.TRIM_MATERIALS), RecipeCategory.TOOLS)
-                .unlocks("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get() + "_smithing_trim"));
-        SmithingTrimRecipeBuilder.smithingTrim(Ingredient.of(ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get()), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(ItemTags.TRIM_MATERIALS), RecipeCategory.TOOLS)
-                .unlocks("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get() + "_smithing_trim"));
+        smithingTrimRecipes(ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), consumer);
+        smithingTrimRecipes(ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get(), consumer);
+        smithingTrimRecipes(ItemRegistry.CHAINMAIL_ARMOR_TRIM_SMITHING_TEMPLATE.get(), consumer);
+        smithingTrimRecipes(ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get(), consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 2)
                 .pattern("121")
@@ -882,6 +1166,15 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('3', Items.ANCIENT_DEBRIS)
                 .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
                 .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get().toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CHAINMAIL_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 2)
+                .pattern("121")
+                .pattern("131")
+                .pattern("111")
+                .define('1', Items.DIAMOND)
+                .define('2', ItemRegistry.CHAINMAIL_ARMOR_TRIM_SMITHING_TEMPLATE.get())
+                .define('3', Items.CHAIN)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.CHAINMAIL_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ItemRegistry.CHAINMAIL_ARMOR_TRIM_SMITHING_TEMPLATE.get().toString()));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 2)
                 .pattern("121")
                 .pattern("131")
@@ -904,6 +1197,8 @@ public class RecipeGenerator extends RecipeProvider {
                 .save(consumer, namePrefix + "_from_blasting");
     }
 
+
+
     private static void cookingRecipes(String name, ItemLike ingredient, ItemLike result, float experience, Consumer<FinishedRecipe> consumer, Boolean allowsSmelting) {
         String namePrefix = new ResourceLocation(StarMeowCraft.MODID, name).toString();
         if(allowsSmelting){
@@ -919,6 +1214,76 @@ public class RecipeGenerator extends RecipeProvider {
                 .save(consumer, namePrefix + "_from_campfire");
     }
 
+    private static void smithingTrimRecipes(ItemLike ingredient, Consumer<FinishedRecipe> consumer) {
+        SmithingTrimRecipeBuilder.smithingTrim(Ingredient.of(ingredient), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(ItemTags.TRIM_MATERIALS), RecipeCategory.TOOLS)
+                .unlocks("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(ingredient))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ingredient + "_smithing_trim"));
+    }
 
+    private static void blockIngotNuggetConvertingRecipes(ItemLike block, ItemLike ingot, ItemLike nugget, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, block)
+                .pattern("111")
+                .pattern("111")
+                .pattern("111")
+                .define('1', ingot)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, block.toString()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, nugget, 9)
+                .requires(ingot)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, nugget.toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ingot)
+                .pattern("111")
+                .pattern("111")
+                .pattern("111")
+                .define('1', nugget)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ingot + "_from_nugget"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9)
+                .requires(block)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, ingot + "_from_block"));
+
+    }
+
+    private static void stoneBricksRecipes(ItemLike block, ItemLike stairs, ItemLike slab, ItemLike wall, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, stairs, 4)
+                .pattern("1  ")
+                .pattern("11 ")
+                .pattern("111")
+                .define('1', block)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, stairs.toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, stairs, 4)
+                .pattern("  1")
+                .pattern(" 11")
+                .pattern("111")
+                .define('1', block)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, stairs + "_1"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, slab, 6)
+                .pattern("111")
+                .define('1', block)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, slab.toString()));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, wall, 6)
+                .pattern("111")
+                .pattern("111")
+                .define('1', block)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, wall.toString()));
+    }
+
+    private static void stoneBricksCuttingRecipes(ItemLike block, ItemLike stairs, ItemLike slab, ItemLike wall, String info, Consumer<FinishedRecipe> consumer) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.DECORATIONS, slab, 2)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, slab + info));
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.DECORATIONS, stairs)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, stairs + info));
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.DECORATIONS, wall)
+                .unlockedBy("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(block))
+                .save(consumer, new ResourceLocation(StarMeowCraft.MODID, wall + info));
+    }
 
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_sand",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"永恒沙子\",\"color\":\"light_purple\",\"bold\":false,\"italic\":false}'},BlockEntityTag:{LootTable:\"smc:archaeology/infinity_sand\",id:\"minecraft:brushable_block\"}}"
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

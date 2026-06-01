@@ -33,6 +33,7 @@ public class EnchantmentRegistry {
     public static final RegistryObject<Enchantment> WIDE_RANGE = ENCHANTMENT.register("wide_range", () -> new WideRange(Enchantment.Rarity.COMMON));
     public static final RegistryObject<Enchantment> ADAPTION = ENCHANTMENT.register("adaption", () -> new Adaption(Enchantment.Rarity.RARE));
     public static final RegistryObject<Enchantment> DIVINE_JUDGEMENT = ENCHANTMENT.register("divine_judgement", () -> new DivineJudgement(Enchantment.Rarity.VERY_RARE));
+    public static final RegistryObject<Enchantment> VIOLENT_ARCHAEOLOGY = ENCHANTMENT.register("violent_archaeology", () -> new ViolentArchaeology(Enchantment.Rarity.RARE));
 
     public static final EnchantmentCategory GRIMOIRE = EnchantmentCategory.create("grimoire", item -> item instanceof Grimoire);
     public static final EnchantmentCategory SLINGSHOT = EnchantmentCategory.create("slingshot", item -> item instanceof Slingshot);

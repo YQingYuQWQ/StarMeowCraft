@@ -1,5 +1,6 @@
 package com.starmeow.smc.items;
 
+import com.starmeow.smc.config.Config;
 import com.starmeow.smc.helper.ItemHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -26,7 +27,7 @@ public class MCrSword extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
         boolean result = super.hurtEnemy(p_43278_, p_43279_, p_43280_);
-        if (result) {
+        if (result && Config.MCR_DAMAGE_ABILITY.get()) {
             Level level = p_43279_.level();
             if(p_43280_ instanceof Player player){
                 p_43279_.hurt(level.damageSources().playerAttack(player), 99999);

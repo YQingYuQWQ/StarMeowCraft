@@ -1,9 +1,7 @@
 package com.starmeow.smc.init;
 
 import com.starmeow.smc.StarMeowCraft;
-import com.starmeow.smc.packet.CoffeeGetC2S;
-import com.starmeow.smc.packet.SwordSlashC2S;
-import com.starmeow.smc.packet.TotemActivatePacket;
+import com.starmeow.smc.packet.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -38,6 +36,16 @@ public class NetworkRegistry {
                 .encoder(CoffeeGetC2S::encode)
                 .decoder(CoffeeGetC2S::decode)
                 .consumerMainThread(CoffeeGetC2S::handle)
+                .add();
+        CHANNEL.messageBuilder(EndBoatControlPacket.class, id++)
+                .encoder(EndBoatControlPacket::encode)
+                .decoder(EndBoatControlPacket::decode)
+                .consumerMainThread(EndBoatControlPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(WingBoostC2S.class, id++)
+                .encoder(WingBoostC2S::encode)
+                .decoder(WingBoostC2S::decode)
+                .consumerMainThread(WingBoostC2S::handle)
                 .add();
     }
 

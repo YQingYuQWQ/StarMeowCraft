@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,7 +24,8 @@ public class EffectEvents {
         LivingEntity entity = event.getEntity();
         if(mobeffect == PotionEffectRegistry.FROST_BURST.get()){
             entity.invulnerableTime = 0;
-            entity.hurt(entity.level().damageSources().magic(), effectLevel * 6.0F);
+            DamageSource source = entity.getLastAttacker() != null ? entity.level().damageSources().indirectMagic(entity.getLastAttacker(), null) : entity.level().damageSources().magic();
+            entity.hurt(source, effectLevel * 6.0F + entity.getMaxHealth() * Math.min(effectLevel * 0.01F, 0.1F));
             entity.level().playSound((Player)null, entity.getOnPos(), SoundEvents.GLASS_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
             if(event.getEntity().level().isClientSide()){
                 Minecraft.getInstance().particleEngine.createTrackingEmitter(entity, ParticleTypes.SNOWFLAKE, 1);

@@ -177,23 +177,21 @@ public class SwissArmyKnife extends SwordItem {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext p_41341_) {
-        CompoundTag tag = p_41341_.getItemInHand().getOrCreateTag();
-        int mode = tag.getInt("SMCSwissKnife");
-        if(!p_41341_.getPlayer().isCrouching()){
-            if(mode == 1){
-                this.useOnInAxeMode(p_41341_);
-            } else if(mode == 4){
-                this.useOnInHoeMode(p_41341_);
-            } else if(mode == 3){
-                this.useOnInShovelMode(p_41341_);
-            } else if(mode == 5){
-                this.useOnInShearsMode(p_41341_);
-            } else if(mode == 6){
-                this.useOnInBrushMode(p_41341_);
-            }
+    public InteractionResult useOn(UseOnContext context) {
+        if (context.getPlayer().isCrouching()) {
+            return InteractionResult.PASS;
         }
-        return InteractionResult.PASS;
+        CompoundTag tag = context.getItemInHand().getOrCreateTag();
+        int mode = tag.getInt("SMCSwissKnife");
+
+        return switch (mode) {
+            case 1 -> this.useOnInAxeMode(context);
+            case 3 -> this.useOnInShovelMode(context);
+            case 4 -> this.useOnInHoeMode(context);
+            case 5 -> this.useOnInShearsMode(context);
+            case 6 -> this.useOnInBrushMode(context);
+            default -> InteractionResult.PASS;
+        };
     }
 
     @Override

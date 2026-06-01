@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 10411438103,
+    "spacing": 256,
+    "separation": 64
+  },
+  "structures": [
+    {
+      "structure": "smc:cloudy_garden",
+      "weight": 1
+    }
+  ]
+}

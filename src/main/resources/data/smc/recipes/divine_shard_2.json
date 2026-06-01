@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:divine_shard"
+    },
+    "2": {
+      "item": "minecraft:sculk_catalyst"
+    },
+    "3": {
+      "item": "minecraft:echo_shard"
+    }
+  },
+  "pattern": [
+    "323",
+    "212",
+    "323"
+  ],
+  "result": {
+    "item": "smc:divine_shard",
+    "nbt": "{SMCShardChallenge:2}"
+  },
+  "show_notification": true
+}

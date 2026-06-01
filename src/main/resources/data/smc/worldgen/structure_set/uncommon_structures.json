@@ -2,8 +2,8 @@
   "placement": {
     "type": "minecraft:random_spread",
     "salt": 10134137546,
-    "spacing": 32,
-    "separation": 8
+    "spacing": 48,
+    "separation": 16
   },
   "structures": [
     {
@@ -24,6 +24,14 @@
     },
     {
       "structure": "smc:pillager_train_camp",
+      "weight": 1
+    },
+    {
+      "structure": "smc:creeper_statue",
+      "weight": 1
+    },
+    {
+      "structure": "smc:dirt_castle",
       "weight": 1
     }
   ]

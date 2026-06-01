@@ -24,6 +24,10 @@ public class PropertyRegistry {
         ItemProperties.register(ItemRegistry.RAINBOW_FISHING_ROD.get(), new ResourceLocation("cast"), (itemstack, level, entity, number) ->
         {if (!(entity instanceof Player)) return 0.0F;
             return ((Player) entity).fishing != null && (entity.getMainHandItem() == itemstack || entity.getOffhandItem() == itemstack) ? 1.0F : 0.0F;});
+        ItemProperties.register(ItemRegistry.SPEAR_GUN.get(), new ResourceLocation("cast"), (itemstack, level, entity, number) ->
+        {if (!(entity instanceof Player)) return 0.0F;
+            return ((Player) entity).fishing != null && (entity.getMainHandItem() == itemstack || entity.getOffhandItem() == itemstack) ? 1.0F : 0.0F;});
+
         ItemProperties.register(ItemRegistry.SLINGSHOT.get(), new ResourceLocation("pull"), (p_174635_, p_174636_, p_174637_, p_174638_) -> {
             if (p_174637_ == null) {
                 return 0.0F;

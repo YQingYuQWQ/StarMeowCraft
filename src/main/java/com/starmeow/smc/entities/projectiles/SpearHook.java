@@ -3,6 +3,7 @@ package com.starmeow.smc.entities.projectiles;
 import com.starmeow.smc.init.EntityTypeRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -14,6 +15,8 @@ import net.minecraftforge.common.ToolActions;
 import java.util.Collections;
 
 public class SpearHook extends FishingHook {
+    public boolean stuck;
+    private Vec3 stuckPos;
     public SpearHook(EntityType<? extends SpearHook> entityType, Level level) {
         super(EntityTypeRegistry.SPEAR_HOOK.get(), level);
     }
@@ -40,6 +43,7 @@ public class SpearHook extends FishingHook {
     }
 
     public int retrieve(ItemStack p_37157_) {
+        super.retrieve(p_37157_);
         Player player = this.getPlayerOwner();
         if (!this.level().isClientSide && player != null && !this.shouldStopFishing(player)) {
             if (this.hookedIn != null) {
@@ -48,7 +52,7 @@ public class SpearHook extends FishingHook {
                 this.level().broadcastEntityEvent(this, (byte)31);
             }
 
-            if (this.onGround()) {
+            if (this.stuck && !player.isCrouching()) {
 
                 double d0 = this.getX() - player.getX();
                 double d1 = this.getY() - player.getY();
@@ -65,11 +69,26 @@ public class SpearHook extends FishingHook {
         }
     }
 
-    protected void onHitBlock(BlockHitResult p_37384_) {
-        super.onHitBlock(p_37384_);
-        if (!this.level().isClientSide) {
+    @Override
+    protected void pullEntity(Entity p_150156_) {
+        Entity entity = this.getOwner();
+        if (entity != null) {
+            Vec3 vec3 = (new Vec3(entity.getX() - this.getX(), (entity.getY() - this.getY()) * 0.5, entity.getZ() - this.getZ())).scale(0.2);
+            p_150156_.setDeltaMovement(p_150156_.getDeltaMovement().add(vec3));
+        }
+
+    }
+
+    public void tick(){
+        super.tick();
+        if (!stuck && (this.horizontalCollision || this.onGround())) {
+            stuck = true;
+            stuckPos = position();
+        }
+        if (this.stuck && this.stuckPos != null) {
             this.setDeltaMovement(Vec3.ZERO);
-            this.setNoGravity(true);
+            this.setPos(this.stuckPos.x, this.stuckPos.y, this.stuckPos.z
+            );
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.starmeow.smc.data;
 
 import com.starmeow.smc.StarMeowCraft;
+import com.starmeow.smc.init.BlockRegistry;
 import com.starmeow.smc.init.ItemRegistry;
 import com.starmeow.smc.tags.FDTags;
 import com.starmeow.smc.tags.ForgeTags;
@@ -27,7 +28,9 @@ public class ItemtagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
         this.tag(ItemTags.MUSIC_DISCS)
                 .add(ItemRegistry.MUSIC_DISC_LAODA.get())
-                .add(ItemRegistry.MUSIC_DISC_NYAN_CAT.get());
+                .add(ItemRegistry.MUSIC_DISC_NYAN_CAT.get())
+                .add(ItemRegistry.MUSIC_DISC_BAD_APPLE.get())
+                .add(ItemRegistry.MUSIC_DISC_GOD_PICKAXE.get());
         this.tag(ForgeTags.CHICKEN).add(Items.COOKED_CHICKEN);
         this.tag(ForgeTags.BEEF).add(Items.COOKED_BEEF);
         this.tag(ForgeTags.MUTTON).add(Items.COOKED_MUTTON);
@@ -86,7 +89,11 @@ public class ItemtagProvider extends ItemTagsProvider {
         this.tag(MCTags.TRIMMABLE_ARMOR)
                 .add(ItemRegistry.FROSTIUM_HELMET.get())
                 .add(ItemRegistry.BROCCOLI_BOOTS.get())
-                .add(ItemRegistry.FROSTIUM_BOOTS.get());
+                .add(ItemRegistry.FROSTIUM_BOOTS.get())
+                .add(ItemRegistry.CHOCOLATE_BOOTS.get())
+                .add(ItemRegistry.CHOCOLATE_LEGGINGS.get())
+                .add(ItemRegistry.CHOCOLATE_CHESTPLATE.get())
+                .add(ItemRegistry.CHOCOLATE_HELMET.get());
         this.tag(MCTags.ARROWS)
                 .add(ItemRegistry.FROST_ARROW.get());
         this.tag(FDTags.FD_KNIFES)
@@ -108,6 +115,33 @@ public class ItemtagProvider extends ItemTagsProvider {
                 .add(ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get())
                 .add(ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get())
                 .add(ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+        this.tag(SMCTags.CLOUD)
+                .add(
+                        ItemRegistry.CLOUD.get(),
+                        ItemRegistry.CIRRUS_CLOUD.get(),
+                        ItemRegistry.THIN_CLOUD.get(),
+                        ItemRegistry.THIN_CIRRUS_CLOUD.get(),
+                        ItemRegistry.CLOUD_FLOOR.get(),
+                        ItemRegistry.CLOUD_PILLAR.get(),
+                        ItemRegistry.CLOUD_BRICKS.get(),
+                        ItemRegistry.CLOUD_WALL.get(),
+                        ItemRegistry.CLOUD_FLOOR_WALL.get(),
+                        ItemRegistry.CLOUD_BRICKS_WALL.get(),
+                        ItemRegistry.CLOUD_STAIRS.get(),
+                        ItemRegistry.CLOUD_FLOOR_STAIRS.get(),
+                        ItemRegistry.CLOUD_BRICKS_STAIRS.get(),
+                        ItemRegistry.CLOUD_SLAB.get(),
+                        ItemRegistry.CLOUD_FLOOR_SLAB.get(),
+                        ItemRegistry.CLOUD_BRICKS_SLAB.get()
+                );
 
+        this.tag(SMCTags.EASTER_BUNNY_EGG_COMPONENTS)
+                .add(
+                        ItemRegistry.CLOUD.get(),
+                        ItemRegistry.CIRRUS_CLOUD.get(),
+                        ItemRegistry.CLOUD_FLOOR.get(),
+                        ItemRegistry.CLOUD_PILLAR.get(),
+                        ItemRegistry.CLOUD_BRICKS.get()
+                );
     }
 }

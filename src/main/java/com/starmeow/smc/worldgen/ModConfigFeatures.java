@@ -22,18 +22,33 @@ public class ModConfigFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_FROSTIUM_ORE_KEY = registerKey("blue_frostium_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTIUM_ORE_KEY = registerKey("frostium_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PERKIN_ORE_KEY = registerKey("perkin_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ZINC_ORE_KEY = registerKey("zinc_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TUFF_ZINC_ORE_KEY = registerKey("tuff_zinc_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> END_ZINC_ORE_KEY = registerKey("end_zinc_ore");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         RuleTest iceReplacables = new BlockMatchTest(Blocks.PACKED_ICE);
         RuleTest blueIceReplacables = new BlockMatchTest(Blocks.BLUE_ICE);
+        RuleTest andesiteReplacables = new BlockMatchTest(Blocks.ANDESITE);
+        RuleTest tuffReplacables = new BlockMatchTest(Blocks.TUFF);
+        RuleTest endReplacables = new BlockMatchTest(Blocks.END_STONE);
 
         register(context, BLUE_FROSTIUM_ORE_KEY, Feature.ORE, new OreConfiguration(blueIceReplacables,
                 BlockRegistry.BLUE_ICE_FROSTIUM_ORE.get().defaultBlockState(), 8));
 
         register(context, FROSTIUM_ORE_KEY, Feature.ORE, new OreConfiguration(iceReplacables,
                 BlockRegistry.FROSTIUM_ORE.get().defaultBlockState(), 8));
+
+        register(context, ZINC_ORE_KEY, Feature.ORE, new OreConfiguration(andesiteReplacables,
+                BlockRegistry.ZINC_ORE.get().defaultBlockState(), 16));
+
+        register(context, TUFF_ZINC_ORE_KEY, Feature.ORE, new OreConfiguration(tuffReplacables,
+                BlockRegistry.TUFF_ZINC_ORE.get().defaultBlockState(), 16));
+
+        register(context, END_ZINC_ORE_KEY, Feature.ORE, new OreConfiguration(endReplacables,
+                BlockRegistry.END_ZINC_ORE.get().defaultBlockState(), 8));
 
         List<OreConfiguration.TargetBlockState> overworldPerkinOres = List.of(OreConfiguration.target(stoneReplaceable,
                         BlockRegistry.PERKIN_ORE.get().defaultBlockState()),

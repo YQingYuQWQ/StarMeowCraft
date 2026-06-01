@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "smc:item/spear_gun"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cast": 0
+      },
+      "model": "smc:item/spear_gun_load"
+    },
+    {
+      "predicate": {
+        "cast": 1
+      },
+      "model": "smc:item/spear_gun_cast"
+    }
+  ]
+}

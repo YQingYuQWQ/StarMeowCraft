@@ -119,6 +119,11 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:cloth-config-348521:5729105")
     runtimeOnly fg.deobf("curse.maven:playeranimator-658587:4587214")
     runtimeOnly fg.deobf("curse.maven:jade-324717:6855440")
+    runtimeOnly fg.deobf("curse.maven:the-twilight-forest-227639:5468648")
+    //runtimeOnly fg.deobf("curse.maven:neapolitan-382016:6248885")
+    //runtimeOnly fg.deobf("curse.maven:blueprint-382216:6408581")
+    runtimeOnly fg.deobf("curse.maven:worldedit-225608:4586218")
+    runtimeOnly fg.deobf("curse.maven:world-preview-891429:5686690")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

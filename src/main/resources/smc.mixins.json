@@ -11,6 +11,7 @@
   "mixins": [
     "AnvilBlockMixin",
     "EntityMixin",
+    "FoxMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "MixinBoat",

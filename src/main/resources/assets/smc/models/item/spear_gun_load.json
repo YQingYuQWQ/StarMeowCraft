@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "smc:item/spear_gun_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "smc:item/spear_gun_item"
+    },
+    "ground": {
+      "parent": "smc:item/spear_gun_item"
+    },
+    "fixed": {
+      "parent": "smc:item/spear_gun_item"
+    }
+  },
+  "textures": {
+    "layer0": "smc:item/spear_gun"
+  }
+}

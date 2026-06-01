@@ -16,6 +16,9 @@
     "smc:lucky_clover",
     "smc:katana",
     "smc:add_jar_to_abandoned_mineshaft",
-    "smc:add_jar_to_buried_treasure"
+    "smc:add_jar_to_buried_treasure",
+    "smc:add_bad_apple_to_pillager_outpost",
+    "smc:add_god_pickaxe_to_labyrinth_vault",
+    "smc:add_giant_carrot_to_carrot"
   ]
 }

@@ -1,6 +1,7 @@
 package com.starmeow.smc.mixin;
 import com.starmeow.smc.helper.EntityHelper;
 import com.starmeow.smc.init.ItemRegistry;
+import com.starmeow.smc.init.SoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,20 +30,30 @@ public abstract class ItemStackMixin {
     @Inject(method = "hurtAndBreak", at = @At("HEAD"))
     private <T extends LivingEntity> void smc$hurtAndBreakAndGive(int damage, T p_41624_, Consumer<T> p_41625_, CallbackInfo ci) {
         ItemStack itemStack = (ItemStack)(Object)this;
-        if (!p_41624_.level().isClientSide && (p_41624_ instanceof Player player) && itemStack.is(ItemRegistry.CALIBUR.get()) && damage >= itemStack.getMaxDamage() - itemStack.getDamageValue()) {
-            ItemStack spawnedItem = new ItemStack(ItemRegistry.EXCALIBUR.get());
-            if (itemStack.hasTag()){
-                spawnedItem.setTag(itemStack.getTag().copy());
+        if (!p_41624_.level().isClientSide && (p_41624_ instanceof Player player) && damage >= itemStack.getMaxDamage() - itemStack.getDamageValue()) {
+            if(itemStack.is(ItemRegistry.CALIBUR.get())){
+                ItemStack spawnedItem = new ItemStack(ItemRegistry.EXCALIBUR.get());
+                if (itemStack.hasTag()){
+                    spawnedItem.setTag(itemStack.getTag().copy());
+                }
+                spawnedItem.setDamageValue(0);
+                if (!player.getInventory().add(spawnedItem)) {
+                    player.drop(spawnedItem, false);
+                }
+                if(p_41624_.level() instanceof ServerLevel serverLevel){
+                    serverLevel.sendParticles(ParticleTypes.WAX_OFF, player.getX(), player.getY()+1, player.getZ(), 30, 2D, 2D, 2D, 1D);
+                }
+                p_41624_.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+                itemStack.shrink(1);
             }
-            spawnedItem.setDamageValue(0);
-            if (!player.getInventory().add(spawnedItem)) {
-                player.drop(spawnedItem, false);
+            if(itemStack.is(ItemRegistry.GOD_PICKAXE.get())){
+                ItemStack spawnedItem = new ItemStack(ItemRegistry.MUSIC_DISC_GOD_PICKAXE.get());
+                if (!player.getInventory().add(spawnedItem)) {
+                    player.drop(spawnedItem, false);
+                }
+                p_41624_.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundRegistry.MUSIC_DISC_GOD_PICKAXE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                itemStack.shrink(1);
             }
-            if(p_41624_.level() instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(ParticleTypes.WAX_OFF, player.getX(), player.getY()+1, player.getZ(), 30, 2D, 2D, 2D, 1D);
-            }
-            p_41624_.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
-            itemStack.shrink(1);
         }
     }
 }

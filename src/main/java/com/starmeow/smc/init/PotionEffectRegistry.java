@@ -26,6 +26,12 @@ public class PotionEffectRegistry {
     public static final RegistryObject<MobEffect> PEACE = MOB_EFFECTS.register("peace", () -> new PeaceEffect(MobEffectCategory.BENEFICIAL, -13159));
     public static final RegistryObject<MobEffect> NO_PEACE = MOB_EFFECTS.register("no_peace", () -> new NoAttributeEffects(MobEffectCategory.NEUTRAL, -13159));
     public static final RegistryObject<MobEffect> ELBOWING = MOB_EFFECTS.register("elbow_strike", () -> new ElbowingEffect(MobEffectCategory.BENEFICIAL, 16762624));
+    public static final RegistryObject<MobEffect> FUZED = MOB_EFFECTS.register("fuzed", () -> new ExplodeEffect(MobEffectCategory.NEUTRAL, 5882118));
+    public static final RegistryObject<MobEffect> OCEAN_AVATAR = MOB_EFFECTS.register("ocean_avatar", () -> new OceanAvatarEffect(MobEffectCategory.BENEFICIAL, 8695969));
+    public static final RegistryObject<MobEffect> FEVER_SPICY = MOB_EFFECTS.register("fever_spicy", () -> new NoAttributeEffects(MobEffectCategory.BENEFICIAL, 15233650));
+    public static final RegistryObject<MobEffect> FRESH_COOL = MOB_EFFECTS.register("fresh_cool", () -> new NoAttributeEffects(MobEffectCategory.BENEFICIAL, 8115399));
+    public static final RegistryObject<MobEffect> SNOW_STEP = MOB_EFFECTS.register("snow_step", () -> new SnowStepEffect(MobEffectCategory.NEUTRAL, 16777215));
+
 
 
 }

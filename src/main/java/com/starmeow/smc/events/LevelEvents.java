@@ -3,13 +3,17 @@ package com.starmeow.smc.events;
 import com.starmeow.smc.init.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -54,6 +58,14 @@ public class LevelEvents {
         // 更新记录
         LAST_RAIN_STATE.put(key, isRainingNow);
         LAST_THUNDER_STATE.put(key, isThunderingNow);
+    }
+
+    @SubscribeEvent
+    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        if(event.getEntity() instanceof Creeper creeper){
+            creeper.goalSelector.addGoal(3, new AvoidEntityGoal<>(creeper, LivingEntity.class, 6.0F, 1.0D, 1.2D,
+                    p -> p.getMainHandItem().is(ItemRegistry.CAT_PAW.get())||p.getOffhandItem().is(ItemRegistry.CAT_PAW.get())));
+        }
     }
 
     private static void onRainStopped(Level level) {
