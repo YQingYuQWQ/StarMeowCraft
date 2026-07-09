@@ -25,7 +25,7 @@ public class SpearHook extends FishingHook {
         this(EntityTypeRegistry.SPEAR_HOOK.get(), level);
         this.setOwner(player);
         this.moveTo(player.getX(), player.getEyeY() - 0.1D, player.getZ(), player.getYRot(), player.getXRot());
-        this.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.0F, 1.0F);
+        this.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 4.0F, 1.0F);
         player.fishing = this;
     }
 

@@ -6,18 +6,25 @@
   "refmap": "smc.refmap.json",
   "client": [
     "KeyboardHanderMixin",
+    "LivingEntityRendererMixin",
     "MouseHandlerMixin"
   ],
   "mixins": [
     "AnvilBlockMixin",
     "EntityMixin",
     "FoxMixin",
+    "ItemEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "MixinBoat",
     "MixinBoatType",
     "MixinChestBoat",
-    "SmithingMenuMixin"
+    "RepairItemRecipeMixin",
+    "ServerGamePacketListenerImplMixin",
+    "ServerPlayerMixin",
+    "SmithingMenuMixin",
+    "SweetBerryBushBlockMixin",
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

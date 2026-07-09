@@ -3,12 +3,15 @@ package com.starmeow.smc.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.starmeow.smc.client.model.SpearHookModel;
+import com.starmeow.smc.client.model.SpearModel;
 import com.starmeow.smc.entities.projectiles.SpearHook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -24,30 +27,28 @@ import org.joml.Matrix4f;
 
 @OnlyIn(Dist.CLIENT)
 public class SpearHookRenderer extends EntityRenderer<SpearHook> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("smc:textures/entity/broccoli_fishing_hook.png");
+    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("smc:textures/entity/spear_hook.png");
     private static final RenderType RENDER_TYPE;
+    private final SpearHookModel model;
 
-    public SpearHookRenderer(EntityRendererProvider.Context p_174117_) {
-        super(p_174117_);
+    public SpearHookRenderer(EntityRendererProvider.Context ctx) {
+        super(ctx);
+        model = new SpearHookModel(ctx.bakeLayer(SpearHookModel.LAYER_LOCATION));
+
     }
 
     public void render(SpearHook p_114705_, float p_114706_, float p_114707_, PoseStack p_114708_, MultiBufferSource p_114709_, int p_114710_) {
         Player player = p_114705_.getPlayerOwner();
         if (player != null) {
             p_114708_.pushPose();
+            
             p_114708_.pushPose();
-            p_114708_.scale(0.5F, 0.5F, 0.5F);
             p_114708_.mulPose(Axis.YP.rotationDegrees(Mth.lerp(p_114707_, p_114705_.yRotO, p_114705_.getYRot()) - 90.0F));
-            p_114708_.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(p_114707_, p_114705_.xRotO, p_114705_.getXRot()) - 45.0F));
-            PoseStack.Pose posestack$pose = p_114708_.last();
-            Matrix4f matrix4f = posestack$pose.pose();
-            Matrix3f matrix3f = posestack$pose.normal();
-            VertexConsumer vertexconsumer = p_114709_.getBuffer(RENDER_TYPE);
-            vertex(vertexconsumer, matrix4f, matrix3f, p_114710_, 0.0F, 0, 0, 1);
-            vertex(vertexconsumer, matrix4f, matrix3f, p_114710_, 1.0F, 0, 1, 1);
-            vertex(vertexconsumer, matrix4f, matrix3f, p_114710_, 1.0F, 1, 1, 0);
-            vertex(vertexconsumer, matrix4f, matrix3f, p_114710_, 0.0F, 1, 0, 0);
+            p_114708_.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(p_114707_, p_114705_.xRotO, p_114705_.getXRot()) + 90.0F));
+            VertexConsumer $$6 = ItemRenderer.getFoilBufferDirect(p_114709_, this.model.renderType(this.getTextureLocation(p_114705_)), false, false);
+            this.model.renderToBuffer(p_114708_, $$6, p_114710_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             p_114708_.popPose();
+            
             int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
             ItemStack itemstack = player.getMainHandItem();
             if (!itemstack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
@@ -103,10 +104,6 @@ public class SpearHookRenderer extends EntityRenderer<SpearHook> {
 
     private static float fraction(int p_114691_, int p_114692_) {
         return (float)p_114691_ / (float)p_114692_;
-    }
-
-    private static void vertex(VertexConsumer p_254464_, Matrix4f p_254085_, Matrix3f p_253962_, int p_254296_, float p_253632_, int p_254132_, int p_254171_, int p_254026_) {
-        p_254464_.vertex(p_254085_, p_253632_ - 0.5F, (float)p_254132_ - 0.5F, 0.0F).color(255, 255, 255, 255).uv((float)p_254171_, (float)p_254026_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_254296_).normal(p_253962_, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
     private static void stringVertex(float p_174119_, float p_174120_, float p_174121_, VertexConsumer p_174122_, PoseStack.Pose p_174123_, float p_174124_, float p_174125_) {

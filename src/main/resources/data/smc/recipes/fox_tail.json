@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "smc:pure_fox_fur"
+    },
+    "%": {
+      "type": "forge:nbt",
+      "item": "smc:divine_shard",
+      "nbt": "{SMCShardChallenge:6}"
+    }
+  },
+  "pattern": [
+    " #%",
+    "###",
+    "## "
+  ],
+  "result": {
+    "item": "smc:fox_tail"
+  },
+  "show_notification": true
+}

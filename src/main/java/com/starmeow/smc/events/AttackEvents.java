@@ -4,6 +4,8 @@ import com.starmeow.smc.config.Config;
 import com.starmeow.smc.entities.ChickenHarvester;
 import com.starmeow.smc.entities.EasterBunny;
 import com.starmeow.smc.entities.SaltFish;
+import com.starmeow.smc.entities.ThrownSwordEntity;
+import com.starmeow.smc.helper.CuriosHelper;
 import com.starmeow.smc.helper.EntityHelper;
 import com.starmeow.smc.init.ItemRegistry;
 import com.starmeow.smc.init.NetworkRegistry;
@@ -34,15 +36,19 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Phantom;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
@@ -81,11 +87,11 @@ public class AttackEvents {
             }
 
             //凌空之冠减伤
-            if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_HALO.get())){
+            if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_HALO.get()) || CuriosHelper.hasCharm(event.getEntity(), ItemRegistry.DIVINE_HALO.get())){
                 if(event.getSource().is(DamageTypes.FLY_INTO_WALL)){
                     event.setCanceled(true);
                 } else {
-                    ItemStack halo = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
+                    ItemStack halo = CuriosHelper.hasCharm(event.getEntity(), ItemRegistry.DIVINE_HALO.get()) ? CuriosHelper.getCharm(event.getEntity(), ItemRegistry.DIVINE_HALO.get()) : event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
                     CompoundTag tag = halo.getOrCreateTag();
                     double minAbility = Config.DIVINE_HALO_MIN_REDUCE.get();
                     double reduceAbility = Config.DIVINE_HALO_DECREASE_REDUCE.get();
@@ -121,7 +127,7 @@ public class AttackEvents {
                     }
                 }
             }
-            if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_SHARD.get())){
+            if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_SHARD.get()) || CuriosHelper.hasCharm(event.getEntity(), ItemRegistry.DIVINE_SHARD.get())){
                 if(event.getEntity() instanceof Player player && !player.getCooldowns().isOnCooldown(ItemRegistry.DIVINE_SHARD.get()) && event.getAmount() >= event.getEntity().getHealth()) {
                     player.setHealth(1);
                     player.getCooldowns().addCooldown(ItemRegistry.DIVINE_SHARD.get(), Config.DIVINE_HALO_ITEM_COOLDOWN.get() * 20);
@@ -135,12 +141,12 @@ public class AttackEvents {
                     level.playSound(null, entity.getOnPos(), SoundEvents.TOTEM_USE, SoundSource.NEUTRAL, 1, 1);
                 }
 
-                ItemStack shard = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
+                ItemStack shard = CuriosHelper.hasCharm(event.getEntity(), ItemRegistry.DIVINE_SHARD.get()) ? CuriosHelper.getCharm(event.getEntity(), ItemRegistry.DIVINE_SHARD.get()) : event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
                 LivingEntity living = event.getEntity();
                 CompoundTag tag = shard.getTag();
                 if(tag != null && tag.contains("SMCShardChallenge") && tag.getInt("SMCShardChallenge") == 2 && event.getSource().getEntity() instanceof Warden){
                     tag.putInt("SMCShardAttack", tag.getInt("SMCShardAttack") + 1);
-                    if(tag.getInt("SMCShardAttack") >= 1){
+                    if(tag.getInt("SMCShardAttack") >= Config.DIVINE_SHARD_CHALLENGE_2.get()){
                         tag.remove("SMCShardAttack");
                         tag.putInt("SMCShardChallenge", 6);
                         living.level().playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 1F, 2F);
@@ -180,6 +186,12 @@ public class AttackEvents {
                 if (weapon.is(ItemRegistry.SALT_FISH_SWORD.get())) {
                     if (attacker.isInWaterRainOrBubble()){
                         entity.addEffect(new MobEffectInstance(PotionEffectRegistry.STUNNED.get(), 20, 0));
+                        event.setAmount(event.getAmount() * 3.0f);
+                    }
+                }
+                //衣架特攻三倍伤害
+                if (weapon.is(ItemRegistry.GOLDEN_HANGER.get()) || weapon.is(ItemRegistry.HANGER.get())) {
+                    if(entity.isBaby()){
                         event.setAmount(event.getAmount() * 3.0f);
                     }
                 }
@@ -274,7 +286,7 @@ public class AttackEvents {
         }
     }
     @SubscribeEvent
-    public static void onAttackEntity(AttackEntityEvent event) {
+    public static void onAttackEntityForShootSword(AttackEntityEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         ItemStack stack = player.getMainHandItem();
         if (!ClientForgeEvents.isValidWeapon(stack)) return;
@@ -283,13 +295,13 @@ public class AttackEvents {
 
     @SubscribeEvent
     public static void onTotemActive(LivingUseTotemEvent event) {
-        ItemStack shard = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
+        ItemStack shard = CuriosHelper.hasCharm(event.getEntity(), ItemRegistry.DIVINE_SHARD.get()) ? CuriosHelper.getCharm(event.getEntity(), ItemRegistry.DIVINE_SHARD.get()) : event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
         LivingEntity living = event.getEntity();
-        if(shard.is(ItemRegistry.DIVINE_SHARD.get())){
+        if(shard != null && !shard.isEmpty()){
             CompoundTag tag = shard.getTag();
             if(tag != null && tag.contains("SMCShardChallenge") && tag.getInt("SMCShardChallenge") == 4){
                 tag.putInt("SMCShardTotem", tag.getInt("SMCShardTotem") + 1);
-                if(tag.getInt("SMCShardTotem") >= 1){
+                if(tag.getInt("SMCShardTotem") >= Config.DIVINE_SHARD_CHALLENGE_4.get()){
                     tag.remove("SMCShardTotem");
                     tag.putInt("SMCShardChallenge", 8);
                     living.level().playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 1F, 2F);
@@ -315,9 +327,25 @@ public class AttackEvents {
         }
 
         //凌空之冠免疫碰撞
-        if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_HALO.get())){
+        if(event.getEntity().getItemBySlot(EquipmentSlot.HEAD).is(ItemRegistry.DIVINE_HALO.get()) || CuriosHelper.hasCharm(event.getEntity(), ItemRegistry.DIVINE_HALO.get())){
             if(event.getSource().is(DamageTypes.FLY_INTO_WALL)){
                 event.setCanceled(true);
+            }
+        }
+        //狐尾吸收伤害
+        if(entity instanceof Player player && CuriosHelper.hasCharm(player, ItemRegistry.FOX_TAIL.get()) && !player.getCooldowns().isOnCooldown(ItemRegistry.FOX_TAIL.get())){
+            ItemStack tail = CuriosHelper.getCharm(player, ItemRegistry.FOX_TAIL.get());
+            CompoundTag tag = tail.getOrCreateTag();
+            tag.putFloat("SMCTailAtkDamage", event.getAmount());
+            player.getCooldowns().addCooldown(ItemRegistry.FOX_TAIL.get(), 600);
+            event.setCanceled(true);
+        }
+        //狐尾释放伤害
+        if(event.getSource().getEntity() instanceof Player player && CuriosHelper.hasCharm(player, ItemRegistry.FOX_TAIL.get())){
+            ItemStack tail = CuriosHelper.getCharm(player, ItemRegistry.FOX_TAIL.get());
+            if(tail != null){
+                CompoundTag tag = tail.getOrCreateTag();
+                tag.putFloat("SMCTailAtkDamage", 0);
             }
         }
         //狐狸套免疫甜浆果和摔落
@@ -325,7 +353,7 @@ public class AttackEvents {
                 && entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof FoxArmorItems
                 && entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof FoxArmorItems
                 && entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof FoxArmorItems;
-        if(fox_flag && (event.getSource().is(DamageTypes.SWEET_BERRY_BUSH) || event.getSource().is(DamageTypes.FALL))) {
+        if((fox_flag || CuriosHelper.hasCharm(entity, ItemRegistry.FOX_TAIL.get())) && (event.getSource().is(DamageTypes.SWEET_BERRY_BUSH) || event.getSource().is(DamageTypes.FALL))) {
             event.setCanceled(true);
         }
     }
@@ -473,6 +501,43 @@ public class AttackEvents {
                     EntityHelper.addEntityDrops(event, ItemRegistry.COOKED_SALT_FISH.get());
                 }else{
                     EntityHelper.addEntityDrops(event, ItemRegistry.SALT_FISH.get());
+                }
+            }
+            //路牌斩首
+            if (event.getSource().getEntity() instanceof LivingEntity living && living.getMainHandItem().is(ItemRegistry.ROAD_SIGN.get())) {
+                ItemStack head = null;
+                boolean absoluteDrop = false;
+                if (entity instanceof Zombie) {
+                    head = Items.ZOMBIE_HEAD.getDefaultInstance();
+                }
+                if (entity instanceof Skeleton) {
+                    head = Items.SKELETON_SKULL.getDefaultInstance();
+                }
+                if (entity instanceof WitherSkeleton) {
+                    head = Items.WITHER_SKELETON_SKULL.getDefaultInstance();
+                }
+                if (entity instanceof WitherBoss) {
+                    head = Items.WITHER_SKELETON_SKULL.getDefaultInstance();
+                    absoluteDrop = true;
+                }
+                if (entity instanceof Creeper) {
+                    head = Items.CREEPER_HEAD.getDefaultInstance();
+                }
+                if (entity instanceof EnderDragon) {
+                    head = Items.DRAGON_HEAD.getDefaultInstance();
+                    absoluteDrop = true;
+                }
+                if (entity instanceof Piglin) {
+                    head = Items.PIGLIN_HEAD.getDefaultInstance();
+                }
+                if (entity instanceof Player killedPlayer) {
+                    head = Items.PLAYER_HEAD.getDefaultInstance();
+                    head.getOrCreateTag().putString("SkullOwner", killedPlayer.getGameProfile().getName());
+                }
+                if(head != null){
+                    if(absoluteDrop || entity.getRandom().nextInt(100) < 30){
+                        entity.spawnAtLocation(head);
+                    }
                 }
             }
         }

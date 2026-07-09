@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "2": {
+      "item": "smc:chocolate"
+    },
+    "3": {
+      "item": "minecraft:snowball"
+    },
+    "4": {
+      "tag": "forge:berries"
+    },
+    "5": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " 21",
+    "342",
+    "53 "
+  ],
+  "result": {
+    "count": 2,
+    "item": "smc:chocliz_berry"
+  },
+  "show_notification": true
+}

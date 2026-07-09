@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "smc:frostium_ingot"
+    },
+    "2": {
+      "item": "smc:frostium_nugget"
+    },
+    "3": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    " 11",
+    "232",
+    "11 "
+  ],
+  "result": {
+    "item": "smc:frostium_shackles"
+  },
+  "show_notification": true
+}

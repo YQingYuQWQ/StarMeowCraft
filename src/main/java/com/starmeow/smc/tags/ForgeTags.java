@@ -20,6 +20,7 @@ public class ForgeTags {
     public static final TagKey<Item> STORAGE_BLOCKS = forgeItemTag("storage_blocks");
     public static final TagKey<Item> RAW_MATERIALS = forgeItemTag("raw_materials");
     public static final TagKey<Item> FG_KNIFES = forgeItemTag("tools/knives");
+    public static final TagKey<Item> BERRIES = forgeItemTag("berries");
 
     private static TagKey<Item> forgeItemTag(String path) {
         return ItemTags.create(new ResourceLocation("forge", path));

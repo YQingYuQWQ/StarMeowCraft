@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -155,11 +156,13 @@ public class ItemHelper {
 
     public static List<ItemStack> getBlockDrops(ServerLevel level, BlockPos pos, Player player, ItemStack tool) {
         BlockState state = level.getBlockState(pos);
-
+        BlockEntity blockEntity = level.getBlockEntity(pos);
         LootParams.Builder builder = new LootParams.Builder(level)
                 .withParameter(LootContextParams.ORIGIN, pos.getCenter())
                 .withParameter(LootContextParams.BLOCK_STATE, state)
-                .withParameter(LootContextParams.TOOL, tool);
+                .withParameter(LootContextParams.TOOL, tool)
+                .withOptionalParameter(LootContextParams.THIS_ENTITY, player)
+                .withOptionalParameter(LootContextParams.BLOCK_ENTITY, blockEntity);;
 
         if (player != null) {
             builder.withParameter(LootContextParams.THIS_ENTITY, player);

@@ -36,7 +36,7 @@ public class KnifeItem extends SwordItem {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn)
     {
-        String string = "tooltip.smc." + stack.getItem();
+        String string = "tooltip.smc.knife";
         tooltip.add(Component.translatable(string).withStyle(ChatFormatting.DARK_AQUA));
         tooltip.add(Component.translatable(string + "_1").withStyle(ChatFormatting.DARK_AQUA));
         tooltip.add(Component.translatable(string + "_2").withStyle(ChatFormatting.DARK_AQUA));

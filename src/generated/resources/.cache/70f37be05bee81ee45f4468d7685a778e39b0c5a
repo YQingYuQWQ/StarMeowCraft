@@ -1,3 +1,11 @@
-// 1.20.1	2026-03-07T15:02:42.8785274	Tags for minecraft:block mod id smc
-16e216820151da955be963914b5058caf156ee23 data/minecraft/tags/blocks/mineable/pickaxe.json
-21983181bef19614dd444cac92b0e93ed2e206d7 data/minecraft/tags/blocks/needs_iron_tool.json
+// 1.20.1	2026-05-28T16:53:20.3013545	Tags for minecraft:block mod id smc
+c36eaccfb1e54cfdf8086e3e0d276b694211fb87 data/minecraft/tags/blocks/anvil.json
+8dfd38a124324e60216a604233c6e1a75a653cf2 data/minecraft/tags/blocks/mineable/axe.json
+a4083d3e3dabab21cd0eba487919ed2c0d303f04 data/minecraft/tags/blocks/mineable/hoe.json
+eebd427c31808e21a7879bd93e9f80d75368e0c3 data/minecraft/tags/blocks/mineable/pickaxe.json
+c2b6d54504f6b1d9a3bed637d487ca3ccbf0e14b data/minecraft/tags/blocks/needs_iron_tool.json
+e178c1f5218cdba33da6bc39009fbc3d902d424f data/minecraft/tags/blocks/slabs.json
+fa0faf9c1b0395c04d21d5a234a8ad09425d0598 data/minecraft/tags/blocks/stairs.json
+35c4cc775a6811a070e66b8891ec6026a3ef7b21 data/minecraft/tags/blocks/walls.json
+a4083d3e3dabab21cd0eba487919ed2c0d303f04 data/smc/tags/blocks/cloud.json
+917e1192d50e80c4121e90c3853a077c22f0c0a4 data/smc/tags/blocks/easter_bunny_egg_hatch_boost.json

@@ -37,6 +37,7 @@ public class RendererRegistry {
         event.registerEntityRenderer(EntityTypeRegistry.SWORD_AURA.get(), SwordAuraRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.CLOUDIAN.get(), CloudianRenderer::new);
         event.registerEntityRenderer(EntityTypeRegistry.BROCCOLI_NUKE.get(), BroccoliBombRenderer::new);
+        event.registerEntityRenderer(EntityTypeRegistry.MEOW_BALL.get(), ThrownItemRenderer::new);
 
     }
 

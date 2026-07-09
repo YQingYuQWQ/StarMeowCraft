@@ -1,9 +1,9 @@
 {
   "type": "minecraft:jigsaw",
   "start_pool": "smc:cloudy_garden",
-  "biomes": "#minecraft:is_overworld",
+  "biomes": "#minecraft:is_mountain",
   "start_height": {
-    "absolute": 185
+    "absolute": 198
   },
   "spawn_overrides": {},
   "terrain_adaptation": "none",

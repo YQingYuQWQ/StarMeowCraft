@@ -31,6 +31,7 @@ public class EntityTypeRegistry {
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD = abstractArrow("thrown_sword", ThrownSwordEntity::new);
     public static final RegistryObject<EntityType<MagicArrow>> MAGIC_ARROW = abstractArrow("magic_arrow", MagicArrow::new);
     public static final RegistryObject<EntityType<SwordAura>> SWORD_AURA = swordAura("sword_aura", SwordAura::new);
+    public static final RegistryObject<EntityType<MeowBall>> MEOW_BALL = swordAura("meow_ball", MeowBall::new);
     public static final RegistryObject<EntityType<ThrownBroccoliBoom>> THROWN_BROCCOLI_BOOM = throwableItem("thrown_broccoli_boom", ThrownBroccoliBoom::new);
     public static final RegistryObject<EntityType<BroccoliFishingHook>> BROCCOLI_FISHING_HOOK = throwableItem("broccoli_fishing_hook", BroccoliFishingHook::new);
     public static final RegistryObject<EntityType<RainbowFishingHook>> RAINBOW_FISHING_HOOK = throwableItem("rainbow_fishing_hook", RainbowFishingHook::new);

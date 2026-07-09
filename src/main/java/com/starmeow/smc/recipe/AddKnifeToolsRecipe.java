@@ -1,8 +1,6 @@
 package com.starmeow.smc.recipe;
 
-import com.starmeow.smc.init.ItemRegistry;
 import com.starmeow.smc.init.RecipeSerializerRegistry;
-import com.starmeow.smc.items.DevourSword;
 import com.starmeow.smc.items.SwissArmyKnife;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;

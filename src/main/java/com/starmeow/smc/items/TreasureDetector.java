@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,19 +32,21 @@ public class TreasureDetector extends Item {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
         if(!level.isClientSide() && entity instanceof LivingEntity living) {
-            if(level.getGameTime() % 20L != 0L) return;
-            BlockPos pos = entity.getOnPos().offset(0,1,0);
-            if(true) {
-                int r = 32;
-                int size = 0;
-                for (BlockPos tmpPos : BlockPos.withinManhattan(pos, r, r, r)) {
-                    if(isTreasureBlock(level, tmpPos)){
-                        if(size <= 64){
-                            DetectorMark mark = new DetectorMark(level, living);
-                            mark.setPos(tmpPos.getCenter());
-                            mark.setNoGravity(true);
-                            level.addFreshEntity(mark);
-                            size++;
+            if(entity instanceof Player player && player.getItemInHand(InteractionHand.OFF_HAND).is(this)){
+                if(level.getGameTime() % 20L != 0L) return;
+                BlockPos pos = entity.getOnPos().offset(0,1,0);
+                if(true) {
+                    int r = 32;
+                    int size = 0;
+                    for (BlockPos tmpPos : BlockPos.withinManhattan(pos, r, r, r)) {
+                        if(isTreasureBlock(level, tmpPos)){
+                            if(size <= 64){
+                                DetectorMark mark = new DetectorMark(level, living);
+                                mark.setPos(tmpPos.getCenter());
+                                mark.setNoGravity(true);
+                                level.addFreshEntity(mark);
+                                size++;
+                            }
                         }
                     }
                 }
@@ -116,7 +119,7 @@ public class TreasureDetector extends Item {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity instanceof RandomizableContainerBlockEntity rcb){
             CompoundTag tag = rcb.saveWithFullMetadata();
-            if (tag.contains("LootTable", 8)) {
+            if (tag.contains("LootTable", 8) && tag.contains("LootTable")) {
                 return true;
             }
         }

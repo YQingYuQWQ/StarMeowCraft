@@ -77,8 +77,9 @@ public class PropertyRegistry {
         ItemProperties.register(ItemRegistry.NETHERITE_SWISS_ARMY_KNIFE.get(), new ResourceLocation("mode"), (itemstack, level, entity, number) ->
                 itemstack.getOrCreateTag().getInt("SMCSwissKnife"));
         ItemProperties.register(ItemRegistry.DEVOUR_SWORD.get(), new ResourceLocation(StarMeowCraft.MODID, "disguised"), (itemstack, level, entity, number) ->
-                itemstack.getTag() != null && itemstack.getTag().contains("SMCWeaponSkin") ? 1.0F : 0.0F
-        );
+                itemstack.getTag() != null && itemstack.getTag().contains("SMCWeaponSkin") ? 1.0F : 0.0F);
+        ItemProperties.register(ItemRegistry.DEVOUR_KNIFE.get(), new ResourceLocation(StarMeowCraft.MODID, "disguised"), (itemstack, level, entity, number) ->
+                itemstack.getTag() != null && itemstack.getTag().contains("SMCWeaponSkin") ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent

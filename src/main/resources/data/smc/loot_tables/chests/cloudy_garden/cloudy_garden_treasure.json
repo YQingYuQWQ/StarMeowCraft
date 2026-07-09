@@ -5,36 +5,20 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.8
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "name": "smc:chop_shield",
-          "weight": 25
-        },
-        {
           "type": "item",
           "functions": [
             {
               "add": false,
-              "damage": {
+              "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.8
+                "max": 4.0,
+                "min": 1.0
               },
-              "function": "minecraft:set_damage"
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "smc:chop_kebab",
-          "weight": 12
+          "name": "smc:chicken_tail_feather",
+          "weight": 16
         },
         {
           "type": "minecraft:item",
@@ -189,22 +173,6 @@
             }
           ],
           "name": "minecraft:end_rod",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "smc:chicken_tail_feather",
           "weight": 1
         },
         {

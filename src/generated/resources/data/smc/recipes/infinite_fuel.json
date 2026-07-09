@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:coal_block"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "item": "minecraft:dried_kelp_block"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "smc:star_dust"
+    }
+  ],
+  "result": {
+    "item": "smc:infinite_fuel"
+  }
+}

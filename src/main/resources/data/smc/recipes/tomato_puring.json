@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "smc:pure_fox_fur"
+    },
+    {
+      "item": "farmersdelight:rotten_tomato"
+    }
+  ],
+  "result": {
+    "item": "farmersdelight:tomato"
+  }
+}

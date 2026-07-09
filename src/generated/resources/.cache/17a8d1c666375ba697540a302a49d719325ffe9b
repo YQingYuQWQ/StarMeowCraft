@@ -1,5 +1,5 @@
-// 1.20.1	2026-01-19T01:14:38.561041	Tags for minecraft:item mod id smc
-8f9bdc9c16cde257a9a0babdb507d9110bf75c9c data/farmersdelight/tags/items/tools/knives.json
+// 1.20.1	2026-07-09T23:40:11.7942396	Tags for minecraft:item mod id smc
+e1637c05d5561527644f2c71d6d172d9b18be7a3 data/farmersdelight/tags/items/tools/knives.json
 6ddb26f62487e2f1691999b5c3549e4a5bf5e8fb data/forge/tags/items/cooked_beef.json
 c3c27458abd0552603e7efa5057e67df2cdca0e5 data/forge/tags/items/cooked_chicken.json
 c18b5cb2923eb4955572b2bb32cbbee4445bb993 data/forge/tags/items/cooked_mutton.json
@@ -15,10 +15,14 @@ c40d2af5b9d641cfe03153b06b58287d24ff6fe4 data/forge/tags/items/raw_materials.jso
 8f9bdc9c16cde257a9a0babdb507d9110bf75c9c data/forge/tags/items/tools/knives.json
 53131f4fff5922171605b9efb83372419ecb44a5 data/forge/tags/items/vegetables.json
 2a5596f730098e1d7f77f2e7382de034252f3f3d data/minecraft/tags/items/arrows.json
-7c0e64d090c287fc6c0951dd4f05d2b1773cb8b1 data/minecraft/tags/items/music_discs.json
-0fd2707c2c605dab7a58cc22d308254c71087586 data/minecraft/tags/items/trimmable_armor.json
+f8bb5ef68b303cfd626312faa436e9cb7ad506cc data/minecraft/tags/items/music_discs.json
+837bf2aed8b0248a8c92da045d35bd4137e40fe1 data/minecraft/tags/items/trimmable_armor.json
+bb93baa8d4e8fc56e6a0d690e22fe758540d391c data/minecraft/tags/items/trim_materials.json
+1ea0f67261a3e931ced598a7bec89c69e9e28776 data/minecraft/tags/items/trim_templates.json
 6776f24dc8a12a420d86b2b15f4dda457eb2b2c5 data/smc/tags/items/beef_compat.json
 dc760b6598387951a448e75c5ddcaeadc37b4136 data/smc/tags/items/chicken_compat.json
+a4083d3e3dabab21cd0eba487919ed2c0d303f04 data/smc/tags/items/cloud.json
+917e1192d50e80c4121e90c3853a077c22f0c0a4 data/smc/tags/items/easter_bunny_egg_components.json
 66fabce44ccd850e3e647116473effc16132cb79 data/smc/tags/items/meat_compat.json
 8a52a046eb12ed6f45fb0c7961ab42e12c82f18e data/smc/tags/items/milk_compat.json
 9fb641e49b00cc549ef81cd75123fb6c3c9a2337 data/smc/tags/items/mutton_compat.json

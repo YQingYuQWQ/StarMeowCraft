@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "item": "smc:fox_fur"
+    }
+  },
+  "pattern": [
+    "1 1",
+    "111",
+    "111"
+  ],
+  "result": {
+    "item": "smc:fox_shawl"
+  },
+  "show_notification": true
+}

@@ -1,8 +1,6 @@
 package com.starmeow.smc.packet;
 
-import com.starmeow.smc.helper.EntityHelper;
 import com.starmeow.smc.init.ItemRegistry;
-import com.starmeow.smc.items.DivineWing;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;

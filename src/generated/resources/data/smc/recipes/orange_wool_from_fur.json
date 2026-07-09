@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "1": {
+      "item": "smc:fox_fur"
+    }
+  },
+  "pattern": [
+    "11",
+    "11"
+  ],
+  "result": {
+    "item": "minecraft:orange_wool"
+  },
+  "show_notification": true
+}

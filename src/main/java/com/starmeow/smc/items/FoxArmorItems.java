@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.starmeow.smc.init.ItemRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -50,7 +51,10 @@ public class FoxArmorItems extends SMCArmorItems{
     public void onArmorTick(ItemStack itemstack, Level level, Player player) {
         if(!level.isClientSide()) {
             if(player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof FoxArmorItems) {
-                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 0, 0, true, true, true));
+                BlockPos pos = player.blockPosition();
+                if(level.getRawBrightness(pos, 0) <= 7){
+                    player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 5, 0, true, true, true));
+                }
             }
         }
     }

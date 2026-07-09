@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "tag": "minecraft:flowers"
+    },
+    "2": {
+      "item": "minecraft:sugar"
+    },
+    "3": {
+      "tag": "forge:milk"
+    },
+    "4": {
+      "item": "smc:cooked_dirt"
+    },
+    "5": {
+      "item": "minecraft:flower_pot"
+    }
+
+  },
+  "pattern": [
+    "111",
+    "232",
+    "454"
+  ],
+  "result": {
+    "item": "smc:bloom_cake"
+  },
+  "show_notification": true
+}

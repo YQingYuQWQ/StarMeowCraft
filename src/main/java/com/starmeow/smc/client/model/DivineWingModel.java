@@ -21,10 +21,12 @@ public class DivineWingModel extends HumanoidModel<LivingEntity> {
 	private final ModelPart wings;
 	private final ModelPart wing_r;
 	private final ModelPart wing_l;
+	private final ModelPart body;
 
 	public DivineWingModel(ModelPart root) {
 		super(root);
-		this.wings = root.getChild("wings");
+		this.body = root.getChild("body");
+		this.wings = this.body.getChild("wings");
 		this.wing_r = this.wings.getChild("wing_r");
 		this.wing_l = this.wings.getChild("wing_l");
 	}
@@ -34,13 +36,13 @@ public class DivineWingModel extends HumanoidModel<LivingEntity> {
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
 		partdefinition.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
-		partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
 		partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
 		partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.ZERO);
 		partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.ZERO);
 		partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.ZERO);
 
-		PartDefinition wings = partdefinition.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.offset(-2.0F, 2.0F, 4.0F));
+		PartDefinition wings = body.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.offset(-2.0F, 2.0F, 4.0F));
 
 		PartDefinition wing_r = wings.addOrReplaceChild("wing_r", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -84,6 +86,6 @@ public class DivineWingModel extends HumanoidModel<LivingEntity> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		wings.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

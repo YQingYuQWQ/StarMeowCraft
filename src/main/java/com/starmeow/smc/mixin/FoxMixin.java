@@ -1,5 +1,7 @@
 package com.starmeow.smc.mixin;
 
+import com.starmeow.smc.helper.CuriosHelper;
+import com.starmeow.smc.init.ItemRegistry;
 import com.starmeow.smc.items.FoxArmorItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Fox;
@@ -32,7 +34,7 @@ public class FoxMixin {
                     && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof FoxArmorItems
                     && player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof FoxArmorItems
                     && player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof FoxArmorItems;
-            if(flag) {
+            if(flag || CuriosHelper.hasCharm(player, ItemRegistry.FOX_TAIL.get())) {
                 return false;
             }
 

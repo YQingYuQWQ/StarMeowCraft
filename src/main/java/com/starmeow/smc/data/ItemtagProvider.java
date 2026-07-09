@@ -97,6 +97,8 @@ public class ItemtagProvider extends ItemTagsProvider {
         this.tag(MCTags.ARROWS)
                 .add(ItemRegistry.FROST_ARROW.get());
         this.tag(FDTags.FD_KNIFES)
+                .add(ItemRegistry.CLEAVER.get())
+                .add(ItemRegistry.DEVOUR_KNIFE.get())
                 .add(ItemRegistry.SWISS_ARMY_KNIFE.get())
                 .add(ItemRegistry.DIAMOND_SWISS_ARMY_KNIFE.get())
                 .add(ItemRegistry.NETHERITE_SWISS_ARMY_KNIFE.get());

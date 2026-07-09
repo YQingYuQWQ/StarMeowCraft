@@ -2,12 +2,8 @@ package com.starmeow.smc.init;
 
 import com.starmeow.smc.StarMeowCraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -49,8 +45,6 @@ public class TabRegistry {
                 output.accept(ItemRegistry.ZINC_NUGGET.get());
 
                 output.accept(ItemRegistry.SNIFFER_BEAK.get());
-                //output.accept(ItemRegistry.FISH.get());
-                //output.accept(ItemRegistry.FISH_NUGGET.get());
                 output.accept(ItemRegistry.BROCCOLI_SEED.get());
                 output.accept(ItemRegistry.RAINBOW_CHIP.get());
                 output.accept(ItemRegistry.BROCCOLI.get());
@@ -60,6 +54,9 @@ public class TabRegistry {
                 output.accept(ItemRegistry.SALT_FISH_BUCKET.get());
                 output.accept(ItemRegistry.SALT_FISH_NUGGET.get());
                 output.accept(ItemRegistry.SALT_FISH_BLOCK.get());
+                output.accept(ItemRegistry.FOX_FUR.get());
+                output.accept(ItemRegistry.SNOW_FOX_FUR.get());
+                output.accept(ItemRegistry.PURE_FOX_FUR.get());
                 output.accept(ItemRegistry.IRON_ARMOR_TRIM_SMITHING_TEMPLATE.get());
                 output.accept(ItemRegistry.CHAINMAIL_ARMOR_TRIM_SMITHING_TEMPLATE.get());
                 output.accept(ItemRegistry.NETHERITE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
@@ -91,7 +88,7 @@ public class TabRegistry {
                 output.accept(ItemRegistry.LUCKY_NUGGET.get());
                 output.accept(ItemRegistry.BAD_APPLE.get());
                 output.accept(ItemRegistry.ORE_DETECTOR.get());
-                //output.accept(ItemRegistry.TREASURE_DETECTOR.get());
+                output.accept(ItemRegistry.TREASURE_DETECTOR.get());
                 output.accept(ItemRegistry.GIANT_CARROT.get());
                 output.accept(ItemRegistry.BOT.get());
                 output.accept(ItemRegistry.CANDY_JAR.get());
@@ -102,8 +99,12 @@ public class TabRegistry {
                 output.accept(ItemRegistry.COPPER_WATERING_CAN.get());
                 output.accept(ItemRegistry.IRON_WATERING_CAN.get());
                 output.accept(ItemRegistry.WATERING_CAN.get());
+                output.accept(ItemRegistry.SUPER_BONEMEAL.get());
                 output.accept(ItemRegistry.SPORE_BUD.get());
                 output.accept(ItemRegistry.MINI_BEDROCK.get());
+                output.accept(ItemRegistry.HANGER.get());
+                output.accept(ItemRegistry.GOLDEN_HANGER.get());
+                output.accept(ItemRegistry.INFINITE_FUEL.get());
 
                 output.accept(ItemRegistry.EASTER_BUNNY_SPAWN_EGG.get());
                 output.accept(ItemRegistry.CLOUDIAN_SPAWN_EGG.get());
@@ -127,6 +128,8 @@ public class TabRegistry {
                 output.accept(ItemRegistry.GOLDEN_BROCCOLI.get());
                 output.accept(ItemRegistry.CHOCOLATE.get());
                 output.accept(ItemRegistry.ICE_TEA.get());
+                output.accept(ItemRegistry.CHOCLIZ.get());
+                output.accept(ItemRegistry.CHOCLIZ_BERRY.get());
                 output.accept(ItemRegistry.PEA.get());
                 output.accept(ItemRegistry.PEA_POD.get());
                 if (ModList.get().isLoaded("farmersdelight")) {
@@ -210,6 +213,7 @@ public class TabRegistry {
                 output.accept(ItemRegistry.CHICKEN_CHOP.get());
                 output.accept(ItemRegistry.GRASS_BLOCK_PIE.get());
                 output.accept(ItemRegistry.COOKED_DIRT.get());
+                output.accept(ItemRegistry.BLOOM_CAKE.get());
                 output.accept(ItemRegistry.RAINBOW_COOKIE.get());
                 output.accept(ItemRegistry.DELUXE_CAKE.get());
 
@@ -274,7 +278,6 @@ public class TabRegistry {
                 //output.accept(ItemRegistry.PERFROSTITE_BOW.get());
                 output.accept(ItemRegistry.RAINBOW_FISHING_ROD.get());
                 output.accept(ItemRegistry.RAINBOW_BOW.get());
-                output.accept(ItemRegistry.SPEAR_GUN.get());
 
                 output.accept(ItemRegistry.SALT_FISH_SWORD.get());
 
@@ -302,22 +305,36 @@ public class TabRegistry {
                 output.accept(ItemRegistry.SNOW_FOX_CHESTPLATE.get());
                 output.accept(ItemRegistry.SNOW_FOX_LEGGINGS.get());
                 output.accept(ItemRegistry.SNOW_FOX_BOOTS.get());
-
+                //独立武器
                 output.accept(ItemRegistry.KATANA.get());
                 output.accept(ItemRegistry.KNIFE.get());
+                output.accept(ItemRegistry.CLEAVER.get());
                 output.accept(ItemRegistry.CAT_PAW.get());
                 output.accept(ItemRegistry.SLINGSHOT.get());
                 output.accept(ItemRegistry.ARCHAEOLOGICAL_SHOVEL.get());
                 output.accept(ItemRegistry.CARROT_PICKAXE.get());
                 output.accept(ItemRegistry.GOLDEN_CARROT_PICKAXE.get());
+                output.accept(ItemRegistry.SPEAR_GUN.get());
                 output.accept(ItemRegistry.DEVOUR_SWORD.get());
+                output.accept(ItemRegistry.DEVOUR_KNIFE.get());
                 output.accept(ItemRegistry.TEMPLATE_SHROUD.get());
                 output.accept(ItemRegistry.CALIBUR.get());
                 output.accept(ItemRegistry.EXCALIBUR.get());
+                output.accept(ItemRegistry.HANGER.get());
+                output.accept(ItemRegistry.GOLDEN_HANGER.get());
+                output.accept(ItemRegistry.ROD_SWORD.get());
+                output.accept(ItemRegistry.ROAD_SIGN.get());
+                output.accept(ItemRegistry.MEOWMERE.get());
+                output.accept(ItemRegistry.ZENISH.get());
+                //饰品
                 output.accept(ItemRegistry.DIVINE_WING.get());
                 output.accept(ItemRegistry.DIVINE_SHARD.get());
                 output.accept(ItemRegistry.DIVINE_HALO.get());
-                //output.accept(ItemRegistry.SPEAR_GUN.get());
+                output.accept(ItemRegistry.FOX_TAIL.get());
+                output.accept(ItemRegistry.FROSTIUM_SHACKLES.get());
+                output.accept(ItemRegistry.GLITCH_PARTICLE.get());
+                output.accept(ItemRegistry.RED_FRAME_GLASSES.get());
+                //特殊
                 output.accept(ItemRegistry.MCR_SWORD.get());
                 output.accept(ItemRegistry.GOD_PICKAXE.get());
                 output.accept(ItemRegistry.COMMAND_BLOCK_WAND.get());

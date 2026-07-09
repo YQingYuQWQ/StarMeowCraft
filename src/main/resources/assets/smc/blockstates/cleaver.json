@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "smc:block/cleaver",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "smc:block/cleaver"
+    },
+    "facing=south": {
+      "model": "smc:block/cleaver",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "smc:block/cleaver",
+      "y": 270
+    }
+  }
+}

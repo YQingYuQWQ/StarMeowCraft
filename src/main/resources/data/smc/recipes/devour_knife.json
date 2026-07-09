@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "farmersdelight:flint_knife"
+    },
+    {
+      "item": "farmersdelight:iron_knife"
+    },
+    {
+      "item": "farmersdelight:golden_knife"
+    },
+    {
+      "item": "farmersdelight:diamond_knife"
+    },
+    {
+      "item": "farmersdelight:netherite_knife"
+    },
+    {
+      "item": "smc:cleaver"
+    }
+  ],
+  "result": {
+    "item": "smc:devour_knife"
+  }
+}

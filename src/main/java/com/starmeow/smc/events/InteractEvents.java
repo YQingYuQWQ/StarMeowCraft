@@ -4,6 +4,7 @@ import com.starmeow.smc.cache.MiningFaceCache;
 import com.starmeow.smc.config.Config;
 import com.starmeow.smc.entities.EasterBunny;
 import com.starmeow.smc.helper.BlockHelper;
+import com.starmeow.smc.helper.CuriosHelper;
 import com.starmeow.smc.helper.ItemHelper;
 import com.starmeow.smc.init.BlockRegistry;
 import com.starmeow.smc.init.EnchantmentRegistry;
@@ -47,9 +48,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -164,16 +167,20 @@ public class InteractEvents {
             if(item.getTag()!=null && item.getTag().contains("SMCZincPower")){
                 if(item.getTag().getInt("SMCZincPower") > 0){
                     int r = 1;
+                    float hardness0 = level.getBlockState(pos).getDestroySpeed(level, pos);
                     Direction face = MiningFaceCache.get(player.getUUID());
                     for (BlockPos tmpPos : BlockPos.withinManhattan(pos,
                             face.getStepX() == 0 ? r : 0,
                             face.getStepY() == 0 ? r : 0,
                             face.getStepZ() == 0 ? r : 0)){
                         if(tmpPos != pos){
-                            if (!event.getPlayer().getAbilities().instabuild) {
-                                Block.dropResources(level.getBlockState(tmpPos), level, tmpPos, level.getBlockEntity(tmpPos), event.getPlayer(), item.copy());
+                            float hardness = level.getBlockState(tmpPos).getDestroySpeed(level, tmpPos);
+                            if(hardness >= 0 && hardness0 >= hardness){
+                                if (!event.getPlayer().getAbilities().instabuild) {
+                                    Block.dropResources(level.getBlockState(tmpPos), level, tmpPos, level.getBlockEntity(tmpPos), event.getPlayer(), item.copy());
+                                }
+                                level.destroyBlock(tmpPos, false, player);
                             }
-                            level.destroyBlock(tmpPos, false, player);
                         }
                     }
                 }
@@ -242,6 +249,31 @@ public class InteractEvents {
     }
 
     @SubscribeEvent
+    public static void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
+        LivingEntity living = event.getEntity();
+        if(CuriosHelper.hasCharm(living, ItemRegistry.FOX_TAIL.get())){
+            ItemStack tailItem = CuriosHelper.getCharm(living, ItemRegistry.FOX_TAIL.get());
+            CompoundTag tag = tailItem.getOrCreateTag();
+            if(tag.getInt("SMCTailJump") > 0 && tag.getInt("SMCTailJump") < 10){
+                tag.putInt("SMCTailAtkSpeed", 100);
+                living.setDeltaMovement(living.getDeltaMovement().add(0, 1, 0));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onItemUseEvent(LivingEntityUseItemEvent.Tick event) {
+        LivingEntity living = event.getEntity();
+        Level level = living.level();
+        if(living.hasEffect(PotionEffectRegistry.OVER_SPEED.get())){
+            int amp = Math.min(living.getEffect(PotionEffectRegistry.OVER_SPEED.get()).getAmplifier() + 1, 5);
+            if(level.getGameTime() % 2 == 0L){
+                event.setDuration(event.getDuration() - amp);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onEntityMobGriefingEvent(EntityMobGriefingEvent event) {
         if (event.getEntity() instanceof Rabbit rabbit){
             Level level = rabbit.level();
@@ -273,6 +305,11 @@ public class InteractEvents {
             if (!level.mayInteract(player, placePos) || !player.mayUseItemAt(placePos, face, stack) || !target.canBeReplaced()) return;
             if (stack.is(ItemRegistry.KNIFE.get())) {
                 BlockState placeState = BlockRegistry.KNIFE.get().defaultBlockState();
+                int flags = Block.UPDATE_ALL;
+                placed = level.setBlock(placePos, placeState.setValue(HorizontalDirectionalBlock.FACING, player.getDirection().getClockWise()), flags);
+            }
+            if (stack.is(ItemRegistry.CLEAVER.get())) {
+                BlockState placeState = BlockRegistry.CLEAVER.get().defaultBlockState();
                 int flags = Block.UPDATE_ALL;
                 placed = level.setBlock(placePos, placeState.setValue(HorizontalDirectionalBlock.FACING, player.getDirection().getClockWise()), flags);
             }
@@ -392,7 +429,7 @@ public class InteractEvents {
                     ArrayList<ItemStack> drops = new ArrayList<>();
                     if(rabbit.getVariant() == Rabbit.Variant.EVIL){
                         flag = true;
-                        List<Item> items = Config.whitelistSwordItems.stream().filter(item -> item instanceof SwordItem sword && sword.getDamage() >= Config.KNIFE_MIN_ATK.get() && sword.getDamage() <= Config.KNIFE_MAX_ATK.get() && item != ItemRegistry.KNIFE.get()).toList();
+                        List<Item> items = Config.whitelistSwordItems.stream().filter(item -> item instanceof SwordItem sword && sword.getDamage() >= Config.KNIFE_MIN_ATK.get() && sword.getDamage() < Config.KNIFE_MAX_ATK.get() && item != ItemRegistry.KNIFE.get()).toList();
                         for(int i = 0; i < count / 4; i++){
                             ItemStack randomItem = new ItemStack(items.get(random.nextInt(items.size())));
                             drops.add(randomItem);

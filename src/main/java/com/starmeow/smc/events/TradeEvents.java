@@ -27,8 +27,38 @@ public class TradeEvents {
                     0
             ));
         }
-
-
-
+        if (event.getType() == VillagerProfession.BUTCHER) {
+            List<VillagerTrades.ItemListing> trade5 = event.getTrades().get(5);
+            trade5.add(new BasicItemListing(
+                    new ItemStack(Items.EMERALD, 48),
+                    new ItemStack(ItemRegistry.LUCKY_CLOVER.get(), 4),
+                    new ItemStack(ItemRegistry.CLEAVER.get(), 1),
+                    1,
+                    30,
+                    0
+            ));
+        }
+        if (event.getType() == VillagerProfession.LIBRARIAN) {
+            List<VillagerTrades.ItemListing> trade5 = event.getTrades().get(5);
+            trade5.add(new BasicItemListing(
+                    new ItemStack(Items.EMERALD, 20),
+                    new ItemStack(ItemRegistry.BAD_APPLE.get(), 4),
+                    new ItemStack(ItemRegistry.RED_FRAME_GLASSES.get(), 1),
+                    1,
+                    30,
+                    0
+            ));
+        }
+        if (event.getType() == VillagerProfession.FARMER) {
+            List<VillagerTrades.ItemListing> trade5 = event.getTrades().get(5);
+            trade5.add(new BasicItemListing(
+                    new ItemStack(Items.EMERALD, 11),
+                    new ItemStack(ItemRegistry.BROCCOLI.get(), 4),
+                    new ItemStack(ItemRegistry.GLITCH_PARTICLE.get(), 1),
+                    1,
+                    30,
+                    0
+            ));
+        }
     }
 }

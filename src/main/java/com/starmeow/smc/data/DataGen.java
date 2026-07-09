@@ -216,6 +216,15 @@ public class DataGen {
             list.add(String.valueOf(ItemRegistry.SNOW_FOX_CHESTPLATE.get()));
             list.add(String.valueOf(ItemRegistry.CHOP_ARMOR_TRIM_SMITHING_TEMPLATE.get()));
             list.add(String.valueOf(ItemRegistry.BATTERY.get()));
+            list.add(String.valueOf(ItemRegistry.SUPER_BONEMEAL.get()));
+            list.add(String.valueOf(ItemRegistry.FROSTIUM_SHACKLES.get()));
+            list.add(String.valueOf(ItemRegistry.FOX_TAIL.get()));
+            list.add(String.valueOf(ItemRegistry.BLOOM_CAKE.get()));
+            list.add(String.valueOf(ItemRegistry.FOX_FUR.get()));
+            list.add(String.valueOf(ItemRegistry.SNOW_FOX_FUR.get()));
+            list.add(String.valueOf(ItemRegistry.PURE_FOX_FUR.get()));
+            list.add(String.valueOf(ItemRegistry.INFINITE_FUEL.get()));
+            list.add(String.valueOf(ItemRegistry.RED_FRAME_GLASSES.get()));
 
             for (Object o : list) {
                 this.singleTexture(o.toString(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(StarMeowCraft.MODID, "item/" + o));
@@ -249,6 +258,13 @@ public class DataGen {
             listtools.add(String.valueOf(ItemRegistry.ZINC_PICKAXE.get()));
             listtools.add(String.valueOf(ItemRegistry.ZINC_SHOVEL.get()));
             listtools.add(String.valueOf(ItemRegistry.ZINC_HOE.get()));
+            listtools.add(String.valueOf(ItemRegistry.CHOCLIZ.get()));
+            listtools.add(String.valueOf(ItemRegistry.CHOCLIZ_BERRY.get()));
+            listtools.add(String.valueOf(ItemRegistry.RAW_TOMAHAWK_STEAK.get()));
+            listtools.add(String.valueOf(ItemRegistry.RAW_MINT_TOMAHAWK_STEAK.get()));
+            listtools.add(String.valueOf(ItemRegistry.TOMAHAWK_STEAK.get()));
+            listtools.add(String.valueOf(ItemRegistry.MINT_TOMAHAWK_STEAK.get()));
+
             for (Object o : listtools) {
                 this.singleTexture(o.toString(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(StarMeowCraft.MODID, "item/" + o));
             }

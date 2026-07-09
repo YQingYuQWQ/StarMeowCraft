@@ -31,7 +31,8 @@ public class PotionEffectRegistry {
     public static final RegistryObject<MobEffect> FEVER_SPICY = MOB_EFFECTS.register("fever_spicy", () -> new NoAttributeEffects(MobEffectCategory.BENEFICIAL, 15233650));
     public static final RegistryObject<MobEffect> FRESH_COOL = MOB_EFFECTS.register("fresh_cool", () -> new NoAttributeEffects(MobEffectCategory.BENEFICIAL, 8115399));
     public static final RegistryObject<MobEffect> SNOW_STEP = MOB_EFFECTS.register("snow_step", () -> new SnowStepEffect(MobEffectCategory.NEUTRAL, 16777215));
-
+    public static final RegistryObject<MobEffect> OVER_SPEED = MOB_EFFECTS.register("over_speed", () -> new OverSpeedEffect(MobEffectCategory.NEUTRAL, 9392939));
+    public static final RegistryObject<MobEffect> BLOOMING = MOB_EFFECTS.register("blooming", () -> new BloomingEffect(MobEffectCategory.BENEFICIAL, -13159));
 
 
 }

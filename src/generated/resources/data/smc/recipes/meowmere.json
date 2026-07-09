@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "item": "smc:rainbow_chip"
+    },
+    "2": {
+      "item": "smc:perfrostite_sword"
+    },
+    "3": {
+      "item": "minecraft:nether_star"
+    },
+    "4": {
+      "item": "smc:perkin_wand"
+    }
+  },
+  "pattern": [
+    "121",
+    "131",
+    "141"
+  ],
+  "result": {
+    "item": "smc:meowmere"
+  },
+  "show_notification": true
+}

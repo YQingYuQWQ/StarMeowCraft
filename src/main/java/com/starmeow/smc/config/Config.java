@@ -42,6 +42,7 @@ public class Config
     public static ForgeConfigSpec.DoubleValue DEVOUR_SWORD_ADD;
     public static ForgeConfigSpec.DoubleValue DEVOUR_SWORD_SHOOT_DAMAGE;
     public static ForgeConfigSpec.IntValue DEVOUR_SWORD_UPGRADE;
+    public static ForgeConfigSpec.IntValue DEVOUR_SWORD_MAX;
     public static final String DIVINE_HALO = "DivineHalo";
     public static ForgeConfigSpec.DoubleValue DIVINE_HALO_MAX_REDUCE;
     public static ForgeConfigSpec.DoubleValue DIVINE_HALO_MIN_REDUCE;
@@ -82,6 +83,8 @@ public class Config
     public static final String VILLAGE_STRUCTURE = "VillageStructures";
     public static ForgeConfigSpec.BooleanValue ENABLE_LATRINE;
     public static ForgeConfigSpec.BooleanValue ENABLE_FAULT_HOUSE;
+    public static final String RED_FRAME_GLASSES = "RadFrameGlasses";
+    public static ForgeConfigSpec.IntValue GLASSES_REPUTATION;
 
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> LUCKY_CLOVER_BLACKLIST_ITEM_STRINGS;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> LUCKY_CLOVER_BLACKLIST_KEYWORDS_STRINGS;
@@ -181,6 +184,8 @@ public class Config
                 .defineInRange("DamageInherit", 0.5, 0, Double.MAX_VALUE);
         DEVOUR_SWORD_UPGRADE = COMMON_BUILDER.comment("Define the sword amount requirement for increase the shooting sword amount.")
                 .defineInRange("UpgradeAmount", 9, 0, Integer.MAX_VALUE);
+        DEVOUR_SWORD_MAX = COMMON_BUILDER.comment("Define the max shooting sword amount.")
+                .defineInRange("MaxShootingAmount", 6, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.push(DIVINE_HALO);
@@ -277,6 +282,10 @@ public class Config
                 .define("EnableLatrine", true);
         ENABLE_FAULT_HOUSE = COMMON_BUILDER.comment("Whether to enable Fault House structures placing in Villages.")
                 .define("EnableFaultHouse", true);
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push(DIVINE_SHARD);
+        GLASSES_REPUTATION = COMMON_BUILDER.comment("Define the villager reputation provided by Red Frame Glasses")
+                .defineInRange("GlassReputation", 70, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
         COMMON_CONFIG = COMMON_BUILDER.build();
 

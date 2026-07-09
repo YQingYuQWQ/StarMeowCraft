@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "item": "minecraft:beef"
+    },
+    "2": {
+      "item": "minecraft:bone"
+    }
+  },
+  "pattern": [
+    "11",
+    "12",
+    " 2"
+  ],
+  "result": {
+    "item": "smc:raw_tomahawk_steak"
+  },
+  "show_notification": true
+}

@@ -30,15 +30,17 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class KnifeBlock extends CommonBlocks {
+public class KnifeBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(7.0, 0.0, 7.0, 9.0, 14.0, 9.0);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -65,7 +67,7 @@ public class KnifeBlock extends CommonBlocks {
         if (level.isClientSide) return InteractionResult.SUCCESS;
         if(!player.isCrouching()){
             Random random = new Random();
-            List<Item> items = Config.whitelistSwordItems.stream().filter(item -> item instanceof SwordItem sword && sword.getDamage() >= Config.KNIFE_MIN_ATK.get() && sword.getDamage() <= Config.KNIFE_MAX_ATK.get() && item != ItemRegistry.KNIFE.get()).toList();
+            List<Item> items = Config.whitelistSwordItems.stream().filter(item -> item instanceof SwordItem sword && sword.getDamage() >= Config.KNIFE_MIN_ATK.get() && sword.getDamage() < Config.KNIFE_MAX_ATK.get() && item != ItemRegistry.KNIFE.get()).toList();
             Item randomItem = items.get(random.nextInt(items.size()));
             ItemStack spawnedItem = new ItemStack(randomItem);
             level.addFreshEntity(new ItemEntity(level, player.getX(), player.getY(), player.getZ(), spawnedItem));
@@ -93,5 +95,14 @@ public class KnifeBlock extends CommonBlocks {
 
     public BlockState mirror(BlockState p_152030_, Mirror p_152031_) {
         return p_152030_.rotate(p_152031_.getRotation(p_152030_.getValue(FACING)));
+    }
+
+    public ItemStack getCloneItemStack(BlockGetter p_52254_, BlockPos p_52255_, BlockState p_52256_) {
+        return new ItemStack(ItemRegistry.KNIFE.get());
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+        return Collections.singletonList(new ItemStack(ItemRegistry.KNIFE.get(), 1));
     }
 }

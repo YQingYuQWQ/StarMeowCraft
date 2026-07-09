@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "smc:meowmere"
+    },
+    {
+      "item": "smc:devour_sword"
+    },
+    {
+      "item": "smc:excalibur"
+    },
+    {
+      "item": "smc:katana"
+    },
+    {
+      "item": "smc:salt_fish_sword"
+    },
+    {
+      "item": "smc:colorful_ice_cream"
+    },
+    {
+      "item": "smc:perfrostite_sword"
+    },
+    {
+      "item": "smc:chop_kebab"
+    },
+    {
+      "item": "smc:chocolate_sword"
+    }
+  ],
+  "result": {
+    "item": "smc:zenish"
+  }
+}

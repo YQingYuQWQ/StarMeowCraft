@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "smc:jerky_2_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "jerky_2": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:cooked_porkchop"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "jerky_2",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "smc:jerky_2_from_smoking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,6 +1,8 @@
 SMC 1.20.1 Changelog
 
 -1.1.3
+    Add Curios API and Caelus API dependency.
+    Add some new curios.
     Add Zincite materials and tools.
     Add Fox suit and Snow Fox suit.
     Add Chop Armor Trim Smithing Template model.
@@ -8,10 +10,39 @@ SMC 1.20.1 Changelog
     Add a new doll.
     Add Spear Gun recipe and model.
     Add Config for MCr Sword "All Damage Type Ability" (disable in default).
+    Add Heirloom Cleaver.
+    Add damage reflect ability for Cloudian.
+    Add lotttable for Cloudy Garden aquarium suspicious sand and chest.
+    Add more Cloudian in Cloudy Garden (10 -> 15).
+    Add Salt Fish entity in Cloudy Garden aquarium.
+    Add Chocliz and Clocoliz Berry.
+    Add Over Speed effect.
+    Add Bloom Cake.
+    Add Blooming effect.
+    Add Infinite Fuel.
+    Add Anchor Hold enchantment.
+    Add Inheritance enchantment.
+    Add Netherite Cladding enchantment.
+    Add Devour Knife, Zenish, Meowmere, Road Sign and Rod Sword.
+    Change Lollipop items working more like food items.
+    Change Treasure Detector texture and recipe, add this item into tab.
+    Change Perkin Ingot and Perkin Nugget texture;
+    Change Divine Shard challenges count issue.
+    Change Cloudy Garden treasure loottable: Remove Chop Kebab and Chop Shield, change Chicken Tail Feather pool.
+    Change Cloudy Garden structure placement: Can only be found in mountain biomes, change place height.
+    Change SMC icon texture.
+    Change Cat Paw tier and damage.
+    Change Flying Sword tracing and targeting method.
+    Fix Flying Sword killing is not player killing issue.
     Fix perkin ore cannot generate in sunflower plains biome issue.
     Fix Broccoli Nuke Block active issue.
     Fix Divine Halo Revive config issue.
+    Fix Divine Halo incorrect rotating issue.
+    Fix Divine Wing model rendering issue.
     Fix Spear Gun hook falling issue.
+    Fix Knife and Cleaver block drop and creative selecting issue.
+    Fix God Pickaxe erase block drops with block entity issue.
+    Fix weapons with 9 attack damage can be obtained through Knife block issue.
 -1.1.2
     Add Violent Archaeology Enchantment.
     Add more Bad Apple config.

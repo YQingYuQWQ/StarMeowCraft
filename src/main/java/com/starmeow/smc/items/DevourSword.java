@@ -8,14 +8,17 @@ import com.starmeow.smc.helper.ItemHelper;
 import com.starmeow.smc.init.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -59,16 +62,22 @@ public class DevourSword extends SwordItem {
             ListTag list = tag.getList("SMCWeaponStored", Tag.TAG_STRING);
             ResourceLocation res = ForgeRegistries.ITEMS.getKey(selected.getItem());
             StringTag newID = StringTag.valueOf(res.toString());
-            //p_150736_.displayClientMessage(Component.literal(res.toString()), true);
-            if(list.contains(newID) || !(selected.getItem() instanceof SwordItem sword)){
-                p_150736_.level().playSound(p_150736_, p_150736_.getOnPos(), SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, SoundSource.PLAYERS);
-            }else{
+            if(!list.contains(newID)){
+                if((selected.getItem() instanceof SwordItem && itemStack.is(ItemRegistry.DEVOUR_SWORD.get())) || (selected.is(TagKey.create(Registries.ITEM,new ResourceLocation("farmersdelight:tools/knives"))) && itemStack.is(ItemRegistry.DEVOUR_KNIFE.get()))){
+                    if(selected.is(ItemRegistry.ZENISH.get())){
+                        p_150736_.displayClientMessage(Component.translatable("message.smc.devour_zenish"), true);
+                        p_150736_.level().playSound(p_150736_, p_150736_.getOnPos(), SoundEvents.COD_DEATH, SoundSource.PLAYERS);
+                    }
+                    p_150734_.safeTake(selected.getCount(), 1, p_150736_);
+                    list.add(newID);
+                    tag.put("SMCWeaponStored", list);
+                    p_150736_.level().playSound(p_150736_, p_150736_.getOnPos(), SoundEvents.BUCKET_FILL_LAVA, SoundSource.PLAYERS);
+                    return true;
+                }
                 //sword.getDefaultAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE);
-                p_150734_.safeTake(selected.getCount(), 1, p_150736_);
-                list.add(newID);
-                tag.put("SMCWeaponStored", list);
-                p_150736_.level().playSound(p_150736_, p_150736_.getOnPos(), SoundEvents.BUCKET_FILL_LAVA, SoundSource.PLAYERS);
-                return true;
+            }else{
+                p_150736_.level().playSound(p_150736_, p_150736_.getOnPos(), SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, SoundSource.PLAYERS);
+
             }
         }
         return false;
@@ -137,20 +146,38 @@ public class DevourSword extends SwordItem {
         if (stack.hasTag()) stack.getTag().remove("SMCWeaponSkin");
     }
 
+    public static boolean hasShootAbility(ItemStack stack){
+        CompoundTag tag = stack.getOrCreateTag();
+        ListTag list = tag.getList("SMCWeaponStored", Tag.TAG_STRING).copy();
+        StringTag exId = StringTag.valueOf(ForgeRegistries.ITEMS.getKey(ItemRegistry.EXCALIBUR.get()).toString());
+        return list.contains(exId);
+    }
+
+    public static boolean hasZenishAbility(ItemStack stack){
+        CompoundTag tag = stack.getOrCreateTag();
+        ListTag list = tag.getList("SMCWeaponStored", Tag.TAG_STRING).copy();
+        StringTag zenId = StringTag.valueOf(ForgeRegistries.ITEMS.getKey(ItemRegistry.ZENISH.get()).toString());
+        return list.contains(zenId);
+    }
+
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn)
     {
         CompoundTag tag = stack.getOrCreateTag();
         ListTag list = tag.getList("SMCWeaponStored", Tag.TAG_STRING);
         int size = list.size();
-        tooltip.add(Component.translatable("tooltip.smc.devour_sword").withStyle(ChatFormatting.BLUE));
-        if(Config.DEVOUR_SWORD_SHOOT.get()){
-            ResourceLocation res = ForgeRegistries.ITEMS.getKey(ItemRegistry.EXCALIBUR.get());
-            StringTag exId = StringTag.valueOf(res.toString());
-            if(!list.contains(exId)){
-                tooltip.add(Component.translatable("tooltip.smc.devour_sword_4").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.translatable("tooltip.smc." + stack.getItem()).withStyle(ChatFormatting.BLUE));
+        if(Config.DEVOUR_SWORD_SHOOT.get() && stack.is(ItemRegistry.DEVOUR_SWORD.get())){
+            Style style = Style.EMPTY.withColor(ItemHelper.colorToInt(125, 89, 225));
+            if(hasZenishAbility(stack)){
+                tooltip.add(Component.translatable("tooltip.smc.devour_sword_6").withStyle(style));
             }else{
-                tooltip.add(Component.translatable("tooltip.smc.devour_sword_1", Config.DEVOUR_SWORD_UPGRADE.get()).withStyle(ChatFormatting.DARK_PURPLE));
+                if(hasShootAbility(stack)){
+                    tooltip.add(Component.translatable("tooltip.smc.devour_sword_1", Config.DEVOUR_SWORD_UPGRADE.get(), Config.DEVOUR_SWORD_MAX.get()).withStyle(ChatFormatting.DARK_PURPLE));
+                }else{
+                    tooltip.add(Component.translatable("tooltip.smc.devour_sword_4").withStyle(ChatFormatting.DARK_GRAY));
+                }
+                tooltip.add(Component.translatable("tooltip.smc.devour_sword_5").withStyle(ChatFormatting.DARK_GRAY));
             }
         }
         tooltip.add(Component.translatable("tooltip.smc.devour_sword_2", size).withStyle(ChatFormatting.GOLD));

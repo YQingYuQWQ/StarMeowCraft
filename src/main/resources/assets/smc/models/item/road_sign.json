@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "smc:item/road_sign_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "smc:item/road_sign_item"
+    },
+    "ground": {
+      "parent": "smc:item/road_sign_item"
+    },
+    "fixed": {
+      "parent": "smc:item/road_sign_item"
+    }
+  },
+  "textures": {
+    "layer0": "smc:item/road_sign_item"
+  }
+}

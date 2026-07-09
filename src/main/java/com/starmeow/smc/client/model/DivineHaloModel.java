@@ -58,6 +58,8 @@ public class DivineHaloModel extends HumanoidModel<LivingEntity> {
 		super.setupAnim(entity, 0, 0, ageInTicks, netHeadYaw, headPitch);
 		if(limbSwing != 0){
 			this.rot_up.yRot = ageInTicks;
+		}else{
+			this.rot_up.yRot = 0;
 		}
 	}
 

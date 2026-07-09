@@ -253,11 +253,13 @@ public class Cloudian extends Monster {
         if (this.level().isClientSide) {
             return false;
         } else {
+            boolean isDefending = false;
             if (!this.isMoving() && !p_32820_.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !p_32820_.is(DamageTypes.THORNS)) {
-                Entity var4 = p_32820_.getDirectEntity();
+                Entity var4 = p_32820_.getEntity();
                 if (var4 instanceof LivingEntity) {
+                    isDefending = true;
                     LivingEntity $$2 = (LivingEntity)var4;
-                    $$2.hurt(this.damageSources().thorns(this), 2.0F);
+                    $$2.hurt(this.damageSources().thorns(this), p_32821_);
                 }
             }
 
@@ -265,7 +267,11 @@ public class Cloudian extends Monster {
                 this.randomStrollGoal.trigger();
             }
 
-            return super.hurt(p_32820_, p_32821_);
+            if(isDefending){
+                return super.hurt(p_32820_, p_32821_ * 0.1f);
+            }else{
+                return super.hurt(p_32820_, p_32821_);
+            }
         }
     }
 
